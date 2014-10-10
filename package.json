@@ -1,0 +1,25 @@
+{
+  "name": "unlockvt",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "envify": "~1.2.1",
+    "jquery": "^1.11.1",
+    "react": "^0.10.0",
+    "underscore": "^1.6.0",
+    "watchify": "^0.10.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "browserify app/Resources/public/js/app.js -o www/assets/js/app.js",
+    "watch-js": "watchify app/Resources/public/js/app.js -o www/assets/js/app.js -dv",
+    "watch": "npm run watch-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://benglass@github.com/benglass/sinkerator.git"
+  },
+  "author": "Ben Glassman",
+  "license": "ISC"
+}
