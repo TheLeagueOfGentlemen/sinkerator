@@ -1,0 +1,26 @@
+Sink
+    Name
+    Wattage
+
+Category (eg Entertainment, Cooking, Climate Control)
+    Name
+
+SinkTypeCategory
+    SinkType
+    Category
+
+RoomScenarioSink
+    Sink
+    RoomScenario
+    HoursPerDay
+    WattageOverride
+
+Scenario
+    Name
+
+Room
+    Name
+
+RoomScenario
+    Scenario
+    Room
