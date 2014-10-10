@@ -1,0 +1,357 @@
+{
+    "Home Entertainment": [
+        {
+            "wattage": "8",
+            "standby_wattage": "5.2",
+            "name": "Boom Box"
+        },
+        {
+            "wattage": "140",
+            "standby_wattage": "11.6",
+            "name": "Cable Boxes (standby losses)"
+        },
+        {
+            "wattage": "7",
+            "standby_wattage": "3.7",
+            "name": "CD Player"
+        },
+        {
+            "wattage": "16",
+            "standby_wattage": "5.5",
+            "name": "DVD Player"
+        },
+        {
+            "wattage": "28",
+            "standby_wattage": "2.8",
+            "name": "Receiver"
+        },
+        {
+            "wattage": "25",
+            "standby_wattage": "15",
+            "name": "satellite stations (standby losses)"
+        },
+        {
+            "wattage": "8",
+            "standby_wattage": "1",
+            "name": "Tape Player"
+        },
+        {
+            "wattage": "4.5",
+            "standby_wattage": "2.2",
+            "name": "Telephone Answering Machine"
+        },
+        {
+            "wattage": "225",
+            "standby_wattage": "6.4",
+            "name": "TV (CRT - Projection)"
+        },
+        {
+            "wattage": "60",
+            "standby_wattage": "6.4",
+            "name": "TV (CRT)"
+        },
+        {
+            "wattage": "175",
+            "standby_wattage": "6.4",
+            "name": "TV (DLP)"
+        },
+        {
+            "wattage": "150",
+            "standby_wattage": "6.4",
+            "name": "TV (LCD)"
+        },
+        {
+            "wattage": "300",
+            "standby_wattage": "6.4",
+            "name": "TV (Plasma)"
+        },
+        {
+            "wattage": "18",
+            "standby_wattage": "5.3",
+            "name": "VCRs"
+        },
+        {
+            "wattage": "20",
+            "standby_wattage": "0",
+            "name": "Video Games"
+        }
+    ],
+    "Misc. Kitchen": [
+        {
+            "wattage": "0",
+            "standby_wattage": "34",
+            "name": "Bottled Water Dispenser"
+        },
+        {
+            "wattage": "1400",
+            "standby_wattage": "0",
+            "name": "Broilers"
+        },
+        {
+            "wattage": "1500",
+            "standby_wattage": "1",
+            "name": "Coffee Maker: Drip (Brew)"
+        },
+        {
+            "wattage": "70",
+            "standby_wattage": "0",
+            "name": "Coffee Maker: Drip (Warm)"
+        },
+        {
+            "wattage": "600",
+            "standby_wattage": "0",
+            "name": "Coffee Maker: Percolater (Brew)"
+        },
+        {
+            "wattage": "80",
+            "standby_wattage": "0",
+            "name": "Coffee Maker: Percolater (Warm)"
+        },
+        {
+            "wattage": "400",
+            "standby_wattage": "0",
+            "name": "Compactors"
+        },
+        {
+            "wattage": "1000",
+            "standby_wattage": "0",
+            "name": "Deep Fryer"
+        },
+        {
+            "wattage": "360",
+            "standby_wattage": "0",
+            "name": "Espresso Maker"
+        },
+        {
+            "wattage": "1000",
+            "standby_wattage": "0",
+            "name": "Fry Pans"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "18",
+            "name": "Instant Hot Water"
+        },
+        {
+            "wattage": "1000",
+            "standby_wattage": "2.8",
+            "name": "Microwaves"
+        },
+        {
+            "wattage": "200",
+            "standby_wattage": "0",
+            "name": "Slow Cookers"
+        },
+        {
+            "wattage": "1100",
+            "standby_wattage": "0",
+            "name": "Toaster"
+        },
+        {
+            "wattage": "460",
+            "standby_wattage": "0",
+            "name": "Toaster Oven -Toasting"
+        },
+        {
+            "wattage": "1500",
+            "standby_wattage": "0",
+            "name": "Toaster Oven - Oven"
+        }
+    ],
+    "Hot Tub, Pools and Pumps": [
+        {
+            "wattage": "275",
+            "standby_wattage": "0",
+            "name": "Pool Heater"
+        },
+        {
+            "wattage": "2250",
+            "standby_wattage": "0",
+            "name": "Pool Pump"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "263",
+            "name": "Spa (24 hour elec)"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "12",
+            "name": "Spa (24 hour gas)"
+        },
+        {
+            "wattage": "5500",
+            "standby_wattage": "0",
+            "name": "Spa (on-demand elec)"
+        },
+        {
+            "wattage": "1.5",
+            "standby_wattage": "0",
+            "name": "Spa (on-demand gas)"
+        },
+        {
+            "wattage": "1/3 hp",
+            "standby_wattage": "0",
+            "name": "Sump/Sewage Pump"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "0",
+            "name": "Well Pump"
+        },
+        {
+            "wattage": "150",
+            "standby_wattage": "N/A",
+            "name": "Irrigation/pond/waterfall circulation pump [1]"
+        }
+    ],
+    "Home Office": [
+        {
+            "wattage": "68",
+            "standby_wattage": "1.2",
+            "name": "Computer CPU"
+        },
+        {
+            "wattage": "800",
+            "standby_wattage": "5.1",
+            "name": "home copiers"
+        },
+        {
+            "wattage": "175",
+            "standby_wattage": "30",
+            "name": "Home facsimile machines (thermal)"
+        },
+        {
+            "wattage": "18",
+            "standby_wattage": "8",
+            "name": "Home fax/Multi-function device (inkjet)"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "4.5",
+            "name": "Laptop Charger"
+        },
+        {
+            "wattage": "84",
+            "standby_wattage": "2",
+            "name": "Monitor"
+        },
+        {
+            "wattage": "13",
+            "standby_wattage": "4.2",
+            "name": "Printers (Inkjet)"
+        },
+        {
+            "wattage": "250",
+            "standby_wattage": "4.2",
+            "name": "Printers (Laser)"
+        },
+        {
+            "wattage": "6",
+            "standby_wattage": "2",
+            "name": "Router/DSL/Cable Modem"
+        }
+    ],
+    "Other Miscellaneous": [
+        {
+            "wattage": "63",
+            "standby_wattage": "0",
+            "name": "Aquariums"
+        },
+        {
+            "wattage": "1500",
+            "standby_wattage": "0",
+            "name": "Auto Engine Heaters"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "1",
+            "name": "Clock"
+        },
+        {
+            "wattage": "46",
+            "standby_wattage": "0",
+            "name": "Dehumidifiers"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "5",
+            "name": "Doorbell"
+        },
+        {
+            "wattage": "400",
+            "standby_wattage": "0",
+            "name": "Electric Blankets"
+        },
+        {
+            "wattage": "1800",
+            "standby_wattage": "0",
+            "name": "Electric Grills"
+        },
+        {
+            "wattage": "50",
+            "standby_wattage": "0",
+            "name": "Electronic Air Cleaner/Filter"
+        },
+        {
+            "wattage": "400",
+            "standby_wattage": "2.8",
+            "name": "Garage Door Openers"
+        },
+        {
+            "wattage": "0.33",
+            "standby_wattage": "0",
+            "name": "Gas Grills"
+        },
+        {
+            "wattage": "0.24",
+            "standby_wattage": "0",
+            "name": "Gas Lighting"
+        },
+        {
+            "wattage": "710",
+            "standby_wattage": "0",
+            "name": "Hair Dryers"
+        },
+        {
+            "wattage": "1000",
+            "standby_wattage": "0",
+            "name": "Heat Tape"
+        },
+        {
+            "wattage": "11",
+            "standby_wattage": "0",
+            "name": "Humidifier"
+        },
+        {
+            "wattage": "1100",
+            "standby_wattage": "0",
+            "name": "Irons"
+        },
+        {
+            "wattage": "500",
+            "standby_wattage": "0",
+            "name": "Pipe and Gutter Heaters"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "5",
+            "name": "Rechargable Handheld Vacuum (charging)"
+        },
+        {
+            "wattage": "818",
+            "standby_wattage": "0",
+            "name": "Vacuum - Canister"
+        },
+        {
+            "wattage": "297",
+            "standby_wattage": "0",
+            "name": "Vacuum-Upright"
+        },
+        {
+            "wattage": "0",
+            "standby_wattage": "102",
+            "name": "Water Bed Heaters"
+        }
+    ]
+}
