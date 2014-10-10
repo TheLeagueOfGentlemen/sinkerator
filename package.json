@@ -8,11 +8,15 @@
     "jquery": "^1.11.1",
     "react": "^0.10.0",
     "underscore": "^1.6.0",
-    "watchify": "^0.10.1"
+    "watchify": "^0.10.1",
+    "react-tools": "^0.11.2"
   },
   "devDependencies": {},
   "scripts": {
-    "build": "browserify app/Resources/public/js/app.js -o www/assets/js/app.js",
+    "build": [
+      "browserify app/Resources/public/js/app.js -o www/assets/js/app.js",
+      "jsx www/assets/js/app.js www/assets/js/app.js"
+    ],
     "watch-js": "watchify app/Resources/public/js/app.js -o www/assets/js/app.js -dv",
     "watch": "npm run watch-js"
   },
