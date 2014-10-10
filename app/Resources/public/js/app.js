@@ -1,10 +1,3 @@
-var React = require('react');
-var App = require('./component/app');
+var $ = require('jquery');
 
-window.React = React;
-window.app = App;
-
-return React.renderComponent(
-    App,
-    document.getElementById('app')
-);
+console.log($);
