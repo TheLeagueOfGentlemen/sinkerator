@@ -1,5 +1,6 @@
 var $ = require('jquery'),
     guid = require('./guid.js'),
+    select2 = require('select2'),
     state = require('./config.js'),
     Handlebars = require('handlebars'),
     Calculator = require('./calculator.js'),
@@ -199,6 +200,7 @@ App.prototype = {
     var $el = this.getRoomEl(room),
         $form = this.buildAddSinkToRoomForm(room);
     $el.find('.sink-list').append($form);
+    $form.find('select').select2().select2('open');
   },
   buildAddSinkToRoomForm: function(room) {
     return $(this.renderTemplate('add_room_sink_form', {
