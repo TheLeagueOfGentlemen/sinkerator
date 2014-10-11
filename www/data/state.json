@@ -1,0 +1,44 @@
+{
+  categories: {
+    'entertainment': {
+      name: 'Home Entertainment'
+    }
+  },
+  sinks: {
+      'boom_box': {
+        name: 'Boom Box',
+        wattage: 5000,
+        standby_wattage: 5000,
+        is_scenario_wide: false,
+        categories: ['entertainment']
+      },
+      'central_air': {
+        name: 'Boom Box',
+        wattage: 5000,
+        standby_wattage: 5000,
+        is_scenario_wide: true,
+        categories: ['entertainment']
+      }
+  },
+  scenario: {
+    sinks: {
+      {
+        sink_id: 'central_air',
+        wattage_override: 5000
+      }
+    },
+    rooms: [
+      {
+          name: 'Kitchen',
+          sinks: [
+            {
+              sink_id: 'boom_box',
+              wattage_override: 5000,
+              hours_per_day: 5
+            }
+          ]
+      }
+    ]
+  }
+}
+
