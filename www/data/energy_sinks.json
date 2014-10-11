@@ -210,10 +210,16 @@
             "name": "satellite stations (standby losses)",
             "categories": "home_entertainment"
         },
-        "computer_cpu": {
-            "wattage": "68",
+        "computer_laptop": {
+            "wattage": 68,
             "standby_wattage": "1.2",
-            "name": "Computer CPU",
+            "name": "Computer (Laptop)",
+            "categories": "home_office"
+        },
+        "computer_workstation": {
+            "wattage": 250,
+            "standby_wattage": 5,
+            "name": "Computer (Desktop Workstation)",
             "categories": "home_office"
         },
         "humidifier": {
@@ -412,6 +418,18 @@
             "wattage": "50",
             "standby_wattage": "0",
             "name": "Electronic Air Cleaner/Filter",
+            "categories": "other_miscellaneous"
+        },
+        "air_conditioner": {
+            "wattage": 1000,
+            "standby_wattage": 0,
+            "name": "Air Conditioner",
+            "categories": "other_miscellaneous"
+        },
+        "lights": {
+            "wattage": 60,
+            "standby_wattage": 0,
+            "name": "Lights",
             "categories": "other_miscellaneous"
         }
     },

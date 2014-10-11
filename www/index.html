@@ -1,20 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link type="text/css" rel="stylesheet" href="styles.css" />
-    </head>
-    <body>
-        <div id="app">
-          <form id="scenario-form">
-            <label>
-                Name
-                <input type="text" name="name" value="My House" />
-            </label>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="assets/css/foundation.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css" />
+    <script src="assets/js/vendor/modernizr.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="app">
+<header>
+  <ul class="hide-for-medium-down">
+    <li><a href="/"><strong>Unlock</strong></a></li>
+    <li><a href="#">Documentation</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Help</a></li>
+    <li><a href="#">Profile</a></li>
+  </ul>
+</header>
+<div class="utility">
+  <div class="info">
+    <h1>Welcome Back, Max</h1>
+    <h2>123, Maple St., Burlington, VT</h2>
+  </div>
+
+  <div class="totals scenario-totals">
+    <div class="total-watts">0 <strong>WATTS</strong></div>
+    <div class="total-cost"><strong>$</strong> 0 <sup>/ month</sup> </div>
+  </div>
+</div>
+  <div class="dashboard">
+    <div class="large-9 columns main">
+        <div id="rooms"></div>
+</div>
+<div class="large-3 columns sidebar">
+  <form class="vertical" id="scenario-form">
+    <label>Name
+      <input type="text" name="name" value="My House" />
+    </label>
             <label>
                 How many bedrooms does your house/apartment have?
                 <select name="num_bedrooms">
@@ -32,24 +58,80 @@
                 </select>
             </label>
             <label>
-                <input type="checkbox" name="has_kitchen" value="1" data-room-name="Kitchen" />
+                <input type="checkbox" name="kitchen_name" value="Kitchen" />
                 My house/apartment has a kitchen
             </label>
             <label>
-                <input type="checkbox" name="has_living_room" value="1" data-room-name="Living Room" />
+                <input type="checkbox" name="living_room_name" value="Living Room" />
                 My house/apartment has a living room
             </label>
             <label>
-                <input type="checkbox" name="has_basement" value="1" data-room-name="Basement" />
+                <input type="checkbox" name="basement_name" value="Basement" />
                 My house/apartment has a basement
             </label>
             <label>
-                <input type="checkbox" name="has_office" value="1" data-room-name="Office" />
+                <input type="checkbox" name="office_name" value="Office" />
                 My house/apartment has an office
             </label>
             <button type="submit">Submit</button>
           </form>
+          <div id="rooms"></div>
         </div>
+<script id="room-tpl" type="x-tmpl-handlebars">
+<div class="room">
+  <div class="name">
+    <h2>{{name}}</h2>
+  </div>
+  <div class="sinks">
+  <ul class="sink-list"></ul>
+  </div>
+  <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}">Add Appliance</a>
+        <div class="room-total">
+          <h2 class="room-totals"></h2>
+        </div>
+</div>
+</script>
+<script id="room-sink-tpl" type="x-tmpl-handlebars">
+<li>
+{{sink.name}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{to_fixed daily_usage.kwh 4}} kWh/day -- ${{to_fixed daily_usage.cost 4}}/day
+ <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
+</li>
+</script>
+<script id="add-room-sink-form-tpl" type="x-handlebars-template">
+<form id="{{form_id}}">
+  <label>
+  Select an Appliance
+  <select name="sink_id" class="sink-form" required="required" style="width: 100%;">
+      <option></option>
+      {{#sinks}}
+      <option value="{{id}}" data-wattage="{{wattage}}">{{name}}</option>
+      {{/sinks}}
+  </select>
+  </label>
+  <label>
+    Wattage
+    <input type="text" name="wattage" required />
+  </label>
+  <label>
+    Hours per Day
+    <input name="hours_per_day" type="number" step="1" min="1" max="24" value="1" required />
+  </label>
+  <input type="hidden" name="room_id" value="{{room.id}}" />
+  <button type="submit" class="btn-add-room-sink">Add</button>
+  <a href="#{{form_id}}" class="btn-remove">Cancel</button>
+</form>
+</script>
+
+<script id="room-totals-tpl" type="x-handlebars-template">
+{{wattage}} Watts -- {{to_fixed kwh 4}} kWh/day -- ${{to_fixed cost 4}}/day
+</script>
+<script id="scenario-totals-tpl" type="x-handlebars-template">
+<div class="total-watts">{{wattage}} <strong>WATTS</strong></div>
+<div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
+</script>
+</div>
+<footer>
+</footer>
         <script src="assets/js/app.js"></script>
     </body>
 </html>

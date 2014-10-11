@@ -1,0 +1,244 @@
+/*
+green - #469D3C or #
+blue - #3079AB
+*/
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+body {
+	width: 100%;
+	background: #fff;
+	font-family: 'Open Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+a:hover,
+a:focus,
+a:active {
+	transition: all .5s;
+	-moz-transition: all .5s;
+	-webkit-transition: all .5s;
+}
+.row {
+	max-width: 1280px;
+}
+header {
+	background: #13171A;
+	padding: 0 50px;
+}
+header ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: right;
+}
+header ul li {
+	display: inline-block;
+}
+header ul li a {
+	padding: 8px 10px;
+	line-height: 35px;
+	color: #888;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 12px;
+}
+/* Upper Area */
+
+.utility {
+	display: table;
+	background: #23292F url(../../img/home.jpg) center center no-repeat;
+	width: 100%;
+	padding: 4%;
+}
+.utility > div {
+	display: table-cell;
+	vertical-align: middle;
+	-webkit-animation: fadeUp .6s;
+}
+.utility > div:first-child{
+	padding-right: 0;
+}
+.utility h1 {
+	color: white;
+	margin: 0 0 10px;
+	font-weight: 300;
+	line-height: 1;
+}
+.utility h2 {
+	color: #AAA;
+	margin: 0;
+	font-weight: 300;
+	line-height: 1;
+}
+.utility ul {
+	color: white;
+	float: left;
+}
+
+.totals {
+	float: right;
+}
+.total-watts,
+.total-cost {
+	color: #FFF;
+	display: inline-block;
+	font-size: 2.5em;
+	background: orange;
+	padding: 5px 35px;
+	border-radius: 100px 0 0 100px;
+	width: auto;
+	float: none;
+}
+.total-watts:before {
+	content: "";
+	background: url(../../img/electric.png);
+	width: 20px;
+	height: 30px;
+	display: inline-block;
+	margin: 0px 10px -1px 0;
+	background-size: 100%;
+}
+.total-cost {
+	border-radius: 0 100px 100px 0;
+	background: #5FCF80;
+}
+.total-cost sup{
+	font-weight: bold;
+	font-size: 50%;
+	margin-top: 5px;
+}
+
+/* Dashboard */
+
+.dashboard {
+	width: 100%;
+	height: 100%;
+	-webkit-animation: fadeUp 1s;
+}
+.dashboard:after {
+	content: "";
+	display: block;
+	clear: both;
+	height: 0;
+}
+.main,
+.sidebar {	
+	padding: 2%;
+}
+.sidebar {
+	border-left: 1px solid #bbb;
+}
+.main:hover .room {
+	opacity: .5;
+}
+
+
+.main .room {
+	margin: 1%;
+	width: 48%;
+	float: left;
+	-webkit-transition: opacity .2s;
+	background: #f2f5f8;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.main .room .name,
+.main .room .sinks {
+	width: 100%;
+	vertical-align: middle;
+}
+.main .room .name {
+	background: #5FCF80;
+}
+.main .room:hover {
+	opacity: 1;
+}
+.main .room ul {
+	list-style: none;
+	margin: 0;
+	padding: 15px 0;
+}
+.main .room ul li {
+	font-size: 1.1em;
+	padding: 5px 20px;
+	line-height: 1.3;
+	-webkit-transition: all .2s;
+	text-transform: uppercase;
+}
+.main .room ul li:hover {
+	background: #ddd;
+}
+.main .room ul li span {
+	color: #aaa;
+	float: right;
+}
+.main .room h2 {
+	color: white;
+	display: inline-block;
+	margin: 0;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	font-size: 1.2em;
+}
+.main .room .room-total {
+	background: #ddd;
+	text-align: right;
+}
+.main .room .room-total h2 {
+	background: orange;
+}
+.room-total h2:before {
+	content: "";
+	background: url(../img/icon/electric.png);
+	width: 16px;
+	height: 25px;
+	display: inline-block;
+	margin: 0 6px -7px 0;
+}
+
+
+
+
+
+@media (max-width: 1280px){
+	.total-watts, .total-cost {
+		font-size: 2em;
+	}
+}
+
+
+
+@media (max-width: 1024px){
+	.main .room {
+		width: 100%;
+		margin: 0 0 20px;
+	}
+	.hide-for-medium-down {
+		display: none;
+	}
+	.utility > div {
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	.total-watts, 
+	.total-cost {
+		float: left;
+		border-radius: 0px;
+		font-size: 2em;
+		width: 100%;
+		margin: 10px 0 0;
+		display: block;
+		text-align: center;
+	}
+}
+
+
+
+@-webkit-keyframes fadeUp {
+	from { -webkit-transform: translateY(50px); opacity: 0; }
+	to   { -webkit-transform: translateY( 0px); opacity: 1; }
+}
