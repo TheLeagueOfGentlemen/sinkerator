@@ -182,6 +182,8 @@ App.prototype = {
   updateScenarioTotals: function() {
     var totals = this.calculator.getDailyUsageForScenario(this.state.scenario),
         $totalsEl = this.$el.find('.scenario-totals');
+
+    this.state.scenario.totals = totals;
     $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
@@ -231,8 +233,8 @@ App.prototype = {
     this.renderRooms(rooms);
     this.updateScenarioTotals();
   },
-  updateGraphs: function() {
-    $('#graph1').highcharts({
+  buildRoomGraphData: function() {
+    return {
 
         chart: {
             type: 'column'
@@ -329,8 +331,10 @@ App.prototype = {
             ]
           }]
         }
-    });
-  $('#graph2').highcharts({
+    };
+  },
+  buildApplianceGraphData: function() {
+    return {
 
         chart: {
             type: 'column'
@@ -428,7 +432,16 @@ App.prototype = {
             y: 1
           }]
         }]
-    });
+    };
+  },
+  updateGraphs: function() {
+    if (!this.state.scenario.totals.wattage) {
+      $('#graph1').hide();
+      $('#graph2').hide();
+      return false;
+    }
+    $('#graph1').show().highcharts(this.buildRoomGraphData());
+    $('#graph2').show().highcharts(this.buildApplianceGraphData());
   },
   buildRoomsFromScenario: function(scenario) {
       var rooms = [],

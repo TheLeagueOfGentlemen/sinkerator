@@ -410,6 +410,11 @@ module.exports = {
       }
     },
     "scenario": {
+        "totals": {
+          "wattage": 0,
+          "kwh": 0,
+          "cost": 0
+        },
         "name": "Relaxo's House",
         "sinks": [
         ],
