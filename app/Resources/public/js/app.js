@@ -166,8 +166,13 @@ App.prototype = {
     this.updateScenarioTotals();
   },
   updateScenarioTotals: function() {
-    var totals = this.calculator.getDailyUsageForScenario(this.state.scenario);
-    this.$el.find('.scenario-totals').html(
+    var totals = this.calculator.getDailyUsageForScenario(this.state.scenario),
+        $totalsEl = this.$el.find('.scenario-totals');
+    if (!totals.wattage) {
+      $totalsEl.html('');
+      return;
+    }
+    $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
   },
@@ -209,6 +214,7 @@ App.prototype = {
   updateRooms: function(rooms) {
     this.state.scenario.rooms = rooms;
     this.renderRooms(rooms);
+    this.updateScenarioTotals();
   },
   buildRoomsFromScenario: function(scenario) {
       var rooms = [],

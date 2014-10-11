@@ -8,12 +8,14 @@ Calculator.prototype = {
     getDailyUsageForScenario: function(scenario) {
         var house_usage = this.getDailyUsageForCollection(scenario.sinks),
             ret = {
+                wattage: 0,
                 kwh: house_usage.kwh,
                 cost: house_usage.cost
             };
 
         for (var i = 0; i < scenario.rooms.length; i++) {
             var d = this.getDailyUsageForCollection(scenario.rooms[i].sinks);
+            ret.wattage += d.wattage;
             ret.kwh += d.kwh;
             ret.cost += d.cost;
         }
@@ -23,12 +25,14 @@ Calculator.prototype = {
 
     getDailyUsageForCollection: function(sinks) {
         var ret = {
+            wattage: 0,
             kwh: 0,
             cost: 0
         };
 
         for (var i = 0; i < sinks.length; i++) {
             var d = this.getDailyUsageForSink(sinks[i]);
+            ret.wattage += d.wattage;
             ret.kwh += d.kwh;
             ret.cost += d.cost;
         }
@@ -45,6 +49,7 @@ Calculator.prototype = {
             total_cost = total_kwh * this.average_kwh_cost;
 
         return {
+            wattage: sink_data.wattage + sink_data.standby_wattage,
             kwh: total_kwh,
             cost: total_cost
         }
