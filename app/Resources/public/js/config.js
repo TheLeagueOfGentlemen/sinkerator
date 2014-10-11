@@ -120,6 +120,12 @@ module.exports = {
           "name": "Deep Fryer",
           "categories": "kitchen"
       },
+      "dehumidifier": {
+          "wattage": 400,
+          "standby_wattage": 0,
+          "name": "Dehumidifier",
+          "categories": "other_miscellaneous"
+      },
       "dryer": {
           "wattage": 3400,
           "standby_wattage": 0,
