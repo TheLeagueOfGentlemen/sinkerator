@@ -151,7 +151,6 @@ App.prototype = {
   },
   createRoom: function(id, name) {
     var color = this.findAvailableRoomColor(id);
-    console.log('createRoom', name, id, color, { room_id: id, color: color }, this.roomColors);
     return {
       id: id,
       name: name,
@@ -159,7 +158,6 @@ App.prototype = {
     };
   },
   getRoomColor: function(room) {
-    console.log(this.roomColors);
     for (var j = 0; j < this.roomColors.length; j++) {
       if (this.roomColors[j].room_id == room.id) {
         return this.roomColors[j].color;
@@ -307,7 +305,6 @@ App.prototype = {
       var room = rooms[i],
           total = this.calculator.getDailyUsageForCollection(room.sinks);
 
-          console.log(room.name, this.getRoomColor(room));
       data.series.push({
           name: room.name,
           color: this.getRoomColor(room),
