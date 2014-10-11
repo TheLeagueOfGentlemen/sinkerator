@@ -461,7 +461,7 @@ App.prototype = {
       var room = rooms[i],
           room_sinks = room.sinks,
           color = this.getRoomColor(room),
-          tint_increment = room_sinks.length ? (1 / (room_sinks.length + 1)) : null,
+          tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
           tint = new Chromath(color);
 
       for (var j = 0; j < room_sinks.length; j++) {
