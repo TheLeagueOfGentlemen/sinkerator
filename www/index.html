@@ -9,6 +9,7 @@
     <script src="assets/js/vendor/modernizr.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="app">
@@ -35,12 +36,17 @@
     </div>
     <div class="customer-totals">
       <div class="large-4 columns">Avg. Weekly Usage</div>
-      <div class="total-watts">0 <strong>kWh</strong></div>
-      <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
+      <div class="large-4 columns total-watts">0 <strong>kWh</strong></div>
+      <div class="large-4 columns total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
     </div>
   </div>
 </div>
-  <div class="dashboard">  
+  <div class="dashboard">
+      <div class="grey-bar">
+          <div class="rel-wrap">
+              <i class="fa fa-chevron-down"></i>
+              <button id="reset-house" type="button">Reset</button>
+          </div>
     <form id="scenario-form">
       <div class="row">
         <div class="large-4 columns">
@@ -91,13 +97,14 @@
             </label>
           </div>
           <div class="large-4 columns">
-            <button class="generate-rooms right" type="submit">Submit</button>
+            <button id="submit-house" type="submit">Submit</button>
           </div>
         </div>
       </form>
+      </div>
     <div id="main-content">
     <div class="large-8 columns main">
-      <div id="rooms"></div>
+      <div id="rooms" class="clearfix"></div>
     </div>
     <div class="large-4 columns sidebar">
         <div id="graphs">
@@ -105,10 +112,13 @@
           <div data-alert class="alert-box info radius" id="no-graph-message">
             Add appliances to see a breakdown of kWh usage.
           </div>
-          <div id="graph1" style="min-width: 160px; height: 800px; margin: 0 auto; float: left; width: 54%;"></div>
-          <div id="graph2" style="min-width: 160px; height: 800px; margin: 0 auto; float: left; width: 46%;"></div>
+          <div id="graph1" style="height: 600px; margin: 0 auto; float: left; width: 54%; display: none;"></div>
+          <div id="graph2" style="height: 600px; margin: 0 auto; float: left; width: 46%; display: none;"></div>
         </div>
-    </div>
+        <div id="customer-usage">
+          <h2>Actual Energy Consumption (kWh/Week)</h2>
+        </div>
+      </div>
     </div>
 </div>
 <footer>
@@ -187,7 +197,7 @@
 <div class="large-4 columns total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ week</sup> </div>
 </script>
 
-<script src="assets/js/app.js"></script>
+<script src="../app/Resources/public/js/compenent/app.js"></script>
 <script>
 $(window).scroll(function() {
     var scroll = $(window).scrollTop();

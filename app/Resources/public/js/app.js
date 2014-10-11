@@ -41,9 +41,10 @@ Handlebars.registerHelper('to_id', function(value) {
   return value.replace(/\s+/g, '-').toLowerCase();
 });
 
-var App = function($el, $mainContentEl, $roomsEl, $scenarioForm, state) {
+var App = function($el, $mainContentEl, $customerUsageEl, $roomsEl, $scenarioForm, state) {
   this.$el = $el;
   this.$mainContentEl = $mainContentEl;
+  this.$customerUsageEl = $customerUsageEl;
   this.$roomsEl = $roomsEl;
   this.$scenarioForm = $scenarioForm;
   this.state = state;
@@ -66,8 +67,8 @@ App.prototype = {
       this.state.sinks,
       this.state.average_kwh_cost
     );
-    this.$mainContentEl.hide();
     this.updateCustomerData();
+    this.showWeeklyCustomerKwh();
     window.state = this.state;
   },
   $roomEls: {},
@@ -120,20 +121,38 @@ App.prototype = {
   },
   reset: function() {
     this.roomColors = [];
+    this.$mainContentEl.hide();
+  },
+  toggleScenarioForm: function() {
+      var bar = $('.grey-bar');
 
+      // hide the form
+      if (!this.$scenarioForm.hasClass('hide')) {
+          this.$scenarioForm.addClass('hide');
+          bar.addClass('collapsed');
+
+      // make the form visible
+      } else {
+          this.reset();
+          this.$scenarioForm.removeClass('hide');
+          bar.removeClass('collapsed');
+      }
   },
   setupEvents: function() {
     var _this = this;
+    $('.grey-bar').on('click', '#reset-house', function(e) {
+        _this.toggleScenarioForm();
+    });
     this.$scenarioForm.on('submit', function(e) {
       e.preventDefault();
 
       _this.reset();
+      _this.toggleScenarioForm();
 
-      var rooms =_this.buildRoomsFromScenario(
-        serialize(_this.$scenarioForm)
-      );
+      var form_data = serialize(_this.$scenarioForm),
+          rooms =_this.buildRoomsFromScenario(form_data);
 
-      _this.updateRooms(rooms);
+        _this.updateRooms(form_data['name'], rooms);
     });
     this.$roomsEl.on('click', '.btn-add-room-appliance', function(e) {
       e.preventDefault();
@@ -235,6 +254,45 @@ App.prototype = {
     );
     this.updateScenarioTotals();
   },
+  showWeeklyCustomerKwh: function() {
+    var weekDates = [],
+        weekKwh = [],
+        weeks = this.state.customer_data.weekly.slice(0, 12);
+    for (var i = 0; i < weeks.length; i++) {
+      var week = weeks[i],
+          weekDate = new Date(Number(week['week']));
+      weekDates.push(
+        [weekDate.getMonth()+1, weekDate.getDate(), (weekDate.getFullYear()+'').substr(2)].join('/')
+      );
+      weekKwh.push(week.kwh);
+    }
+    this.$customerUsageEl.slideDown();
+    this.customerChart = $('<div>').appendTo(this.$customerUsageEl).highcharts({
+            title: null,
+            xAxis: {
+                categories: weekDates
+            },
+            yAxis: {
+                title: {
+                    text: 'Energy Consumption (kWh)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: 'kWh'
+            },
+            series: [{
+                name: 'kWh per Week',
+                data: weekKwh
+            }]
+        });
+
+    this.$customerUsageEl.data('initialized', true);
+  },
   updateCustomerData: function() {
       var $totalsEl = this.$el.find('.customer-totals');
       $totalsEl.html(
@@ -252,7 +310,7 @@ App.prototype = {
     $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
-    this.updateGraphs();
+    this.updateGraphs(totals);
   },
   getRoom: function(id) {
     for (var i = 0; i < this.state.scenario.rooms.length; i++) {
@@ -293,9 +351,9 @@ App.prototype = {
     }
     return sinks;
   },
-  updateRooms: function(rooms) {
+  updateRooms: function(house_name, rooms) {
     this.state.scenario.rooms = rooms;
-    this.renderRooms(rooms);
+    this.renderRooms(house_name, rooms);
     this.updateScenarioTotals();
   },
   buildRoomGraphData: function() {
@@ -323,11 +381,7 @@ App.prototype = {
             }
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
+            enabled: false
         },
         plotOptions: {
             column: {
@@ -453,11 +507,7 @@ App.prototype = {
             }
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
+            enabled: false
         },
         plotOptions: {
             column: {
@@ -487,16 +537,24 @@ App.prototype = {
       var room = rooms[i],
           room_sinks = room.sinks,
           color = this.getRoomColor(room),
-          tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
           tint = new Chromath(color);
+          //tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
+          if (room_sinks.length < 11) {
+            var tint_increment = 0.1;
+          }
+          if (room_sinks.length < 6) {
+            var tint_increment = 0.2;
+          }
+          if (room_sinks.length < 3) {
+            var tint_increment = 0.3;
+          }
 
       for (var j = 0; j < room_sinks.length; j++) {
         var room_sink = room_sinks[j],
             sink = this.getSink(room_sink.sink_id),
             total = this.calculator.getDailyUsageForSink(room_sink),
             percent = (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100;
-
-        tint = tint.towards('white', tint_increment);
+        tint = tint.tint(tint_increment, tint.toString());
         data.series.push({
             name: sink.name,
             color: tint.toString(),
@@ -568,13 +626,24 @@ App.prototype = {
     //     }];
     return data;
   },
-  updateGraphs: function() {
+  updateGraphs: function(total) {
+    var yAxis = this.customerChart.highcharts().yAxis[0];
     if (!this.state.scenario.totals.wattage) {
       $('#graph1').hide();
       $('#graph2').hide();
       $('#no-graph-message').show();
+      yAxis.removePlotLine('estimated');
       return false;
     }
+    yAxis.addPlotLine({
+        value: total.kwh*7,
+        color: 'red',
+        width: 2,
+        id: 'estimated',
+        label: {
+          text: 'Estimated Usage'
+        }
+    });
     $('#no-graph-message').hide();
     $('#graph1').show().highcharts(this.buildRoomGraphData());
     $('#graph2').show().highcharts(this.buildApplianceGraphData());
@@ -584,8 +653,6 @@ App.prototype = {
           room_names = ['kitchen_name', 'basement_name', 'living_room_name', 'office_name'],
           num_bedrooms = Number(scenario.num_bedrooms),
           num_bathrooms = Number(scenario.num_bathrooms);
-
-      this.$mainContentEl.show();
 
       for (var i = 0; i < room_names.length; i++) {
         var room_name = room_names[i];
@@ -610,9 +677,11 @@ App.prototype = {
 
       return rooms;
   },
-  renderRooms: function(rooms) {
-    this.$roomsEl.html('');
-    for (var i = 0; i < rooms.length; i++) {
+  renderRooms: function(house_name, rooms) {
+    this.$roomsEl.html([
+        '<h2>', house_name, '</h2>',
+      ].join(''));
+      for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
       var $el = $(this.renderTemplate('room', {
         room: room,
@@ -635,6 +704,7 @@ App.prototype = {
 var app = new App(
   $('#app'),
   $('#main-content'),
+  $('#customer-usage'),
   $('#rooms'),
   $('#scenario-form'),
   state
