@@ -1,10 +1,6 @@
-/*
-green - #469D3C or #
-blue - #3079AB
-*/
-
 html,
-body {
+body,
+#app {
 	width: 100%;
 	height: 100%;
 }
@@ -23,6 +19,9 @@ a:active {
 }
 .row {
 	max-width: 1280px;
+}
+label {
+	line-height: 2;
 }
 header {
 	background: #13171A;
@@ -45,6 +44,7 @@ header ul li a {
 	text-decoration: none;
 	font-size: 12px;
 }
+
 /* Upper Area */
 
 .utility {
@@ -116,7 +116,6 @@ header ul li a {
 .dashboard {
 	width: 100%;
 	height: 100%;
-	-webkit-animation: fadeUp 1s;
 }
 .dashboard:after {
 	content: "";
@@ -126,13 +125,19 @@ header ul li a {
 }
 .main,
 .sidebar {	
-	padding: 2%;
+	padding: 30px;
+	height: 100%;
 }
 .sidebar {
 	border-left: 1px solid #bbb;
 }
 .main:hover .room {
-	opacity: .5;
+	opacity: .8;
+}
+#scenario-form {
+	padding: 20px 20px 10px;
+	background: #EEE;
+	margin: 0;
 }
 .main .room {
 	margin: 1%;
@@ -149,29 +154,66 @@ header ul li a {
 	vertical-align: middle;
 }
 .main .room .name {
-	background: #5FCF80;
+	background: #386995;
 }
 .main .room:hover {
 	opacity: 1;
 }
 .main .room ul {
+	position: relative;
 	list-style: none;
 	margin: 0;
-	padding: 15px 0;
+	padding:0;
 }
 .main .room ul li {
+	position: relative;
 	font-size: 1.1em;
-	padding: 5px 20px;
+	padding: 10px 20px;
 	line-height: 1.3;
 	-webkit-transition: all .2s;
 	text-transform: uppercase;
 }
+.main .room ul li a {
+	text-decoration: none;
+	display: block;
+}
+.main .room ul li .btn-remove-room-sink{
+	text-decoration: none;
+	color: #ddd;
+	line-height: 1;
+	font-weight: bold;
+	position: absolute;
+	top: 12px;
+	right: 15px;
+	-webkit-transition: all .2s;
+}
 .main .room ul li:hover {
 	background: #ddd;
+}
+.main .room ul li:hover a {
+	color: #000;
 }
 .main .room ul li span {
 	color: #aaa;
 	float: right;
+}
+.main .room ul form {
+	margin: 0;
+	border: 1px solid #BDBDBD;
+	border-width: 1px 0;
+	background: #DDD;
+	margin-bottom: -42px;
+	position: relative;
+	z-index: 10;
+}
+.main .room ul form h2{
+	display: block;
+	color: #000;
+	margin: 15px 0 0 20px;
+}
+.main .room ul form > div {
+	margin-top: 10px;
+	padding: 0 20px;
 }
 .main .room h2 {
 	color: white;
@@ -180,8 +222,7 @@ header ul li a {
 	text-transform: uppercase;
 	font-size: 1.2em;
 }
-.main .room .name h2,
-.main .room .room-totals span {
+.main .room .name h2{
 	display: inline-block;
 	padding: 10px 20px;
 }
@@ -190,10 +231,14 @@ header ul li a {
 	text-align: right;
 	min-height: 48px;
 }
-.main .room .room-total h2{
+.main .room .room-totals span{
 	background: orange;
+	float: left;
+	padding: 10px 0;
+	color: white;
+	text-align: center;
 }
-.main .room .room-total h2 .cost {
+.main .room .room-totals .cost {
 	background: #5FCF80;
 }
 

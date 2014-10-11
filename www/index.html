@@ -26,37 +26,42 @@
     <h1>Welcome Back, Max</h1>
     <h2>123, Maple St., Burlington, VT</h2>
   </div>
-
   <div class="totals scenario-totals">
     <div class="total-watts">0 <strong>WATTS</strong></div>
-    <div class="total-cost"><strong>$</strong> 0 <sup>/ month</sup> </div>
+    <div class="total-cost"><strong>$</strong> 0 <sup>/ day</sup> </div>
   </div>
 </div>
-  <div class="dashboard">
-    <div class="large-9 columns main">
-        <div id="rooms"></div>
-</div>
-<div class="large-3 columns sidebar">
-  <form class="vertical" id="scenario-form">
-    <label>Name
-      <input type="text" name="name" value="My House" />
-    </label>
+  <div class="dashboard">  
+    <form id="scenario-form">
+      <div class="row">
+        <div class="large-4 columns">
+          <label>Name
+            <input type="text" name="name" value="My House" />
+          </label>
+        </div>
+        <div class="large-4 columns">
             <label>
-                How many bedrooms does your house/apartment have?
+                Number of <strong>Bedrooms</strong>?
                 <select name="num_bedrooms">
                   <option value="1">1 Bedroom</option>
                   <option value="2">2 Bedroom</option>
                   <option value="3">3 Bedroom</option>
                 </select>
             </label>
+        </div>
+        <div class="large-4 columns">
             <label>
-                How many bathrooms does your house/apartment have?
+                Number of <strong>Bathrooms</strong>?
                 <select name="num_bathrooms">
                   <option value="1">1 Bathroom</option>
                   <option value="2">2 Bathroom</option>
                   <option value="3">3 Bathroom</option>
                 </select>
             </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-4 columns">
             <label>
                 <input type="checkbox" name="kitchen_name" value="Kitchen" />
                 My house/apartment has a kitchen
@@ -65,6 +70,8 @@
                 <input type="checkbox" name="living_room_name" value="Living Room" />
                 My house/apartment has a living room
             </label>
+          </div>
+        <div class="large-4 columns">
             <label>
                 <input type="checkbox" name="basement_name" value="Basement" />
                 My house/apartment has a basement
@@ -73,50 +80,70 @@
                 <input type="checkbox" name="office_name" value="Office" />
                 My house/apartment has an office
             </label>
+          </div>
+          <div class="large-4 columns">
             <button type="submit">Submit</button>
-          </form>
-          <div id="rooms"></div>
+          </div>
         </div>
+      </form>
+    <div class="large-9 columns main">
+      <div id="rooms"></div>
+    </div>
+    <div class="large-3 columns sidebar">
+        <img class="large-12" src="http://placehold.it/500x500">
+    </div>
+</div>
+<footer>
+</footer>
 <script id="room-tpl" type="x-tmpl-handlebars">
-<div class="room">
+<div id="{{name}}" class="room">
   <div class="name">
     <h2>{{name}}</h2>
   </div>
   <div class="sinks">
-  <ul class="sink-list"></ul>
+    <ul class="sink-list"></ul>
+    <ul>
+      <li>  
+        <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}"><strong>+</strong> Add Appliance</a>
+      </li>
+    </ul>
   </div>
-  <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}">Add Appliance</a>
-        <div class="room-total">
-          <h2 class="room-totals"></h2>
-        </div>
+  <div class="room-totals"></div>
 </div>
 </script>
+
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-<strong>{{sink.name}}</strong> -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{to_fixed daily_usage.kwh 4}} kWh/day -- ${{to_fixed daily_usage.cost 4}}/day
+<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_day}}</strong> Hours/Day / <strong>{{to_fixed daily_usage.kwh 4}}</strong> kWh/day / <strong>${{to_fixed daily_usage.cost 4}}</strong>/day
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
 
 <script id="add-room-sink-form-tpl" type="x-handlebars-template">
 <form id="{{form_id}}">
-  <label>
-  Select an Appliance
-  <select name="sink_id" class="sink-form" required="required" style="width: 100%;">
+  <h2>+ Add an Appliance</h2>
+  <div class="large-12 columns">
+    <label>Select an Appliance
+    <select name="sink_id" class="sink-form" required="required" style="width: 100%;">
       <option></option>
       {{#sinks}}
       <option value="{{id}}" data-wattage="{{wattage}}">{{name}}</option>
       {{/sinks}}
   </select>
   </label>
+  </div>
+  <div class="large-6 columns">
   <label>
     Wattage
     <input type="text" name="wattage" required />
   </label>
+  </div>
+  <div class="large-6 columns">
   <label>
     Hours per Day
     <input name="hours_per_day" type="number" step="1" min="1" max="24" value="1" required />
   </label>
+  </div>
   <input type="hidden" name="room_id" value="{{room.id}}" />
   <button type="submit" class="btn-add-room-sink">Add</button>
   <a href="#{{form_id}}" class="btn-remove">Cancel</button>
@@ -124,19 +151,16 @@
 </script>
 
 <script id="room-totals-tpl" type="x-handlebars-template">
-<span class="watts"><strong>{{wattage}}</strong> Watts</span> /
-<span class="watts"><strong>{{to_fixed kwh 4}}</strong> kWh/day</span>
-<span class="cost"><strong>${{to_fixed cost 4}}</strong>/day</span>
+<span class="small-4 watts"><strong>{{wattage}}</strong> Watts</span>
+<span class="small-4 watts"><strong>{{to_fixed kwh 4}}</strong> kWh/day</span>
+<span class="small-4 cost"><strong>${{to_fixed cost 4}}</strong>/day</span>
 </script>
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
 <div class="total-watts">{{wattage}} <strong>WATTS</strong></div>
 <div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
 </script>
+<script src="assets/js/app.js"></script>
 
-</div>
-<footer>
-</footer>
-        <script src="assets/js/app.js"></script>
-    </body>
+</body>
 </html>
