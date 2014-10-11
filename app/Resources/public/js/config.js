@@ -127,6 +127,12 @@ module.exports = {
           "name": "Dehumidifier",
           "categories": "other_miscellaneous"
       },
+      "dishwasher": {
+          "wattage": 3600,
+          "standby_wattage": 0,
+          "name": "Dishwasher",
+          "categories": "kitchen"
+      },
       "dryer": {
           "wattage": 3400,
           "standby_wattage": 0,

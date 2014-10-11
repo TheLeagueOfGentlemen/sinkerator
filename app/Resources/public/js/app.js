@@ -12,6 +12,11 @@ Handlebars.registerHelper('to_fixed', function(value, precision) {
   return value.toFixed(precision).replace(/\.?0*$/g, '');
 });
 
+
+Handlebars.registerHelper('commafy', function(value) {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+});
+
 Handlebars.registerHelper('daily_to_monthly', function(value) {
   return value * 30;
 });
