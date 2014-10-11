@@ -17,6 +17,11 @@
         <div id="container2" style="min-width: 310px; height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
     </body>
     <script>
+    Highcharts.setOptions({
+    	lang: {
+    		drillUpText: '< Go Back'
+    	}
+    });
     $(function () {
 	    $('#container').highcharts({
 
@@ -25,7 +30,7 @@
 	        },
 
 	        title: {
-	            text: 'My House'
+	            text: 'My Rooms'
 	        },
 
 	        legend: {
@@ -33,7 +38,9 @@
 	        },
 
 	        xAxis: {
-	            type: 'category'
+	            labels: {
+	            	enabled: false
+	            }
 	        },
 
 	        yAxis: {
@@ -45,16 +52,23 @@
 	        },
 
 	        tooltip: {
-	            // formatter: function () {
-	            //     return '<b>' + this.x + '</b><br/>' +
-	            //         this.series.name + ': ' + this.y + '<br/>' +
-	            //         'Total: ' + this.point.stackTotal;
-	            // }
+	            formatter: function () {
+	                return '<b>' + this.x + '</b><br/>' +
+	                    this.series.name + ': ' + this.y + '<br/>' +
+	                    'Total: ' + this.point.stackTotal;
+	            }
 	        },
 
 	        plotOptions: {
 	            column: {
-	                stacking: 'percent'
+	                stacking: 'percent',
+	            	dataLabels: {
+	            		enabled: true,
+	            		color: 'white',
+	            		formatter: function(){
+	            			return this.series.name;
+	            		}
+	            	}
 	            }
 	        },
 
@@ -62,7 +76,7 @@
 	            name: 'Kitchen',
 	            color: '#1E5799',
 	            data: [{
-	            	name: 'My Rooms',
+	            	name: 'Kitchen',
 	            	y: 6,
 	            	drilldown: 'kitchen'
 	            }]
@@ -70,7 +84,7 @@
 	        	name: 'Master Bedroom',
 	        	color: '#961E1E',
 	        	data: [{
-	        		name: 'My Rooms',
+	        		name: 'Master Bedroom',
 	        		y: 4,
 	        		drilldown: 'master bedroom'
 	        	}]
@@ -78,14 +92,17 @@
 	        	name: 'Bathroom',
 	        	color: '#1E961E',
 	        	data: [{
-	        		name: 'My Rooms',
+	        		name: 'Bathroom',
 	        		y: 2,
 	        		drilldown: 'bathroom'
 	        	}]
 	        }],
 	        drilldown: {
+            	activeDataLabelStyle: {
+	                color: 'white',
+	                textDecoration: 'none'
+	            },
 	        	series: [{
-	            	//colorByPoint: true,
 	        		stacking: 'normal',
 	        		id: 'kitchen',
 	        		name: 'Kitchen',
@@ -95,7 +112,6 @@
 	        			['Toaster', 1]
 	        		]
 	        	}, {
-	            	//colorByPoint: true,
 	        		stacking: 'normal',
 	        		id: 'master bedroom',
 	        		name: 'Master Bedroom',
@@ -105,7 +121,6 @@
 	        			['Lamp', 1]
 	        		]
 	        	}, {
-	            	//colorByPoint: true,
 	        		stacking: 'normal',
 	        		id: 'bathroom',
 	        		name: 'Bathroom',
@@ -123,7 +138,7 @@
 	        },
 
 	        title: {
-	            text: 'My Rooms'
+	            text: 'My Sinks'
 	        },
 
 	        legend: {
@@ -131,7 +146,9 @@
 	        },
 
 	        xAxis: {
-	            type: 'category'
+	            labels: {
+	            	enabled: false
+	            }
 	        },
 
 	        yAxis: {
@@ -154,6 +171,15 @@
 	        plotOptions: {
 	            column: {
 	                stacking: 'percent'
+	            },
+	            series: {
+	            	dataLabels: {
+	            		enabled: true,
+	            		color: 'white',
+	            		formatter: function(){
+	            			return this.series.name;
+	            		}
+	            	}
 	            }
 	        },
 
