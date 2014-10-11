@@ -27,8 +27,8 @@
     <h2>668 Creek Farm Rd Colchester, VT 05446</h2>
   </div>
   <div class="totals scenario-totals">
-    <div class="total-watts">0 <strong>WATTS</strong></div>
-    <div class="total-cost"><strong>$</strong> 0 <sup>/ day</sup> </div>
+    <div class="total-watts">0 <strong>kWh</strong></div>
+    <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
   </div>
 </div>
   <div class="dashboard">  
@@ -92,11 +92,12 @@
     </div>
     <div class="large-4 columns sidebar">
         <div id="graphs">
+          <h2>kWh Breakdown</h2>
           <div data-alert class="alert-box info radius" id="no-graph-message">
             Add appliances to see a breakdown of kWh usage.
           </div>
-          <div id="graph1" style="min-width: 160px; height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
-          <div id="graph2" style="min-width: 160px; height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
+          <div id="graph1" style="min-width: 160px; height: 800px; margin: 0 auto; float: left; width: 54%;"></div>
+          <div id="graph2" style="min-width: 160px; height: 800px; margin: 0 auto; float: left; width: 46%;"></div>
         </div>
     </div>
     </div>
@@ -122,7 +123,7 @@
 
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> <small>Watts</small> / <strong>{{room_sink.hours_per_day}}</strong> <small>Hours/Day</small> / <strong>{{to_fixed daily_usage.kwh 4}}</strong> <small>kWh/day</small> / <strong>${{to_fixed daily_usage.cost 4}}</strong>/<small>day</small>
+<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_week}}</strong> Hours/Week / <strong>{{weekly_kwh daily_usage.kwh}}</strong> kWh/week / <strong>${{weekly_cost daily_usage.cost}}</strong>/week
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
@@ -148,27 +149,26 @@
   </div>
   <div class="large-6 columns">
   <label>
-    Average Hours per Day
-    <input name="hours_per_day" type="number" step="1" min="1" max="24" value="1" required />
+    Average Hours per Week
+    <input name="hours_per_week" type="number" step="1" min="1" max="24" value="1" required />
   </label>
   </div>
   <div class="large-12 columns">
   <input type="hidden" name="room_id" value="{{room.id}}" />
-  <button type="submit" class="btn-add-room-sink success">Add</button>
-  <a href="#{{form_id}}" class="btn-remove cancel">Cancel</button>
+  <button type="submit" class="btn-add-room-sink">Add</button>
+  <a href="#{{form_id}}" class="btn-remove">Cancel</a>
   </div>
 </form>
 </script>
 
 <script id="room-totals-tpl" type="x-handlebars-template">
-<span class="small-4 watts"><strong>{{wattage}}</strong> Watts</span>
-<span class="small-4 kwhday"><strong>{{to_fixed kwh 4}}</strong> kWh/day</span>
-<span class="small-4 cost"><strong>${{to_fixed cost 4}}</strong>/day</span>
+<span class="small-4 watts"><strong>{{weekly_kwh kwh}}</strong> kWh/week</span>
+<span class="small-4 cost"><strong>${{weekly_cost cost}}</strong>/week</span>
 </script>
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
-<div class="total-watts">{{commafy wattage}} <strong>WATTS</strong></div>
-<div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
+<div class="total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
+<div class="total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ week</sup> </div>
 </script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/vendor/masonry.min.js"></script>

@@ -8,13 +8,25 @@ var $ = require('jquery'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
-Handlebars.registerHelper('to_fixed', function(value, precision) {
-  return value.toFixed(precision).replace(/\.?0*$/g, '');
+function to_fixed(value, precision, strip_trailing_zeros) {
+  strip_trailing_zeros = strip_trailing_zeros != undefined ? false : strip_trailing_zeros;
+  value = value.toFixed(precision);
+  return strip_trailing_zeros ? value.replace(/\.?0*$/g, '') : value;
+}
+
+function commafy(value) {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+Handlebars.registerHelper('to_fixed', to_fixed);
+Handlebars.registerHelper('commafy', commafy);
+
+Handlebars.registerHelper('weekly_kwh', function(kwh) {
+  return kwh ? commafy(to_fixed(kwh*7, 2)) : 0;
 });
 
-
-Handlebars.registerHelper('commafy', function(value) {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+Handlebars.registerHelper('weekly_cost', function(cost) {
+  return cost ? commafy(to_fixed(cost*7, 2, true)) : 0;
 });
 
 Handlebars.registerHelper('daily_to_monthly', function(value) {
@@ -96,7 +108,7 @@ App.prototype = {
                 {
                   sink_id: 'boom_box',
                   wattage_override: 5000,
-                  hours_per_day: 5
+                  hours_per_week: 5
                 }
               ]
           }
@@ -126,12 +138,12 @@ App.prototype = {
       _this.showAddSinkToRoomForm(
         _this.getRoom(this.getAttribute('data-room-id'))
       );
-    })
+    });
     this.$roomsEl.on('click', '.btn-add-room-sink', function(e) {
       e.preventDefault();
       var $form = $(this).parents('form'),
           data = serialize($form),
-          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_day),
+          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_week),
           room = _this.getRoom(data.room_id);
       $form.remove();
       _this.addSinkToRoom(room_sink, room);
@@ -152,12 +164,12 @@ App.prototype = {
       $(this).parents('form').find('[name="wattage"]').val(wattage);
     });
   },
-  createRoomSink: function(id, sink_id, wattage, hours_per_day) {
+  createRoomSink: function(id, sink_id, wattage, hours_per_week) {
     return {
       id: id,
       sink_id: sink_id,
       wattage: Number(wattage),
-      hours_per_day: Number(hours_per_day)
+      hours_per_week: Number(hours_per_week)
     };
   },
   createRoom: function(id, name) {
@@ -282,7 +294,7 @@ App.prototype = {
             spacingRight: 0
         },
         title: {
-            text: 'My Rooms'
+            text: 'Rooms'
         },
         legend: {
             enabled: false
@@ -308,14 +320,19 @@ App.prototype = {
         },
         plotOptions: {
             column: {
-                stacking: 'percent',
-                dataLabels: {
-                  enabled: true,
-                  color: 'white',
-                  formatter: function(){
-                    return this.point.name;
-                  }
+              stacking: 'percent',
+              dataLabels: {
+                enabled: true,
+                color: '#000000',
+                formatter: function(){
+                  return this.point.name;
+                },
+                style: {
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  textShadow: '1px 1px 8px #ffffff'
                 }
+              }
             },
             series: {
               pointPadding: 0
@@ -370,7 +387,6 @@ App.prototype = {
     //     }];
     data.drilldown = {
           series: [{
-              //colorByPoint: true,
             stacking: 'normal',
             id: 'kitchen',
             name: 'Kitchen',
@@ -380,7 +396,6 @@ App.prototype = {
               ['Toaster', 1]
             ]
           }, {
-              //colorByPoint: true,
             stacking: 'normal',
             id: 'master bedroom',
             name: 'Master Bedroom',
@@ -390,7 +405,6 @@ App.prototype = {
               ['Lamp', 1]
             ]
           }, {
-              //colorByPoint: true,
             stacking: 'normal',
             id: 'bathroom',
             name: 'Bathroom',
@@ -409,7 +423,7 @@ App.prototype = {
             spacingLeft: 0
         },
         title: {
-            text: 'My Sinks'
+            text: 'Appliances'
         },
         legend: {
             enabled: false
@@ -441,9 +455,14 @@ App.prototype = {
             series: {
               dataLabels: {
                 enabled: true,
-                color: 'white',
+                color: '#000000',
                 formatter: function(){
                   return this.series.name;
+                },
+                style: {
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  textShadow: '1px 1px 8px #ffffff'
                 }
               },
               pointPadding: 0
@@ -457,7 +476,7 @@ App.prototype = {
       var room = rooms[i],
           room_sinks = room.sinks,
           color = this.getRoomColor(room),
-          tint_increment = room_sinks.length ? (1 / (room_sinks.length + 1)) : null,
+          tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
           tint = new Chromath(color);
 
       for (var j = 0; j < room_sinks.length; j++) {
@@ -468,7 +487,7 @@ App.prototype = {
 
         tint = tint.towards('white', tint_increment);
         data.series.push({
-            name: room.name + ' ' + sink.name,
+            name: sink.name,
             color: tint.toString(),
             data: [{
               name: room.name + ' ' + sink.name,

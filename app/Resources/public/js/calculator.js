@@ -42,8 +42,9 @@ Calculator.prototype = {
 
     getDailyUsageForSink: function(sink) {
         var sink_data = this.getSinkData(sink),
-            standby_hours = 24 - sink_data.hours_per_day,
-            active_kwh = (sink_data.wattage * sink_data.hours_per_day) / 1000,
+            hours_per_day = sink_data.hours_per_week / 7,
+            standby_hours = 24 - hours_per_day,
+            active_kwh = (sink_data.wattage * hours_per_day) / 1000,
             standby_kwh = (sink_data.standby_wattage * standby_hours) / 1000,
             total_kwh = active_kwh + standby_kwh,
             total_cost = total_kwh * this.average_kwh_cost;
@@ -61,7 +62,7 @@ Calculator.prototype = {
             sink_id: sink.sink_id,
             wattage: sink.wattage,
             standby_wattage: model_sink.standby_wattage,
-            hours_per_day: sink.hours_per_day,
+            hours_per_week: sink.hours_per_week,
             categories: model_sink.categories
         };
 
