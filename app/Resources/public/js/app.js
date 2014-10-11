@@ -128,18 +128,14 @@ App.prototype = {
     };
   },
   toggleScenarioForm: function() {
-      var bar = $('.grey-bar');
-
       // hide the form
       if (!this.$scenarioForm.hasClass('hide')) {
           this.$scenarioForm.addClass('hide');
-          bar.addClass('collapsed');
 
       // make the form visible
       } else {
           this.reset();
           this.$scenarioForm.removeClass('hide');
-          bar.removeClass('collapsed');
       }
   },
   setupEvents: function() {
@@ -187,6 +183,11 @@ App.prototype = {
     this.$el.on('change', '.sink-form', function(e) {
       var wattage =this.options[this.selectedIndex].getAttribute('data-wattage');
       $(this).parents('form').find('[name="wattage"]').val(wattage);
+    });
+    this.$el.on('click', '.btn-toggle-search', function(e) {
+      e.preventDefault();
+      $(this).hide();
+      _this.toggleScenarioForm();
     });
   },
   createRoomSink: function(id, sink_id, wattage, hours_per_week) {
@@ -261,14 +262,26 @@ App.prototype = {
   showWeeklyCustomerKwh: function() {
     var weekDates = [],
         weekKwh = [],
-        weeks = this.state.customer_data.weekly.slice(0, 12);
+        weeks = this.state.customer_data.weekly,
+        today = new Date(),
+        startAppending = false,
+        count = 0,
+        twoWeeksAgoLastYear = new Date(new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()) - 12096e5); // 14 days ago last year
+
     for (var i = 0; i < weeks.length; i++) {
-      var week = weeks[i],
+        var week = weeks[i],
           weekDate = new Date(Number(week['week']));
-      weekDates.push(
-        [weekDate.getMonth()+1, weekDate.getDate(), (weekDate.getFullYear()+'').substr(2)].join('/')
-      );
-      weekKwh.push(week.kwh);
+
+        if (weekDate.getTime() > twoWeeksAgoLastYear.getTime()) {
+          startAppending = true;
+        }
+        if (startAppending && count < 12) {
+            weekDates.push(
+                [weekDate.getMonth() + 1, weekDate.getDate(), (weekDate.getFullYear() + '').substr(2)].join('/')
+            );
+            weekKwh.push(week.kwh);
+            count++;
+        }
     }
     var series = [{
         name: 'kWh per Week',
@@ -694,7 +707,7 @@ App.prototype = {
   },
   renderRooms: function(house_name, rooms) {
     this.$roomsEl.html([
-        '<h2>', house_name, '</h2>',
+        '<h2>', house_name, ' <small><a href="#" class="btn-toggle-search">Edit</a></small></h2>',
       ].join(''));
       for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
