@@ -234,24 +234,19 @@ App.prototype = {
     this.updateScenarioTotals();
   },
   buildRoomGraphData: function() {
-    return {
-
+    var data = {
         chart: {
             type: 'column'
         },
-
         title: {
             text: 'My House'
         },
-
         legend: {
             enabled: false
         },
-
         xAxis: {
             type: 'category'
         },
-
         yAxis: {
             //allowDecimals: false,
             min: 0,
@@ -259,7 +254,6 @@ App.prototype = {
                 text: 'Total Energy Consumption'
             }
         },
-
         tooltip: {
             // formatter: function () {
             //     return '<b>' + this.x + '</b><br/>' +
@@ -267,14 +261,13 @@ App.prototype = {
             //         'Total: ' + this.point.stackTotal;
             // }
         },
-
         plotOptions: {
             column: {
                 stacking: 'percent'
             }
-        },
-
-        series: [{
+        }
+    };
+    data.series = [{
             name: 'Kitchen',
             color: '#1E5799',
             data: [{
@@ -298,8 +291,8 @@ App.prototype = {
             y: 2,
             drilldown: 'bathroom'
           }]
-        }],
-        drilldown: {
+        }];
+    data.drilldown = {
           series: [{
               //colorByPoint: true,
             stacking: 'normal',
@@ -330,28 +323,23 @@ App.prototype = {
               ['Lamp', 1]
             ]
           }]
-        }
-    };
+        };
+        return data;
   },
   buildApplianceGraphData: function() {
-    return {
-
+    var data = {
         chart: {
             type: 'column'
         },
-
         title: {
             text: 'My Rooms'
         },
-
         legend: {
             enabled: false
         },
-
         xAxis: {
             type: 'category'
         },
-
         yAxis: {
             labels: {
               enabled: false
@@ -360,22 +348,14 @@ App.prototype = {
               text: null
             }
         },
-
-        tooltip: {
-            // formatter: function () {
-            //     return '<b>' + this.x + '</b><br/>' +
-            //         this.series.name + ': ' + this.y + '<br/>' +
-            //         'Total: ' + this.point.stackTotal;
-            // }
-        },
-
         plotOptions: {
             column: {
                 stacking: 'percent'
             }
-        },
+        }
+    };
 
-        series: [{
+    data.series = [{
             name: 'Kitchen - Stove',
             color: '#1E5799',
             data: [{
@@ -431,8 +411,8 @@ App.prototype = {
             name: 'My Sinks',
             y: 1
           }]
-        }]
-    };
+        }];
+    return data;
   },
   updateGraphs: function() {
     if (!this.state.scenario.totals.wattage) {
