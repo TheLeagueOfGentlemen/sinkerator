@@ -29,8 +29,9 @@ Handlebars.registerHelper('to_id', function(value) {
   return value.replace(/\s+/g, '-').toLowerCase();
 });
 
-var App = function($el, $roomsEl, $scenarioForm, state) {
+var App = function($el, $mainContentEl, $roomsEl, $scenarioForm, state) {
   this.$el = $el;
+  this.$mainContentEl = $mainContentEl;
   this.$roomsEl = $roomsEl;
   this.$scenarioForm = $scenarioForm;
   this.state = state;
@@ -52,6 +53,7 @@ App.prototype = {
       this.state.sinks,
       this.state.average_kwh_cost
     );
+    this.$mainContentEl.hide();
     window.state = this.state;
   },
   $roomEls: {},
@@ -546,6 +548,8 @@ App.prototype = {
           num_bedrooms = Number(scenario.num_bedrooms),
           num_bathrooms = Number(scenario.num_bathrooms);
 
+      this.$mainContentEl.show();
+
       for (var i = 0; i < room_names.length; i++) {
         var room_name = room_names[i];
         if (scenario[room_name]) {
@@ -593,6 +597,7 @@ App.prototype = {
 
 var app = new App(
   $('#app'),
+  $('#main-content'),
   $('#rooms'),
   $('#scenario-form'),
   state
