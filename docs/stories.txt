@@ -1,11 +1,13 @@
 Add your first scenario
-Add another scenario
+Add another scenario (always duplicates)
 Edit a scenario's house wide sinks (central air, central heating)
 Add a room to a scenario
-Add a sink to a room
+Add a sink to a room (hour usage per day, wattage override, name)
+Remove a sink from a room
 View total kWh, cost per day
 View total kWh, cost per month
 View total kWh, cost per year
 View per category kWh, cost per day
 View per category kWh, cost per month
 View per category kWh, cost per year
+Change my average kWh rate
