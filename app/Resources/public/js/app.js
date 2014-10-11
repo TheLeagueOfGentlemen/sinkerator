@@ -8,17 +8,25 @@ var $ = require('jquery'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
-Handlebars.registerHelper('to_fixed', function(value, precision) {
-  return value.toFixed(precision).replace(/\.?0*$/g, '');
-});
+function to_fixed(value, precision, strip_trailing_zeros) {
+  strip_trailing_zeros = strip_trailing_zeros != undefined ? false : strip_trailing_zeros;
+  value = value.toFixed(precision);
+  return strip_trailing_zeros ? value.replace(/\.?0*$/g, '') : value;
+}
 
-
-Handlebars.registerHelper('commafy', function(value) {
+function commafy(value) {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+Handlebars.registerHelper('to_fixed', to_fixed);
+Handlebars.registerHelper('commafy', commafy);
+
+Handlebars.registerHelper('weekly_kwh', function(kwh) {
+  return kwh ? commafy(to_fixed(kwh*7, 2)) : 0;
 });
 
-Handlebars.registerHelper('daily_to_weekly', function(value) {
-  return value * 7;
+Handlebars.registerHelper('weekly_cost', function(cost) {
+  return cost ? commafy(to_fixed(cost*7, 2, true)) : 0;
 });
 
 Handlebars.registerHelper('daily_to_monthly', function(value) {
