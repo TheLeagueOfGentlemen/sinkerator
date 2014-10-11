@@ -308,14 +308,19 @@ App.prototype = {
         },
         plotOptions: {
             column: {
-                stacking: 'percent',
-                dataLabels: {
-                  enabled: true,
-                  color: 'white',
-                  formatter: function(){
-                    return this.point.name;
-                  }
+              stacking: 'percent',
+              dataLabels: {
+                enabled: true,
+                color: '#ffffff',
+                formatter: function(){
+                  return this.point.name;
+                },
+                style: {
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  textShadow: '1px 1px 3px #000000'
                 }
+              }
             },
             series: {
               pointPadding: 0
@@ -370,7 +375,6 @@ App.prototype = {
     //     }];
     data.drilldown = {
           series: [{
-              //colorByPoint: true,
             stacking: 'normal',
             id: 'kitchen',
             name: 'Kitchen',
@@ -380,7 +384,6 @@ App.prototype = {
               ['Toaster', 1]
             ]
           }, {
-              //colorByPoint: true,
             stacking: 'normal',
             id: 'master bedroom',
             name: 'Master Bedroom',
@@ -390,7 +393,6 @@ App.prototype = {
               ['Lamp', 1]
             ]
           }, {
-              //colorByPoint: true,
             stacking: 'normal',
             id: 'bathroom',
             name: 'Bathroom',
@@ -409,7 +411,7 @@ App.prototype = {
             spacingLeft: 0
         },
         title: {
-            text: 'My Sinks'
+            text: 'My Appliances'
         },
         legend: {
             enabled: false
@@ -441,9 +443,14 @@ App.prototype = {
             series: {
               dataLabels: {
                 enabled: true,
-                color: 'white',
+                color: '#ffffff',
                 formatter: function(){
                   return this.series.name;
+                },
+                style: {
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  textShadow: '1px 1px 3px #000000'
                 }
               },
               pointPadding: 0
