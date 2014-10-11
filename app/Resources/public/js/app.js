@@ -121,7 +121,11 @@ App.prototype = {
   },
   reset: function() {
     this.roomColors = [];
-
+    this.state.scenario.totals = {
+      "wattage": 0,
+      "kwh": 0,
+      "cost": 0
+    };
   },
   setupEvents: function() {
     var _this = this;
@@ -248,8 +252,35 @@ App.prototype = {
       );
       weekKwh.push(week.kwh);
     }
-    this.$customerUsageEl.slideDown();
-    this.customerChart = $('<div>').appendTo(this.$customerUsageEl).highcharts({
+    var series = [{
+        name: 'kWh per Week',
+        data: weekKwh
+    }];
+    var yPlotlines = [{
+      value: 0,
+      width: 1,
+      color: '#808080'
+    }];
+    if (this.state.scenario.totals.kwh) {
+      series.push({
+        name: 'Goal',
+        type: 'scatter',
+        marker: {
+          enabled: false
+        },
+        data: [this.state.scenario.totals.kwh*7]
+      });
+      yPlotlines.push({
+        value: this.state.scenario.totals.kwh*7,
+        color: 'red',
+        width: 2,
+        id: 'estimated',
+        label: {
+          text: 'Estimated Usage'
+        }
+      });
+    }
+    this.customerChart = this.$customerUsageEl.find('.chart').html('').highcharts({
             title: null,
             xAxis: {
                 categories: weekDates
@@ -258,19 +289,12 @@ App.prototype = {
                 title: {
                     text: 'Energy Consumption (kWh)'
                 },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                plotLines: yPlotlines
             },
             tooltip: {
                 valueSuffix: 'kWh'
             },
-            series: [{
-                name: 'kWh per Week',
-                data: weekKwh
-            }]
+            series: series
         });
 
     this.$customerUsageEl.data('initialized', true);
@@ -609,23 +633,13 @@ App.prototype = {
     return data;
   },
   updateGraphs: function(total) {
-    var yAxis = this.customerChart.highcharts().yAxis[0];
+    this.showWeeklyCustomerKwh();
     if (!this.state.scenario.totals.wattage) {
       $('#graph1').hide();
       $('#graph2').hide();
       $('#no-graph-message').show();
-      yAxis.removePlotLine('estimated');
       return false;
     }
-    yAxis.addPlotLine({
-        value: total.kwh*7,
-        color: 'red',
-        width: 2,
-        id: 'estimated',
-        label: {
-          text: 'Estimated Usage'
-        }
-    });
     $('#no-graph-message').hide();
     $('#graph1').show().highcharts(this.buildRoomGraphData());
     $('#graph2').show().highcharts(this.buildApplianceGraphData());
