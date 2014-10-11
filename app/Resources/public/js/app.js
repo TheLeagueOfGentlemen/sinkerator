@@ -14,6 +14,7 @@ var App = function($el, $scenarioForm, state) {
 App.prototype = {
   templates: {
     room: 'room-tpl',
+    room_sink: 'room-sink-tpl'
   },
   compiledTemplates: {},
   state: {},
@@ -135,14 +136,12 @@ App.prototype = {
     var $el = this.getRoomEl(room);
     room.sinks.push(sink);
     $el.find('.sink-list').append(
-      [
-        '<li>',
-           sink.sink_id,
-           '<a href="#" class="btn-remove-room-sink" data-room-id="', room.id,'" data-sink-id="', sink.id, '">X</a>',
-         '</li>'
-      ].join('')
+      this.renderTemplate('room_sink', {
+        room_sink: sink,
+        room: room,
+        daily_usage: this.calculator.getDailyUsageForSink(sink)
+      })
     );
-    console.log(this.calculator.getDailyUsageForSink(sink));
   },
   getRoom: function(id) {
     for (var i = 0; i < this.state.scenario.rooms.length; i++) {
