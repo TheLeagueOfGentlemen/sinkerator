@@ -138,7 +138,7 @@ App.prototype = {
       _this.showAddSinkToRoomForm(
         _this.getRoom(this.getAttribute('data-room-id'))
       );
-    })
+    });
     this.$roomsEl.on('click', '.btn-add-room-sink', function(e) {
       e.preventDefault();
       var $form = $(this).parents('form'),
