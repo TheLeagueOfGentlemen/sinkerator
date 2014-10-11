@@ -1,4 +1,5 @@
-var Room = function(name) {
+var Room = function(id, name) {
+  this.id = id;
   this.name = name;
 };
 

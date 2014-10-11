@@ -1,5 +1,7 @@
 var $ = require('jquery'),
+    guid = require('./guid.js'),
     Room = require('./room.js'),
+    Sink = require('./sink.js'),
     serialize = require('./form-to-json.js');
 
 window.$ = $;
@@ -15,7 +17,9 @@ App.prototype = {
     this.state = this.getInitialState();
     this.$roomsEl = $('<div id="rooms"></div>').appendTo(this.$el);
     this.setupEvents();
+    window.state = this.state;
   },
+  $roomEls: {},
   getInitialState: function() {
     return {
       categories: {
@@ -74,16 +78,67 @@ App.prototype = {
     });
     this.$roomsEl.on('click', '.btn-add-room-appliance', function(e) {
       e.preventDefault();
-      _this.addDeviceToRoom(
+      _this.showAddSinkToRoomForm(
         _this.getRoom(this.getAttribute('data-room-id'))
       );
     })
+    this.$roomsEl.on('click', '.btn-add-room-sink', function(e) {
+      e.preventDefault();
+      var $form = $(this).parents('form'),
+          data = serialize($form),
+          sink = new Sink(data.sink_id),
+          room = _this.getRoom(data.room_id);
+      $form.remove();
+      _this.addSinkToRoom(sink, room);
+    });
+  },
+  addSinkToRoom: function(sink, room) {
+    var $el = this.getRoomEl(room);
+    room.sinks.append(sink);
+    $el.find('.sink-list').append(
+      [
+        '<li>',
+           sink.id,
+           '<a href="#" class="btn-remove-sink">X</a>',
+         '</li>'
+      ].join('')
+    );
   },
   getRoom: function(id) {
-    return this.state.scenario.rooms[id];
+    for (var i = 0; i < this.state.scenario.rooms.length; i++) {
+      var room = this.state.scenario.rooms[i];
+      if (room.id == id) {
+        return room;
+      }
+    }
+    return false;
   },
-  addDeviceToRoom: function(room) {
-    console.log(room);
+  getRoomEl: function(room) {
+    return this.$roomEls[room.id];
+  },
+  showAddSinkToRoomForm: function(room) {
+    var $el = this.getRoomEl(room),
+        $form = this.buildAddSinkToRoomForm(room);
+    // TODO: Implement
+    $el.find('.sink-list').append($form);
+  },
+  buildAddSinkToRoomForm: function(room) {
+    return $([
+      '<form>',
+        '<select name="sink_id">',
+            '<option value="boom_box">Boom Box</option>',
+            '<option value="air_conditioner">Air Conditioner</option>',
+        '</select>',
+        '<label>Wattage</label>',
+          '<input type="text" name="wattage_override" />',
+        '</label>',
+        '<label>Hours per Day</label>',
+          '<input type="text" name="hours_per_day" />',
+        '</label>',
+        '<input type="hidden" name="room_id" value="', room.id, '" />',
+        '<button type="submit" class="btn-add-room-sink">Add</button>',
+      '</form>'
+    ].join(''));
   },
   updateRooms: function(rooms) {
     this.state.scenario.rooms = rooms;
@@ -98,16 +153,16 @@ App.prototype = {
       for (var i = 0; i < room_names.length; i++) {
         var room_name = room_names[i];
         if (scenario[room_name]) {
-          rooms.push(new Room(scenario[room_name]));
+          rooms.push(new Room(guid(), scenario[room_name]));
         }
       }
 
       for (var k = 1; k <= num_bedrooms; k++) {
-          rooms.push(new Room('Bedroom '+k));
+          rooms.push(new Room(guid(), 'Bedroom '+k));
       };
 
       for (var j = 1; j <= num_bathrooms; j++) {
-          rooms.push(new Room('Bathroom '+j));
+          rooms.push(new Room(guid(), 'Bathroom '+j));
       };
 
       return rooms;
@@ -116,15 +171,15 @@ App.prototype = {
     this.$roomsEl.html('');
     for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
-      this.$roomsEl.append(
-        [
+      var $el = $([
           '<div class="room">',
             '<h2>', room.name, '</h2>',
             '<ul class="sink-list"></ul>',
-            '<a href="#" class="btn-add-room-appliance" data-room-id="', i,'">Add Appliance</a>',
+            '<a href="#" class="btn-add-room-appliance" data-room-id="', room.id,'">Add Appliance</a>',
           '</div>'
-        ].join('')
-      );
+        ].join(''));
+      this.$roomsEl.append($el);
+      this.$roomEls[room.id] = $el;
     }
   }
 };
