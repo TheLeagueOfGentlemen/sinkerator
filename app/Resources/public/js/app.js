@@ -286,7 +286,7 @@ App.prototype = {
             spacingRight: 0
         },
         title: {
-            text: 'My Rooms'
+            text: 'Rooms'
         },
         legend: {
             enabled: false
@@ -413,7 +413,7 @@ App.prototype = {
             spacingLeft: 0
         },
         title: {
-            text: 'My Sinks'
+            text: 'Appliances'
         },
         legend: {
             enabled: false
