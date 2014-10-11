@@ -203,7 +203,7 @@ header ul li a {
 	border: 1px solid #BDBDBD;
 	border-width: 1px 0;
 	background: #DDD;
-	margin-bottom: -42px;
+	margin-bottom: -33px;
 	position: relative;
 	z-index: 10;
 }
@@ -256,12 +256,6 @@ header ul li a {
 .main .room .room-totals .cost {
 	background: #5FCF80;
 }
-
-
-[id*="Bedroom"]{
-	background: black;
-}
-
 @media (max-width: 1280px){
 	.total-watts, .total-cost {
 		font-size: 2em;

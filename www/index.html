@@ -87,7 +87,8 @@
         </div>
       </form>
     <div class="large-8 columns main">
-      <div id="rooms"></div>
+      <div id="rooms">
+      </div>
     </div>
     <div class="large-4 columns sidebar">
         <div id="graphs">
@@ -99,7 +100,7 @@
 <footer>
 </footer>
 <script id="room-tpl" type="x-tmpl-handlebars">
-<div id="{{name}}" class="room">
+<div class="room">
   <div class="name">
     <h2>{{name}}</h2>
   </div>
@@ -166,6 +167,12 @@
 <div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
 </script>
 <script src="assets/js/app.js"></script>
-
+<script src="assets/js/vendor/masonry.min.js"></script>
+<script>
+$('#rooms').masonry({
+  itemSelector: '.room',
+  columnWidth: '.room'
+});
+</script>
 </body>
 </html>
