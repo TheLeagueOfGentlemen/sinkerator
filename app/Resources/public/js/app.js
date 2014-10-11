@@ -102,12 +102,16 @@ App.prototype = {
       }
     };
   },
+  reset: function() {
+    this.roomColors = [];
+
+  },
   setupEvents: function() {
     var _this = this;
     this.$scenarioForm.on('submit', function(e) {
       e.preventDefault();
 
-      _this.roomColors = [];
+      _this.reset();
 
       var rooms =_this.buildRoomsFromScenario(
         serialize(_this.$scenarioForm)
@@ -496,8 +500,10 @@ App.prototype = {
     if (!this.state.scenario.totals.wattage) {
       $('#graph1').hide();
       $('#graph2').hide();
+      $('#no-graph-message').show();
       return false;
     }
+    $('#no-graph-message').hide();
     $('#graph1').show().highcharts(this.buildRoomGraphData());
     $('#graph2').show().highcharts(this.buildApplianceGraphData());
   },
