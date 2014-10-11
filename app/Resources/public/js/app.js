@@ -41,9 +41,10 @@ Handlebars.registerHelper('to_id', function(value) {
   return value.replace(/\s+/g, '-').toLowerCase();
 });
 
-var App = function($el, $mainContentEl, $roomsEl, $scenarioForm, state) {
+var App = function($el, $mainContentEl, $customerUsageEl, $roomsEl, $scenarioForm, state) {
   this.$el = $el;
   this.$mainContentEl = $mainContentEl;
+  this.$customerUsageEl = $customerUsageEl;
   this.$roomsEl = $roomsEl;
   this.$scenarioForm = $scenarioForm;
   this.state = state;
@@ -66,8 +67,8 @@ App.prototype = {
       this.state.sinks,
       this.state.average_kwh_cost
     );
-    this.$mainContentEl.hide();
     this.updateCustomerData();
+    this.showWeeklyCustomerKwh();
     window.state = this.state;
   },
   $roomEls: {},
@@ -253,6 +254,52 @@ App.prototype = {
     );
     this.updateScenarioTotals();
   },
+  showWeeklyCustomerKwh: function() {
+    var weekDates = [],
+        weekKwh = [],
+        weeks = this.state.customer_data.weekly.slice(0, 12);
+    for (var i = 0; i < weeks.length; i++) {
+      var week = weeks[i],
+          weekDate = new Date(Number(week['week']));
+      weekDates.push(
+        [weekDate.getMonth()+1, weekDate.getDate(), (weekDate.getFullYear()+'').substr(2)].join('/')
+      );
+      weekKwh.push(week.kwh);
+    }
+    this.$customerUsageEl.slideDown();
+    $('<div>').appendTo(this.$customerUsageEl).highcharts({
+            title: null,
+            // title: {
+            //     text: 'Actual Energy Consumption (kWh/Week)',
+            //     x: -20 //center
+            // },
+            // subtitle: {
+            //     text: 'Source: GreenMountainPower.com',
+            //     x: -20
+            // },
+            xAxis: {
+                categories: weekDates
+            },
+            yAxis: {
+                title: {
+                    text: 'Energy Consumption (kWh)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: 'kWh'
+            },
+            series: [{
+                name: 'kWh per Week',
+                data: weekKwh
+            }]
+        });
+    this.$customerUsageEl.data('initialized', true);
+  },
   updateCustomerData: function() {
       var $totalsEl = this.$el.find('.customer-totals');
       $totalsEl.html(
@@ -341,11 +388,7 @@ App.prototype = {
             }
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
+            enabled: false
         },
         plotOptions: {
             column: {
@@ -471,11 +514,7 @@ App.prototype = {
             }
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
+            enabled: false
         },
         plotOptions: {
             column: {
@@ -505,16 +544,27 @@ App.prototype = {
       var room = rooms[i],
           room_sinks = room.sinks,
           color = this.getRoomColor(room),
-          tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
           tint = new Chromath(color);
+          //tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
+          if (room_sinks.length < 11) {
+            var tint_increment = 0.1;
+          }
+          if (room_sinks.length < 6) {
+            var tint_increment = 0.2;
+          }
+          if (room_sinks.length < 3) {
+            var tint_increment = 0.3;
+          }
 
       for (var j = 0; j < room_sinks.length; j++) {
         var room_sink = room_sinks[j],
             sink = this.getSink(room_sink.sink_id),
             total = this.calculator.getDailyUsageForSink(room_sink),
             percent = (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100;
-
-        tint = tint.towards('white', tint_increment);
+        console.log(tint.toString());
+        console.log(tint_increment);
+        tint = tint.tint(tint_increment, tint.toString());
+        //console.log(tint.toString());
         data.series.push({
             name: sink.name,
             color: tint.toString(),
@@ -603,8 +653,6 @@ App.prototype = {
           num_bedrooms = Number(scenario.num_bedrooms),
           num_bathrooms = Number(scenario.num_bathrooms);
 
-      this.$mainContentEl.show();
-
       for (var i = 0; i < room_names.length; i++) {
         var room_name = room_names[i];
         if (scenario[room_name]) {
@@ -655,6 +703,7 @@ App.prototype = {
 var app = new App(
   $('#app'),
   $('#main-content'),
+  $('#customer-usage'),
   $('#rooms'),
   $('#scenario-form'),
   state
