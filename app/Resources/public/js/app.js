@@ -12,9 +12,9 @@ var App = function($el, $scenarioForm) {
 App.prototype = {
   state: {},
   init: function() {
-    this.setupEvents();
     this.state = this.getInitialState();
     this.$roomsEl = $('<div id="rooms"></div>').appendTo(this.$el);
+    this.setupEvents();
   },
   getInitialState: function() {
     return {
@@ -72,6 +72,18 @@ App.prototype = {
 
       _this.updateRooms(rooms);
     });
+    this.$roomsEl.on('click', '.btn-add-room-appliance', function(e) {
+      e.preventDefault();
+      _this.addDeviceToRoom(
+        _this.getRoom(this.getAttribute('data-room-id'))
+      );
+    })
+  },
+  getRoom: function(id) {
+    return this.state.scenario.rooms[id];
+  },
+  addDeviceToRoom: function(room) {
+    console.log(room);
   },
   updateRooms: function(rooms) {
     this.state.scenario.rooms = rooms;
@@ -105,7 +117,13 @@ App.prototype = {
     for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
       this.$roomsEl.append(
-        '<li>'+room.name+'</li>'
+        [
+          '<div class="room">',
+            '<h2>', room.name, '</h2>',
+            '<ul class="sink-list"></ul>',
+            '<a href="#" class="btn-add-room-appliance" data-room-id="', i,'">Add Appliance</a>',
+          '</div>'
+        ].join('')
       );
     }
   }
