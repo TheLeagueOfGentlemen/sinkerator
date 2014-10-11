@@ -99,15 +99,15 @@
 <footer>
 </footer>
 <script id="room-tpl" type="x-tmpl-handlebars">
-<div id="{{name}}" class="room">
-  <div class="name">
-    <h2>{{name}}</h2>
+<div id="{{room.name}}" class="room">
+  <div class="name" style="background-color: {{background_color}}">
+    <h2>{{room.name}}</h2>
   </div>
   <div class="sinks">
     <ul class="sink-list"></ul>
     <ul>
       <li>  
-        <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}"><strong>+</strong> Add Appliance</a>
+        <a href="#" class="btn-add-room-appliance" data-room-id="{{room.id}}"><strong>+</strong> Add Appliance</a>
       </li>
     </ul>
   </div>

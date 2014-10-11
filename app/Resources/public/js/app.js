@@ -529,7 +529,10 @@ App.prototype = {
     this.$roomsEl.html('');
     for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
-      var $el = $(this.renderTemplate('room', room));
+      var $el = $(this.renderTemplate('room', {
+        room: room,
+        background_color: this.getRoomColor(room)
+      }));
       this.$roomsEl.append($el);
       this.$roomEls[room.id] = $el;
     }
