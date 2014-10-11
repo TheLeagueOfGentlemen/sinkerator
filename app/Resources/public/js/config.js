@@ -1,6 +1,6 @@
 module.exports = {
     "average_kwh_cost": 0.15,
-    "colors": ['#800000', '#804000', '#7f8000', '#3f8000', '#008000', '#008040', '#007f80', '#003f80', '#000080', '#400080', '#80007f', '#80003f'],
+    "colors": ['#cc0000', '#cc6600', '#cbcc00', '#64cc00', '#00cc00', '#00cc66', '#00cbcc', '#0064cc', '#0000cc', '#6600cc', '#cc00cb', '#cc0064'],
     "categories": {
         "home_entertainment": {
             "name": "Home Entertainment"
