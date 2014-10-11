@@ -472,7 +472,7 @@ App.prototype = {
 
         tint = tint.towards('white', tint_increment);
         data.series.push({
-            name: room.name + ' ' + sink.name,
+            name: sink.name,
             color: tint.toString(),
             data: [{
               name: room.name + ' ' + sink.name,
