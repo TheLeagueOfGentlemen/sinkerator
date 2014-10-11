@@ -128,18 +128,14 @@ App.prototype = {
     };
   },
   toggleScenarioForm: function() {
-      var bar = $('.grey-bar');
-
       // hide the form
       if (!this.$scenarioForm.hasClass('hide')) {
           this.$scenarioForm.addClass('hide');
-          bar.addClass('collapsed');
 
       // make the form visible
       } else {
           this.reset();
           this.$scenarioForm.removeClass('hide');
-          bar.removeClass('collapsed');
       }
   },
   setupEvents: function() {
