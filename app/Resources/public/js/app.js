@@ -118,20 +118,25 @@ App.prototype = {
   },
   reset: function() {
     this.roomColors = [];
-
+    this.$mainContentEl.hide();
   },
   setupEvents: function() {
     var _this = this;
     this.$scenarioForm.on('submit', function(e) {
       e.preventDefault();
 
+      _this.$scenarioForm.addClass('hide');
+
       _this.reset();
 
-      var rooms =_this.buildRoomsFromScenario(
-        serialize(_this.$scenarioForm)
-      );
+      var form_data = serialize(_this.$scenarioForm),
+          rooms =_this.buildRoomsFromScenario(form_data);
 
-      _this.updateRooms(rooms);
+        _this.updateRooms(form_data['name'], rooms);
+    });
+    this.$mainContentEl.on('click', '#reset-house', function(e) {
+        _this.reset();
+        _this.$scenarioForm.removeClass('hide');
     });
     this.$roomsEl.on('click', '.btn-add-room-appliance', function(e) {
       e.preventDefault();
@@ -282,9 +287,9 @@ App.prototype = {
     }
     return sinks;
   },
-  updateRooms: function(rooms) {
+  updateRooms: function(house_name, rooms) {
     this.state.scenario.rooms = rooms;
-    this.renderRooms(rooms);
+    this.renderRooms(house_name, rooms);
     this.updateScenarioTotals();
   },
   buildRoomGraphData: function() {
@@ -599,9 +604,11 @@ App.prototype = {
 
       return rooms;
   },
-  renderRooms: function(rooms) {
-    this.$roomsEl.html('');
-    for (var i = 0; i < rooms.length; i++) {
+  renderRooms: function(house_name, rooms) {
+    this.$roomsEl.html([
+        '<h2>', house_name, '<button id="reset-house" type="button">Reset</button>', '</h2>',
+      ].join(''));
+      for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
       var $el = $(this.renderTemplate('room', {
         room: room,
