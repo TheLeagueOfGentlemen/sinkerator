@@ -5,7 +5,17 @@ var $ = require('jquery'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
-require('select2');
+Handlebars.registerHelper('to_fixed', function(value, precision) {
+  return value.toFixed(precision).replace(/\.?0*$/g, '');
+});
+
+Handlebars.registerHelper('daily_to_monthly', function(value) {
+  return value * 30;
+});
+
+Handlebars.registerHelper('daily_to_yearly', function(value) {
+  return value * 365;
+});
 
 var App = function($el, $roomsEl, $scenarioForm, state) {
   this.$el = $el;

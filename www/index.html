@@ -92,7 +92,7 @@
 </script>
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-{{sink.name}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{daily_usage.kwh}} kWh/day -- ${{daily_usage.cost}}/day
+{{sink.name}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{to_fixed daily_usage.kwh 4}} kWh/day -- ${{to_fixed daily_usage.cost 4}}/day
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
@@ -123,11 +123,11 @@
 </script>
 
 <script id="room-totals-tpl" type="x-handlebars-template">
-{{wattage}} Watts -- {{kwh}} kWh/day -- ${{cost}}/day
+{{wattage}} Watts -- {{to_fixed kwh 4}} kWh/day -- ${{to_fixed cost 4}}/day
 </script>
 <script id="scenario-totals-tpl" type="x-handlebars-template">
 <div class="total-watts">{{wattage}} <strong>WATTS</strong></div>
-<div class="total-cost"><strong>$</strong> ${{cost}} <sup>/ day</sup> </div>
+<div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
 </script>
 </div>
 <footer>
