@@ -169,10 +169,6 @@ App.prototype = {
   updateScenarioTotals: function() {
     var totals = this.calculator.getDailyUsageForScenario(this.state.scenario),
         $totalsEl = this.$el.find('.scenario-totals');
-    if (!totals.wattage) {
-      $totalsEl.html('');
-      return;
-    }
     $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
