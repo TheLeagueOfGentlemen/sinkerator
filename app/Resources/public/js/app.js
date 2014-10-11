@@ -96,6 +96,10 @@ App.prototype = {
       _this.removeSinkFromRoomById(sink_id, room);
       $(this).parent().remove();
     });
+    this.$el.on('click', '.btn-remove', function(e) {
+      e.preventDefault();
+      $($(this).attr('href')).remove();
+    });
   },
   createSink: function(id) {
     return {
@@ -145,8 +149,9 @@ App.prototype = {
     $el.find('.sink-list').append($form);
   },
   buildAddSinkToRoomForm: function(room) {
+    var id = guid();
     return $([
-      '<form>',
+      '<form id="', id, '">',
         '<select name="sink_id">',
             '<option value="boom_box">Boom Box</option>',
             '<option value="air_conditioner">Air Conditioner</option>',
@@ -159,6 +164,7 @@ App.prototype = {
         '</label>',
         '<input type="hidden" name="room_id" value="', room.id, '" />',
         '<button type="submit" class="btn-add-room-sink">Add</button>',
+        '<a href="#', id, '" class="btn-remove">Cancel</button>',
       '</form>'
     ].join(''));
   },
