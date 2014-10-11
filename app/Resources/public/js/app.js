@@ -406,15 +406,19 @@ App.prototype = {
     data.series = [];
     for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i],
-          room_sinks = room.sinks;
+          room_sinks = room.sinks,
+          color = this.getRoomColor(room),
+          tint_increment = room_sinks.length ? (1 / (room_sinks.length + 1)) : null,
+          tint = new Chromath(color);
 
       for (var j = 0; j < room_sinks.length; j++) {
         var room_sink = room_sinks[j],
             sink = this.getSink(room_sink.sink_id),
             total = this.calculator.getDailyUsageForSink(room_sink);
+        tint = tint.towards('white', tint_increment);
         data.series.push({
             name: room.name + ' ' + sink.name,
-            color: '#1E5799', //FIXME: Rotate colors
+            color: tint.toString(),
             data: [{
               name: room.name + ' ' + sink.name,
               y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
