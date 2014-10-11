@@ -267,31 +267,46 @@ App.prototype = {
             }
         }
     };
-    data.series = [{
-            name: 'Kitchen',
-            color: '#1E5799',
-            data: [{
-              name: 'My Rooms',
-              y: 6,
-              drilldown: 'kitchen'
-            }]
-        }, {
-          name: 'Master Bedroom',
-          color: '#961E1E',
+    var rooms = this.state.scenario.rooms;
+    data.series = [];
+    for (var i = 0; i < rooms.length; i++) {
+      var room = rooms[i],
+          total = this.calculator.getDailyUsageForCollection(room.sinks);
+
+      data.series.push({
+          name: room.name,
+          color: '#1E5799',
           data: [{
-            name: 'My Rooms',
-            y: 4,
-            drilldown: 'master bedroom'
+            name: room.name,
+            y: total.wattage ? (this.state.scenario.totals.wattage / total.wattage) : 0
           }]
-        }, {
-          name: 'Bathroom',
-          color: '#1E961E',
-          data: [{
-            name: 'My Rooms',
-            y: 2,
-            drilldown: 'bathroom'
-          }]
-        }];
+      });
+    }
+    // data.series = [{
+    //         name: 'Kitchen',
+    //         color: '#1E5799',
+    //         data: [{
+    //           name: 'My Rooms',
+    //           y: 6,
+    //           drilldown: 'kitchen'
+    //         }]
+    //     }, {
+    //       name: 'Master Bedroom',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Rooms',
+    //         y: 4,
+    //         drilldown: 'master bedroom'
+    //       }]
+    //     }, {
+    //       name: 'Bathroom',
+    //       color: '#1E961E',
+    //       data: [{
+    //         name: 'My Rooms',
+    //         y: 2,
+    //         drilldown: 'bathroom'
+    //       }]
+    //     }];
     data.drilldown = {
           series: [{
               //colorByPoint: true,
@@ -446,7 +461,7 @@ App.prototype = {
 
       for (var j = 1; j <= num_bathrooms; j++) {
           rooms.push(
-            this.createRoom(guid(), 'Bathroom '+k)
+            this.createRoom(guid(), 'Bathroom '+j)
           );
       };
 
