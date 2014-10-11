@@ -267,6 +267,7 @@ App.prototype = {
             }
         }
     };
+
     var rooms = this.state.scenario.rooms;
     data.series = [];
     for (var i = 0; i < rooms.length; i++) {
@@ -275,10 +276,10 @@ App.prototype = {
 
       data.series.push({
           name: room.name,
-          color: '#1E5799',
+          color: '#1E5799', //FIXME: Rotate colors
           data: [{
             name: room.name,
-            y: total.wattage ? (this.state.scenario.totals.wattage / total.wattage) : 0
+            y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
           }]
       });
     }
@@ -370,63 +371,85 @@ App.prototype = {
         }
     };
 
-    data.series = [{
-            name: 'Kitchen - Stove',
-            color: '#1E5799',
+    var rooms = this.state.scenario.rooms;
+    data.series = [];
+    for (var i = 0; i < rooms.length; i++) {
+      var room = rooms[i],
+          room_sinks = room.sinks;
+
+      for (var j = 0; j < room_sinks.length; j++) {
+        var room_sink = room_sinks[j],
+            sink = this.getSink(room_sink.sink_id),
+            total = this.calculator.getDailyUsageForSink(room_sink);
+        data.series.push({
+            name: room.name + ' ' + sink.name,
+            color: '#1E5799', //FIXME: Rotate colors
             data: [{
-              name: 'My Sinks',
-              y: 3
+              name: room.name + ' ' + sink.name,
+              y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
             }]
-        }, {
-          name: 'Kitchen - Microwave',
-          color: '#1E5799',
-          data: [{
-            name: 'My Sinks',
-            y: 2
-          }]
-        }, {
-          name: 'Kitchen - Toaster',
-          color: '#1E5799',
-          data: [{
-            name: 'My Sinks',
-            y: 1
-          }]
-        }, {
-          name: 'Master Bedroom - Television',
-          color: '#961E1E',
-          data: [{
-            name: 'My Sinks',
-            y: 2
-          }]
-        }, {
-          name: 'Master Bedroom - Lamp',
-          color: '#961E1E',
-          data: [{
-            name: 'My Sinks',
-            y: 1
-          }]
-        }, {
-          name: 'Master Bedroom - Lamp',
-          color: '#961E1E',
-          data: [{
-            name: 'My Sinks',
-            y: 1
-          }]
-        }, {
-          name: 'Bedroom - Lamp',
-          color: '#1E961E',
-          data: [{
-            name: 'My Sinks',
-            y: 1
-          }]
-        }, {
-          name: 'Bedroom - Lamp',
-          color: '#1E961E',
-          data: [{
-            name: 'My Sinks',
-            y: 1
-          }]
-        }];
+        });
+      }
+
+    }
+
+    // data.series = [{
+    //         name: 'Kitchen - Stove',
+    //         color: '#1E5799',
+    //         data: [{
+    //           name: 'My Sinks',
+    //           y: 3
+    //         }]
+    //     }, {
+    //       name: 'Kitchen - Microwave',
+    //       color: '#1E5799',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 2
+    //       }]
+    //     }, {
+    //       name: 'Kitchen - Toaster',
+    //       color: '#1E5799',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Master Bedroom - Television',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 2
+    //       }]
+    //     }, {
+    //       name: 'Master Bedroom - Lamp',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Master Bedroom - Lamp',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Bedroom - Lamp',
+    //       color: '#1E961E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Bedroom - Lamp',
+    //       color: '#1E961E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }];
     return data;
   },
   updateGraphs: function() {
