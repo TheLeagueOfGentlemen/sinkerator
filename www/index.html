@@ -96,7 +96,7 @@
 <footer>
 </footer>
 <script id="room-tpl" type="x-tmpl-handlebars">
-<div id="{{name}}" class="room">
+<div id="{{to_id name}}" class="room">
   <div class="name">
     <h2>{{name}}</h2>
   </div>
@@ -157,7 +157,7 @@
 </script>
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
-<div class="total-watts">{{wattage}} <strong>WATTS</strong></div>
+<div class="total-watts">{{to_fixed wattage 4}} <strong>WATTS</strong></div>
 <div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
 </script>
 <script src="assets/js/app.js"></script>

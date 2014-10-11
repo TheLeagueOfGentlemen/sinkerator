@@ -19,6 +19,10 @@ Handlebars.registerHelper('daily_to_yearly', function(value) {
   return value * 365;
 });
 
+Handlebars.registerHelper('to_id', function(value) {
+  return value.replace(/\s+/g, '-').toLowerCase();
+});
+
 var App = function($el, $roomsEl, $scenarioForm, state) {
   this.$el = $el;
   this.$roomsEl = $roomsEl;
