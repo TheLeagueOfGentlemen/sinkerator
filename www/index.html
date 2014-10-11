@@ -64,5 +64,23 @@
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
+<script id="add-room-sink-form-tpl" type="x-tmpl-mustache">
+<form id="{{form_id}}">
+  <select name="sink_id">
+      {{#sinks}}
+      <option value="{{id}}" data-wattage="{{wattage}}">{{name}}</option>
+      {{/sinks}}
+  </select>
+  <label>Wattage</label>
+    <input type="text" name="wattage" />
+  </label>
+  <label>Hours per Day</label>
+    <input type="text" name="hours_per_day" />
+  </label>
+  <input type="hidden" name="room_id" value="{{room.id}}" />
+  <button type="submit" class="btn-add-room-sink">Add</button>
+  <a href="#{{form_id}}" class="btn-remove">Cancel</button>
+</form>
+</script>
     </body>
 </html>

@@ -14,7 +14,8 @@ var App = function($el, $scenarioForm, state) {
 App.prototype = {
   templates: {
     room: 'room-tpl',
-    room_sink: 'room-sink-tpl'
+    room_sink: 'room-sink-tpl',
+    add_room_sink_form: 'add-room-sink-form-tpl'
   },
   compiledTemplates: {},
   state: {},
@@ -158,28 +159,25 @@ App.prototype = {
   showAddSinkToRoomForm: function(room) {
     var $el = this.getRoomEl(room),
         $form = this.buildAddSinkToRoomForm(room);
-    // TODO: Implement
     $el.find('.sink-list').append($form);
   },
   buildAddSinkToRoomForm: function(room) {
-    var id = guid();
-    return $([
-      '<form id="', id, '">',
-        '<select name="sink_id">',
-            '<option value="boom_box">Boom Box</option>',
-            '<option value="air_conditioner">Air Conditioner</option>',
-        '</select>',
-        '<label>Wattage</label>',
-          '<input type="text" name="wattage" />',
-        '</label>',
-        '<label>Hours per Day</label>',
-          '<input type="text" name="hours_per_day" />',
-        '</label>',
-        '<input type="hidden" name="room_id" value="', room.id, '" />',
-        '<button type="submit" class="btn-add-room-sink">Add</button>',
-        '<a href="#', id, '" class="btn-remove">Cancel</button>',
-      '</form>'
-    ].join(''));
+    return $(this.renderTemplate('add_room_sink_form', {
+      form_id: guid(),
+      room: room,
+      sinks: this.sinksToArray()
+    }));
+  },
+  sinksToArray: function() {
+    var sinks = [];
+    for (x in this.state.sinks) {
+      sinks.push({
+        id: x,
+        name: this.state.sinks[x].name,
+        wattage: this.state.sinks[x].wattage
+      });
+    }
+    return sinks;
   },
   updateRooms: function(rooms) {
     this.state.scenario.rooms = rooms;
