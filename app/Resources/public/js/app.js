@@ -270,7 +270,7 @@ App.prototype = {
             type: 'column'
         },
         title: {
-            text: 'My House'
+            text: 'My Rooms'
         },
         legend: {
             enabled: false
@@ -379,7 +379,7 @@ App.prototype = {
             type: 'column'
         },
         title: {
-            text: 'My Rooms'
+            text: 'My Appliances'
         },
         legend: {
             enabled: false
