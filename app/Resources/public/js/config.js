@@ -1,4 +1,5 @@
-{
+module.exports = {
+    "average_kwh_cost": 0.15,
     "categories": {
         "home_entertainment": {
             "name": "Home Entertainment"
@@ -460,22 +461,22 @@
                 "sinks": [
                     {
                         "sink_id": "microwaves",
-                        "wattage_override": 1200,
+                        "wattage": 1200,
                         "hours_per_day": 0.5
                     },
                     {
                         "sink_id": "toaser_oven___oven",
-                        "wattage_override": 1200,
+                        "wattage": 1200,
                         "hours_per_day": 1
                     },
                     {
                         "sink_id": "instant_hot_water",
-                        "wattage_override": null,
+                        "wattage": 22419,
                         "hours_per_day": 0.5
                     },
                     {
                         "sink_id": "compactors",
-                        "wattage_override": null,
+                        "wattage": 26252,
                         "hours_per_day": 0.333
                     }
                 ]
@@ -485,22 +486,22 @@
                 "sinks": [
                     {
                         "sink_id": "dvd_player",
-                        "wattage_override": null,
+                        "wattage": 14266,
                         "hours_per_day": 2
                     },
                     {
                         "sink_id": "video_games",
-                        "wattage_override": 50,
+                        "wattage": 50,
                         "hours_per_day": 2
                     },
                     {
                         "sink_id": "receiver",
-                        "wattage_override": null,
+                        "wattage": 12967,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "tv_lcd",
-                        "wattage_override": null,
+                        "wattage": 7982,
                         "hours_per_day": 4
                     }
                 ]
@@ -510,17 +511,17 @@
                 "sinks": [
                     {
                         "sink_id": "lights",
-                        "wattage_override": null,
+                        "wattage": 26079,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "computer_laptop",
-                        "wattage_override": null,
+                        "wattage": 21977,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "boom_box",
-                        "wattage_override": null,
+                        "wattage": 22971,
                         "hours_per_day": 4
                     }
                 ]
@@ -530,22 +531,22 @@
                 "sinks": [
                     {
                         "sink_id": "air_conditioner",
-                        "wattage_override": null,
+                        "wattage": 24701,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "lights",
-                        "wattage_override": null,
+                        "wattage": 26988,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "computer_workstation",
-                        "wattage_override": null,
+                        "wattage": 11770,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "boom_box",
-                        "wattage_override": null,
+                        "wattage": 18226,
                         "hours_per_day": 4
                     }
                 ]
@@ -555,27 +556,26 @@
                 "sinks": [
                     {
                         "sink_id": "air_conditioner",
-                        "wattage_override": 800,
+                        "wattage": 800,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "lights",
-                        "wattage_override": null,
+                        "wattage": 28626,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "computer_workstation",
-                        "wattage_override": null,
+                        "wattage": 31229,
                         "hours_per_day": 4
                     },
                     {
                         "sink_id": "boom_box",
-                        "wattage_override": null,
+                        "wattage": 7750,
                         "hours_per_day": 4
                     }
                 ]
             }
         ]
     }
-}
-
+};

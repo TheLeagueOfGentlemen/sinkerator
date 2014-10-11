@@ -1,15 +1,14 @@
 var $ = require('jquery'),
     guid = require('./guid.js'),
+    state = require('./config.js'),
     Mustache = require('mustache'),
+    Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
-window.M = Mustache;
-
-window.$ = $;
-
-var App = function($el, $scenarioForm) {
+var App = function($el, $scenarioForm, state) {
   this.$el = $el;
   this.$scenarioForm = $scenarioForm;
+  this.state = state;
 };
 
 App.prototype = {
@@ -19,14 +18,18 @@ App.prototype = {
   compiledTemplates: {},
   state: {},
   init: function() {
-    this.state = this.getInitialState();
     this.$roomsEl = $('<div id="rooms"></div>').appendTo(this.$el);
     this.setupEvents();
+    this.calculator = new Calculator(
+      this.state.sinks,
+      this.state.average_kwh_cost
+    );
     window.state = this.state;
   },
   $roomEls: {},
   getInitialState: function() {
     return {
+      average_kwh_cost: 0.15, // TODO: Allow update
       categories: {
         'entertainment': {
           name: 'Home Entertainment'
@@ -91,16 +94,16 @@ App.prototype = {
       e.preventDefault();
       var $form = $(this).parents('form'),
           data = serialize($form),
-          sink = _this.createSink(data.sink_id),
+          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_day), // FIXME: Dont hardcode standby wattage
           room = _this.getRoom(data.room_id);
       $form.remove();
-      _this.addSinkToRoom(sink, room);
+      _this.addSinkToRoom(room_sink, room);
     });
     this.$roomsEl.on('click', '.btn-remove-room-sink', function(e) {
       e.preventDefault();
-      var sink_id = this.getAttribute('data-sink-id'),
+      var id = this.getAttribute('data-sink-id'),
           room = _this.getRoom(this.getAttribute('data-room-id'));
-      _this.removeSinkFromRoomById(sink_id, room);
+      _this.removeSinkFromRoomById(id, room);
       $(this).parent().remove();
     });
     this.$el.on('click', '.btn-remove', function(e) {
@@ -108,9 +111,12 @@ App.prototype = {
       $($(this).attr('href')).remove();
     });
   },
-  createSink: function(id) {
+  createRoomSink: function(id, sink_id, wattage, hours_per_day) {
     return {
-      id: id
+      id: id,
+      sink_id: sink_id,
+      wattage: Number(wattage),
+      hours_per_day: Number(hours_per_day)
     };
   },
   createRoom: function(id, name) {
@@ -120,9 +126,9 @@ App.prototype = {
       sinks: []
     };
   },
-  removeSinkFromRoomById: function(sink_id, room) {
+  removeSinkFromRoomById: function(id, room) {
     room.sinks = room.sinks.filter(function(sink) {
-      return sink.id != sink_id;
+      return sink.id != id;
     });
   },
   addSinkToRoom: function(sink, room) {
@@ -131,11 +137,12 @@ App.prototype = {
     $el.find('.sink-list').append(
       [
         '<li>',
-           sink.id,
+           sink.sink_id,
            '<a href="#" class="btn-remove-room-sink" data-room-id="', room.id,'" data-sink-id="', sink.id, '">X</a>',
          '</li>'
       ].join('')
     );
+    console.log(this.calculator.getDailyUsageForSink(sink));
   },
   getRoom: function(id) {
     for (var i = 0; i < this.state.scenario.rooms.length; i++) {
@@ -164,7 +171,7 @@ App.prototype = {
             '<option value="air_conditioner">Air Conditioner</option>',
         '</select>',
         '<label>Wattage</label>',
-          '<input type="text" name="wattage_override" />',
+          '<input type="text" name="wattage" />',
         '</label>',
         '<label>Hours per Day</label>',
           '<input type="text" name="hours_per_day" />',
@@ -228,6 +235,7 @@ App.prototype = {
 
 var app = new App(
   $app = $('#app'),
-  $scenarioForm = $('#scenario-form')
+  $scenarioForm = $('#scenario-form'),
+  state
 );
 app.init();
