@@ -93,9 +93,6 @@
     <div id="main-content">
     <div class="large-8 columns main">
       <div id="rooms" class="clearfix"></div>
-      <div id="customer-usage">
-        <h2>Actual Energy Consumption (kWh/Week)</h2>
-      </div>
     </div>
     <div class="large-4 columns sidebar">
         <div id="graphs">
@@ -103,8 +100,11 @@
           <div data-alert class="alert-box info radius" id="no-graph-message">
             Add appliances to see a breakdown of kWh usage.
           </div>
-          <div id="graph1" style="height: 800px; margin: 0 auto; float: left; width: 54%;"></div>
-          <div id="graph2" style="height: 800px; margin: 0 auto; float: left; width: 46%;"></div>
+          <div id="graph1" style="height: 500px; margin: 0 auto; float: left; width: 54%; display: none;"></div>
+          <div id="graph2" style="height: 500px; margin: 0 auto; float: left; width: 46%; display: none;"></div>
+        </div>
+        <div id="customer-usage">
+          <h2>Actual Energy Consumption (kWh/Week)</h2>
         </div>
     </div>
     </div>

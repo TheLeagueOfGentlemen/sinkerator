@@ -244,7 +244,7 @@ App.prototype = {
       var week = weeks[i],
           weekDate = new Date(Number(week['week']));
       weekDates.push(
-        [weekDate.getMonth()+1, weekDate.getDate(), weekDate.getFullYear()].join('-')
+        [weekDate.getMonth()+1, weekDate.getDate(), (weekDate.getFullYear()+'').substr(2)].join('/')
       );
       weekKwh.push(week.kwh);
     }
