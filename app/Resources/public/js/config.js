@@ -27,13 +27,13 @@ module.exports = {
       "aquariums": {
           "wattage": 63,
           "standby_wattage": 0,
-          "name": "Aquariums",
+          "name": "Aquarium",
           "categories": "other_miscellaneous"
       },
       "auto_engine_heaters": {
           "wattage": 1500,
           "standby_wattage": 0,
-          "name": "Auto Engine Heaters",
+          "name": "Auto Engine Heater",
           "categories": "other_miscellaneous"
       },
       "boom_box": {
@@ -45,7 +45,7 @@ module.exports = {
       "broilers": {
           "wattage": 1400,
           "standby_wattage": 0,
-          "name": "Broilers",
+          "name": "Broiler",
           "categories": "kitchen"
       },
       "cable_boxes_standby_losses": {
@@ -99,7 +99,7 @@ module.exports = {
       "compactors": {
           "wattage": 400,
           "standby_wattage": 0,
-          "name": "Compactors",
+          "name": "Compactor",
           "categories": "kitchen"
       },
       "computer_laptop": {
@@ -135,13 +135,13 @@ module.exports = {
       "electric_blankets": {
           "wattage": 400,
           "standby_wattage": 0,
-          "name": "Electric Blankets",
+          "name": "Electric Blanket",
           "categories": "other_miscellaneous"
       },
       "electric_grills": {
           "wattage": 1800,
           "standby_wattage": 0,
-          "name": "Electric Grills",
+          "name": "Electric Grill",
           "categories": "other_miscellaneous"
       },
       "electronic_air_cleanerfilter": {
@@ -159,19 +159,19 @@ module.exports = {
       "fry_pans": {
           "wattage": 1000,
           "standby_wattage": 0,
-          "name": "Fry Pans",
+          "name": "Fry Pan",
           "categories": "kitchen"
       },
       "garage_door_openers": {
           "wattage": 400,
           "standby_wattage": 2.8,
-          "name": "Garage Door Openers",
+          "name": "Garage Door Opener",
           "categories": "other_miscellaneous"
       },
       "gas_grills": {
           "wattage": 0.33,
           "standby_wattage": 0,
-          "name": "Gas Grills",
+          "name": "Gas Grill",
           "categories": "other_miscellaneous"
       },
       "gas_lighting": {
@@ -183,7 +183,7 @@ module.exports = {
       "hair_dryers": {
           "wattage": 710,
           "standby_wattage": 0,
-          "name": "Hair Dryers",
+          "name": "Hair Dryer",
           "categories": "other_miscellaneous"
       },
       "heat_tape": {
@@ -195,7 +195,7 @@ module.exports = {
       "home_copiers": {
           "wattage": 800,
           "standby_wattage": 5.1,
-          "name": "home copiers",
+          "name": "Home Copier",
           "categories": "home_office"
       },
       "home_facsimile_machines_thermal": {
@@ -219,7 +219,7 @@ module.exports = {
       "irons": {
           "wattage": 1100,
           "standby_wattage": 0,
-          "name": "Irons",
+          "name": "Iron",
           "categories": "other_miscellaneous"
       },
       "irrigationpondwaterfall_circulation_pump_[1]": {
@@ -231,13 +231,13 @@ module.exports = {
       "lights": {
           "wattage": 60,
           "standby_wattage": 0,
-          "name": "Lights",
+          "name": "Light",
           "categories": "other_miscellaneous"
       },
       "microwaves": {
           "wattage": 1000,
           "standby_wattage": 2.8,
-          "name": "Microwaves",
+          "name": "Microwave",
           "categories": "kitchen"
       },
       "monitor": {
@@ -249,7 +249,7 @@ module.exports = {
       "pipe_and_gutter_heaters": {
           "wattage": 500,
           "standby_wattage": 0,
-          "name": "Pipe and Gutter Heaters",
+          "name": "Pipe and Gutter Heater",
           "categories": "other_miscellaneous"
       },
       "pool_heater": {
@@ -303,7 +303,7 @@ module.exports = {
       "slow_cookers": {
           "wattage": 200,
           "standby_wattage": 0,
-          "name": "Slow Cookers",
+          "name": "Slow Cooker",
           "categories": "kitchen"
       },
       "spa_on_demand_elec": {
@@ -393,13 +393,13 @@ module.exports = {
       "vcrs": {
           "wattage": 18,
           "standby_wattage": 5.3,
-          "name": "VCRs",
+          "name": "VCR",
           "categories": "home_entertainment"
       },
       "video_games": {
           "wattage": 20,
           "standby_wattage": 0,
-          "name": "Video Games",
+          "name": "Video Game",
           "categories": "home_entertainment"
       },
       "washing_machine": {
