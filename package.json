@@ -9,7 +9,11 @@
     "react": "^0.10.0",
     "underscore": "^1.6.0",
     "watchify": "^0.10.1",
-    "react-tools": "^0.11.2"
+    "react-tools": "^0.11.2",
+    "mustache": "^0.8.2",
+    "select2": "^3.5.1-browserify-fix",
+    "handlebars": "^2.0.0",
+    "chromath": "0.0.6"
   },
   "devDependencies": {},
   "scripts": {

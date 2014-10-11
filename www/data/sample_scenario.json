@@ -1,0 +1,127 @@
+{
+    "name": "Relaxo's House",
+    "sinks": [
+    ],
+    "rooms": [
+        {
+            "name": "Kitchen",
+            "sinks": [
+                {
+                    "sink_id": "microwaves",
+                    "wattage_override": 1200,
+                    "hours_per_day": 0.5
+                },
+                {
+                    "sink_id": "toaster_oven___oven",
+                    "wattage_override": 1200,
+                    "hours_per_day": 1
+                },
+                {
+                    "sink_id": "instant_hot_water",
+                    "wattage_override": null,
+                    "hours_per_day": 0.5
+                },
+                {
+                    "sink_id": "compactors",
+                    "wattage_override": null,
+                    "hours_per_day": 0.333
+                }
+            ]
+        },
+        {
+            "name": "Living Room",
+            "sinks": [
+                {
+                    "sink_id": "dvd_player",
+                    "wattage_override": null,
+                    "hours_per_day": 2
+                },
+                {
+                    "sink_id": "video_games",
+                    "wattage_override": 50,
+                    "hours_per_day": 2
+                },
+                {
+                    "sink_id": "receiver",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "tv_lcd",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                }
+            ]
+        },
+        {
+            "name": "Bedroom #1",
+            "sinks": [
+                {
+                    "sink_id": "lights",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "computer_laptop",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "boom_box",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                }
+            ]
+        },
+        {
+            "name": "Bedroom #2",
+            "sinks": [
+                {
+                    "sink_id": "air_conditioner",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "lights",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "computer_workstation",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "boom_box",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                }
+            ]
+        },
+        {
+            "name": "Bedroom #3",
+            "sinks": [
+                {
+                    "sink_id": "air_conditioner",
+                    "wattage_override": 800,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "lights",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "computer_workstation",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                },
+                {
+                    "sink_id": "boom_box",
+                    "wattage_override": null,
+                    "hours_per_day": 4
+                }
+            ]
+        }
+    ]
+}
