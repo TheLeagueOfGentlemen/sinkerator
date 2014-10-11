@@ -1,6 +1,9 @@
 var $ = require('jquery'),
     guid = require('./guid.js'),
+    Mustache = require('mustache'),
     serialize = require('./form-to-json.js');
+
+window.M = Mustache;
 
 window.$ = $;
 
@@ -10,6 +13,10 @@ var App = function($el, $scenarioForm) {
 };
 
 App.prototype = {
+  templates: {
+    room: 'room-tpl',
+  },
+  compiledTemplates: {},
   state: {},
   init: function() {
     this.state = this.getInitialState();
@@ -205,16 +212,17 @@ App.prototype = {
     this.$roomsEl.html('');
     for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
-      var $el = $([
-          '<div class="room">',
-            '<h2>', room.name, '</h2>',
-            '<ul class="sink-list"></ul>',
-            '<a href="#" class="btn-add-room-appliance" data-room-id="', room.id,'">Add Appliance</a>',
-          '</div>'
-        ].join(''));
+      var $el = $(this.renderTemplate('room', room));
       this.$roomsEl.append($el);
       this.$roomEls[room.id] = $el;
     }
+  },
+  renderTemplate: function(id, view) {
+    var tpl = $('#'+this.templates[id]).text();
+    return Mustache.render(
+      tpl,
+      view
+    );
   }
 };
 
