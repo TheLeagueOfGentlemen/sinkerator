@@ -14,8 +14,9 @@
 <body>
 <div id="app">
 <header>
+  <img src="img/electric.png">
   <ul class="hide-for-medium-down">
-    <li><a href="/"><strong>Unlock</strong></a></li>
+    <li><a href="#"><strong>#TURNDOWNFORWATTS</strong></a></li>
     <li><a href="#">Documentation</a></li>
     <li><a href="#">Settings</a></li>
     <li><a href="#">Help</a></li>
@@ -25,15 +26,19 @@
 <div class="utility">
   <div class="info">
     <h1>Welcome Back, Max</h1>
-    <h2>123, Maple St., Burlington, VT</h2>
+    <h2>668 Creek Farm Rd Colchester, VT 05446</h2>
   </div>
-  <div class="totals customer-totals">
-    <div class="total-watts">0 <strong>kWh</strong></div>
-    <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
-  </div>
-  <div class="totals scenario-totals">
-    <div class="total-watts">0 <strong>kWh</strong></div>
-    <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
+  <div class="totals">
+    <div class="scenario-totals">
+      <div class="large-4 columns">Estimated Usage</div>
+      <div class="large-4 columns total-watts">0 <strong>kWh</strong></div>
+      <div class="large-4 columns total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
+    </div>
+    <div class="customer-totals">
+      <div class="large-4 columns">Avg. Weekly Usage</div>
+      <div class="large-4 columns total-watts">0 <strong>kWh</strong></div>
+      <div class="large-4 columns total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
+    </div>
   </div>
 </div>
   <div class="dashboard">
@@ -92,7 +97,7 @@
             </label>
           </div>
           <div class="large-4 columns">
-            <button id="submit-house" type="submit">Submit</bMy Houseutton>
+            <button id="submit-house" type="submit">Submit</button>
           </div>
         </div>
       </form>
@@ -114,7 +119,7 @@
           <h2>Average vs. Estimated Energy Consumption (kWh/Week)</h2>
           <div class="chart"></div>
         </div>
-    </div>
+      </div>
     </div>
 </div>
 <footer>
@@ -138,7 +143,7 @@
 
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_week}}</strong> Hours/Week / <strong>{{weekly_kwh daily_usage.kwh}}</strong> kWh/week / <strong>${{weekly_cost daily_usage.cost}}</strong>/week
+<strong>{{sink.name}}</strong><br> <span><strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_week}}</strong> Hours/Week / <strong>{{weekly_kwh daily_usage.kwh}}</strong> kWh/week / <strong>${{weekly_cost daily_usage.cost}}</strong>/week</span>
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
@@ -168,28 +173,41 @@
     <input name="hours_per_week" type="number" step="1" min="1" max="24" value="1" required />
   </label>
   </div>
+  <div class="large-12 columns">
   <input type="hidden" name="room_id" value="{{room.id}}" />
   <button type="submit" class="btn-add-room-sink">Add</button>
   <a href="#{{form_id}}" class="btn-remove">Cancel</a>
+  </div>
 </form>
 </script>
 
 <script id="room-totals-tpl" type="x-handlebars-template">
-<span class="small-4 watts"><strong>{{wattage}}</strong> Watts</span>
-<span class="small-4 watts"><strong>{{weekly_kwh kwh}}</strong> kWh/week</span>
-<span class="small-4 cost"><strong>${{weekly_cost cost}}</strong>/week</span>
+<span class="small-6 watts"><strong>{{weekly_kwh kwh}}</strong> kWh/week</span>
+<span class="small-6 cost"><strong>${{weekly_cost cost}}</strong>/week</span>
 </script>
 
 <script id="customer-totals-tpl" type="x-handlebars-template">
-<div class="total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
-<div class="total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ weeks</sup> </div>
+<div class="large-4 columns">Avg. Weekly Usage</div>
+<div class="large-4 columns total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
+<div class="large-4 columns total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ week</sup> </div>
 </script>
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
-<div class="total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
-<div class="total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ week</sup> </div>
+<div class="large-4 columns">Estimated Usage</div>
+<div class="large-4 columns total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
+<div class="large-4 columns total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ week</sup> </div>
 </script>
-<script src="assets/js/app.js"></script>
 
+<script src="../app/Resources/public/js/compenent/app.js"></script>
+<script>
+$(window).scroll(function() {
+    var scroll = $(window).scrollTop();
+    if (scroll > 150) {
+      $(".totals").addClass("fixed fadeDown");
+    } else {
+      $(".totals").removeClass("fixed fadeDown");
+    }
+});
+</script>
 </body>
 </html>
