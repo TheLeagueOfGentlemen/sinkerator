@@ -26,6 +26,10 @@
     <h1>Welcome Back, Max</h1>
     <h2>668 Creek Farm Rd Colchester, VT 05446</h2>
   </div>
+  <div class="totals customer-totals">
+    <div class="total-watts">0 <strong>kWh</strong></div>
+    <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
+  </div>
   <div class="totals scenario-totals">
     <div class="total-watts">0 <strong>kWh</strong></div>
     <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
@@ -111,7 +115,7 @@
   </div>
   <div class="sinks">
     <ul class="sink-list"></ul>
-    <ul>
+    <ul class="add-appliance">
       <li>  
         <a href="#" class="btn-add-room-appliance" data-room-id="{{room.id}}"><strong>+</strong> Add Appliance</a>
       </li>
@@ -164,6 +168,11 @@
 <script id="room-totals-tpl" type="x-handlebars-template">
 <span class="small-4 watts"><strong>{{weekly_kwh kwh}}</strong> kWh/week</span>
 <span class="small-4 cost"><strong>${{weekly_cost cost}}</strong>/week</span>
+</script>
+
+<script id="customer-totals-tpl" type="x-handlebars-template">
+<div class="total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
+<div class="total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ weeks</sup> </div>
 </script>
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
