@@ -9,6 +9,8 @@
     <script src="assets/js/vendor/modernizr.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 </head>
+<body>
+<div id="app">
 <header>
   <ul class="hide-for-medium-down">
     <li><a href="/"><strong>Unlock</strong></a></li>
@@ -23,55 +25,15 @@
     <h1>Welcome Back, Max</h1>
     <h2>123, Maple St., Burlington, VT</h2>
   </div>
-  <div class="totals">
-    <div class="total-watts">2403 <strong>WATTS</strong></div>
-    <div class="total-cost"><strong>$</strong> 150 <sup>/ month</sup> </div>
+
+  <div class="totals scenario-totals">
+    <div class="total-watts">0 <strong>WATTS</strong></div>
+    <div class="total-cost"><strong>$</strong> 0 <sup>/ month</sup> </div>
   </div>
 </div>
-<body>
   <div class="dashboard">
-    <div id="app" class="large-9 columns main">
+    <div class="large-9 columns main">
         <div id="rooms"></div>
-        <script src="assets/js/app.js"></script>
-<script id="room-tpl" type="x-tmpl-handlebars">
-<div class="room">
-  <div class="name">
-    <h2>{{name}}</h2>
-  </div>
-  <div class="sinks">
-  <ul class="sink-list"></ul>
-  </div>
-  <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}">Add Appliance</a>
-        <div class="room-total">
-          <h2>220 Watts</h2>
-        </div>
-</div>
-</script>
-<script id="room-sink-tpl" type="x-tmpl-handlebars">
-<li>
-{{room_sink.sink_id}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{daily_usage.kwh}} kWh/day -- ${{daily_usage.cost}}/day
- <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
-</li>
-</script>
-<script id="add-room-sink-form-tpl" type="x-tmpl-handlebars">
-<form id="{{form_id}}">
-  <select name="sink_id" class="sink-form" required="required">
-      <option></option>
-      {{#sinks}}
-      <option value="{{id}}" data-wattage="{{wattage}}">{{name}}</option>
-      {{/sinks}}
-  </select>
-  <label>Wattage</label>
-    <input type="text" name="wattage" required="required" />
-  </label>
-  <label>Hours per Day</label>
-    <input type="text" name="hours_per_day" />
-  </label>
-  <input type="hidden" name="room_id" value="{{room.id}}" />
-  <button type="submit" class="btn-add-room-sink">Add</button>
-  <a href="#{{form_id}}" class="btn-remove">Cancel</button>
-</form>
-</script>
 </div>
 <div class="large-3 columns sidebar">
   <form class="vertical" id="scenario-form">
@@ -112,38 +74,39 @@
             </label>
             <button type="submit">Submit</button>
           </form>
-          <div class="scenario-totals"></div>
           <div id="rooms"></div>
         </div>
-        <script src="assets/js/app.js"></script>
-<script id="room-tpl" type="x-handlebars-template">
+<script id="room-tpl" type="x-tmpl-handlebars">
 <div class="room">
-  <h2>{{name}}</h2>
+  <div class="name">
+    <h2>{{name}}</h2>
+  </div>
+  <div class="sinks">
   <ul class="sink-list"></ul>
+  </div>
   <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}">Add Appliance</a>
-  <div class="room-totals"></div>
+        <div class="room-total">
+          <h2 class="room-totals"></h2>
+        </div>
 </div>
 </script>
-<script id="room-totals-tpl" type="x-handlebars-template">
-{{wattage}} Watts -- {{kwh}} kWh/day -- ${{cost}}/day
-</script>
-<script id="scenario-totals-tpl" type="x-handlebars-template">
-{{wattage}} Watts -- {{kwh}} kWh/day -- ${{cost}}/day
-</script>
-<script id="room-sink-tpl" type="x-handlebars-template">
+<script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-{{room_sink.sink_id}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{daily_usage.kwh}} kWh/day -- ${{daily_usage.cost}}/day
+{{sink.name}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{daily_usage.kwh}} kWh/day -- ${{daily_usage.cost}}/day
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
 <script id="add-room-sink-form-tpl" type="x-handlebars-template">
 <form id="{{form_id}}">
+  <label>
+  Select an Appliance
   <select name="sink_id" class="sink-form" required="required">
       <option></option>
       {{#sinks}}
       <option value="{{id}}" data-wattage="{{wattage}}">{{name}}</option>
       {{/sinks}}
   </select>
+  </label>
   <label>
     Wattage
     <input type="text" name="wattage" required="required" />
@@ -157,6 +120,14 @@
   <button type="submit" class="btn-add-room-sink">Add</button>
   <a href="#{{form_id}}" class="btn-remove">Cancel</button>
 </form>
+</script>
+
+<script id="room-totals-tpl" type="x-handlebars-template">
+{{wattage}} Watts -- {{kwh}} kWh/day -- ${{cost}}/day
+</script>
+<script id="scenario-totals-tpl" type="x-handlebars-template">
+<div class="total-watts">{{wattage}} <strong>WATTS</strong></div>
+<div class="total-cost"><strong>$</strong> ${{cost}} <sup>/ day</sup> </div>
 </script>
 </div>
 <footer>

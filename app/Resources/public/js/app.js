@@ -145,14 +145,15 @@ App.prototype = {
     });
     this.updateRoomTotals(room);
   },
-  addSinkToRoom: function(sink, room) {
+  addSinkToRoom: function(room_sink, room) {
     var $el = this.getRoomEl(room);
-    room.sinks.push(sink);
+    room.sinks.push(room_sink);
     $el.find('.sink-list').append(
       this.renderTemplate('room_sink', {
-        room_sink: sink,
+        room_sink: room_sink,
+        sink: this.getSink(room_sink.sink_id),
         room: room,
-        daily_usage: this.calculator.getDailyUsageForSink(sink)
+        daily_usage: this.calculator.getDailyUsageForSink(room_sink)
       })
     );
     this.updateRoomTotals(room);
@@ -187,6 +188,9 @@ App.prototype = {
   },
   getRoomEl: function(room) {
     return this.$roomEls[room.id];
+  },
+  getSink: function(sink_id) {
+    return this.state.sinks[sink_id];
   },
   showAddSinkToRoomForm: function(room) {
     var $el = this.getRoomEl(room),
