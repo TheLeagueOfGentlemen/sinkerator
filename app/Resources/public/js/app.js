@@ -112,6 +112,10 @@ App.prototype = {
       e.preventDefault();
       $($(this).attr('href')).remove();
     });
+    this.$el.on('change', '.sink-form', function(e) {
+      var wattage =this.options[this.selectedIndex].getAttribute('data-wattage');
+      $(this).parents('form').find('[name="wattage"]').val(wattage);
+    });
   },
   createRoomSink: function(id, sink_id, wattage, hours_per_day) {
     return {
