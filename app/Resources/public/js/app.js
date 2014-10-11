@@ -3,11 +3,26 @@ var $ = require('jquery'),
 
 window.$ = $;
 
-var $app = $('#app'),
-    $scenarioForm = $('#scenario-form');
+var App = function($el, $scenarioForm) {
+  this.$el = $el;
+  this.$scenarioForm = $scenarioForm;
+};
 
-$scenarioForm.on('submit', function(e) {
-  e.preventDefault();
+App.prototype = {
+  init: function() {
+    this.setupEvents();
+  },
+  setupEvents: function() {
+    $scenarioForm.on('submit', function(e) {
+      e.preventDefault();
 
-  console.log(serialize($('form')));
-});
+      console.log(serialize($('form')));
+    });
+  }
+};
+
+var app = new App(
+  $app = $('#app'),
+  $scenarioForm = $('#scenario-form')
+);
+app.init();
