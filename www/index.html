@@ -33,7 +33,7 @@
     <div id="app" class="large-9 columns main">
         <div id="rooms"></div>
         <script src="assets/js/app.js"></script>
-<script id="room-tpl" type="x-tmpl-mustache">
+<script id="room-tpl" type="x-tmpl-handlebars">
 <div class="room">
   <div class="name">
     <h2>{{name}}</h2>
@@ -47,13 +47,13 @@
         </div>
 </div>
 </script>
-<script id="room-sink-tpl" type="x-tmpl-mustache">
+<script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
 {{room_sink.sink_id}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{daily_usage.kwh}} kWh/day -- ${{daily_usage.cost}}/day
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
-<script id="add-room-sink-form-tpl" type="x-tmpl-mustache">
+<script id="add-room-sink-form-tpl" type="x-tmpl-handlebars">
 <form id="{{form_id}}">
   <select name="sink_id" class="sink-form" required="required">
       <option></option>
