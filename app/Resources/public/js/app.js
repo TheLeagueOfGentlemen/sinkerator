@@ -479,16 +479,27 @@ App.prototype = {
       var room = rooms[i],
           room_sinks = room.sinks,
           color = this.getRoomColor(room),
-          tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
           tint = new Chromath(color);
+          //tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
+          if (room_sinks.length < 11) {
+            var tint_increment = 0.1;
+          }
+          if (room_sinks.length < 6) {
+            var tint_increment = 0.2;
+          }
+          if (room_sinks.length < 3) {
+            var tint_increment = 0.3;
+          }
 
       for (var j = 0; j < room_sinks.length; j++) {
         var room_sink = room_sinks[j],
             sink = this.getSink(room_sink.sink_id),
             total = this.calculator.getDailyUsageForSink(room_sink),
             percent = (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100;
-
-        tint = tint.towards('white', tint_increment);
+        console.log(tint.toString());
+        console.log(tint_increment);
+        tint = tint.tint(tint_increment, tint.toString());
+        //console.log(tint.toString());
         data.series.push({
             name: sink.name,
             color: tint.toString(),
