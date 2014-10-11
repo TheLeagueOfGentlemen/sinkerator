@@ -123,7 +123,7 @@
 
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_day}}</strong> Hours/Week / <strong>{{weekly_kwh daily_usage.kwh}}</strong> kWh/week / <strong>${{weekly_cost daily_usage.cost}}</strong>/week
+<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_week}}</strong> Hours/Week / <strong>{{weekly_kwh daily_usage.kwh}}</strong> kWh/week / <strong>${{weekly_cost daily_usage.cost}}</strong>/week
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
@@ -149,8 +149,8 @@
   </div>
   <div class="large-6 columns">
   <label>
-    Average Hours per Day
-    <input name="hours_per_day" type="number" step="1" min="1" max="24" value="1" required />
+    Average Hours per Week
+    <input name="hours_per_week" type="number" step="1" min="1" max="24" value="1" required />
   </label>
   </div>
   <input type="hidden" name="room_id" value="{{room.id}}" />

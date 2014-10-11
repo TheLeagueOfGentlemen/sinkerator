@@ -108,7 +108,7 @@ App.prototype = {
                 {
                   sink_id: 'boom_box',
                   wattage_override: 5000,
-                  hours_per_day: 5
+                  hours_per_week: 5
                 }
               ]
           }
@@ -143,7 +143,7 @@ App.prototype = {
       e.preventDefault();
       var $form = $(this).parents('form'),
           data = serialize($form),
-          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_day),
+          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_week),
           room = _this.getRoom(data.room_id);
       $form.remove();
       _this.addSinkToRoom(room_sink, room);
@@ -164,12 +164,12 @@ App.prototype = {
       $(this).parents('form').find('[name="wattage"]').val(wattage);
     });
   },
-  createRoomSink: function(id, sink_id, wattage, hours_per_day) {
+  createRoomSink: function(id, sink_id, wattage, hours_per_week) {
     return {
       id: id,
       sink_id: sink_id,
       wattage: Number(wattage),
-      hours_per_day: Number(hours_per_day)
+      hours_per_week: Number(hours_per_week)
     };
   },
   createRoom: function(id, name) {
