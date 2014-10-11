@@ -1,0 +1,113 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Test Graph</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/modules/drilldown.js"></script>
+    </head>
+    <body>
+        <div id="container" style="min-width: 310px; height: 800px; margin: 0 auto"></div>
+    </body>
+    <script>
+    $(function () {
+	    $('#container').highcharts({
+
+	        chart: {
+	            type: 'column'
+	        },
+
+	        title: {
+	            text: 'My House'
+	        },
+
+	        legend: {
+	            //enabled: false
+	        },
+
+	        xAxis: {
+	            type: 'category'
+	        },
+
+	        yAxis: {
+	            //allowDecimals: false,
+	            min: 0,
+	            title: {
+	                text: 'Total Energy Consumption'
+	            }
+	        },
+
+	        tooltip: {
+	            // formatter: function () {
+	            //     return '<b>' + this.x + '</b><br/>' +
+	            //         this.series.name + ': ' + this.y + '<br/>' +
+	            //         'Total: ' + this.point.stackTotal;
+	            // }
+	        },
+
+	        plotOptions: {
+	            column: {
+	                stacking: 'percent'
+	            }
+	        },
+
+	        series: [{
+	            name: 'Kitchen',
+	            data: [{
+	            	name: 'My House',
+	            	y: 5,
+	            	drilldown: 'kitchen'
+	            }]
+	        }, {
+	        	name: 'Master Bedroom',
+	        	data: [{
+	        		name: 'My House',
+	        		y: 3,
+	        		drilldown: 'master bedroom'
+	        	}]
+	        }, {
+	        	name: 'Bathroom',
+	        	data: [{
+	        		name: 'My House',
+	        		y: 2,
+	        		drilldown: 'bathroom'
+	        	}]
+	        }],
+	        drilldown: {
+	        	series: [{
+	            	//colorByPoint: true,
+	        		id: 'kitchen',
+	        		name: 'Kitchen',
+	        		stacking: 'normal',
+	        		data: [
+	        			['Stove', 3],
+	        			['Microwave', 2],
+	        			['Toaster', 1]
+	        		]
+	        	}, {
+	        		id: 'master bedroom',
+	        		name: 'Master Bedroom',
+	        		data: [
+	        			['Television', 2],
+	        			['Lamp', 1],
+	        			['Lamp', 1]
+	        		]
+	        	}, {
+	        		id: 'bathroom',
+	        		name: 'Bathroom',
+	        		data: [
+	        			['Lamp', 1],
+	        			['Lamp', 1]
+	        		]
+	        	}]
+	        }
+	    });
+	});
+    </script>
+</html>
