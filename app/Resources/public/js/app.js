@@ -1,7 +1,5 @@
 var $ = require('jquery'),
     guid = require('./guid.js'),
-    Room = require('./room.js'),
-    Sink = require('./sink.js'),
     serialize = require('./form-to-json.js');
 
 window.$ = $;
@@ -86,20 +84,44 @@ App.prototype = {
       e.preventDefault();
       var $form = $(this).parents('form'),
           data = serialize($form),
-          sink = new Sink(data.sink_id),
+          sink = _this.createSink(data.sink_id),
           room = _this.getRoom(data.room_id);
       $form.remove();
       _this.addSinkToRoom(sink, room);
     });
+    this.$roomsEl.on('click', '.btn-remove-room-sink', function(e) {
+      e.preventDefault();
+      var sink_id = this.getAttribute('data-sink-id'),
+          room = _this.getRoom(this.getAttribute('data-room-id'));
+      _this.removeSinkFromRoomById(sink_id, room);
+      $(this).parent().remove();
+    });
+  },
+  createSink: function(id) {
+    return {
+      id: id
+    };
+  },
+  createRoom: function(id, name) {
+    return {
+      id: id,
+      name: name,
+      sinks: []
+    };
+  },
+  removeSinkFromRoomById: function(sink_id, room) {
+    room.sinks = room.sinks.filter(function(sink) {
+      return sink.id != sink_id;
+    });
   },
   addSinkToRoom: function(sink, room) {
     var $el = this.getRoomEl(room);
-    room.sinks.append(sink);
+    room.sinks.push(sink);
     $el.find('.sink-list').append(
       [
         '<li>',
            sink.id,
-           '<a href="#" class="btn-remove-sink">X</a>',
+           '<a href="#" class="btn-remove-room-sink" data-room-id="', room.id,'" data-sink-id="', sink.id, '">X</a>',
          '</li>'
       ].join('')
     );
@@ -111,7 +133,7 @@ App.prototype = {
         return room;
       }
     }
-    return false;
+    throw new Error('Couldnt find room with id'+id);
   },
   getRoomEl: function(room) {
     return this.$roomEls[room.id];
@@ -153,16 +175,22 @@ App.prototype = {
       for (var i = 0; i < room_names.length; i++) {
         var room_name = room_names[i];
         if (scenario[room_name]) {
-          rooms.push(new Room(guid(), scenario[room_name]));
+          rooms.push(
+            this.createRoom(guid(), scenario[room_name])
+          );
         }
       }
 
       for (var k = 1; k <= num_bedrooms; k++) {
-          rooms.push(new Room(guid(), 'Bedroom '+k));
+          rooms.push(
+            this.createRoom(guid(), 'Bedroom '+k)
+          );
       };
 
       for (var j = 1; j <= num_bathrooms; j++) {
-          rooms.push(new Room(guid(), 'Bathroom '+j));
+          rooms.push(
+            this.createRoom(guid(), 'Bathroom '+k)
+          );
       };
 
       return rooms;
