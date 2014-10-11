@@ -169,12 +169,6 @@ module.exports = {
           "name": "Espresso Maker",
           "categories": "kitchen"
       },
-      "fry_pans": {
-          "wattage": 1000,
-          "standby_wattage": 0,
-          "name": "Fry Pan",
-          "categories": "kitchen"
-      },
       "garage_door_openers": {
           "wattage": 400,
           "standby_wattage": 2.8,

@@ -17,6 +17,10 @@ Handlebars.registerHelper('commafy', function(value) {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 });
 
+Handlebars.registerHelper('daily_to_weekly', function(value) {
+  return value * 7;
+});
+
 Handlebars.registerHelper('daily_to_monthly', function(value) {
   return value * 30;
 });
@@ -282,7 +286,7 @@ App.prototype = {
             spacingRight: 0
         },
         title: {
-            text: 'My Rooms'
+            text: 'Rooms'
         },
         legend: {
             enabled: false
@@ -411,7 +415,7 @@ App.prototype = {
             spacingLeft: 0
         },
         title: {
-            text: 'My Appliances'
+            text: 'Appliances'
         },
         legend: {
             enabled: false
@@ -464,7 +468,7 @@ App.prototype = {
       var room = rooms[i],
           room_sinks = room.sinks,
           color = this.getRoomColor(room),
-          tint_increment = room_sinks.length ? (1 / (room_sinks.length + 1)) : null,
+          tint_increment = room_sinks.length ? (1 / (room_sinks.length * 1.75)) : null,
           tint = new Chromath(color);
 
       for (var j = 0; j < room_sinks.length; j++) {
@@ -475,7 +479,7 @@ App.prototype = {
 
         tint = tint.towards('white', tint_increment);
         data.series.push({
-            name: room.name + ' ' + sink.name,
+            name: sink.name,
             color: tint.toString(),
             data: [{
               name: room.name + ' ' + sink.name,
