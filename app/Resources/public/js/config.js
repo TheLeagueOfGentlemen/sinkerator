@@ -48,12 +48,6 @@ module.exports = {
             "name": "home copiers",
             "categories": "home_office"
         },
-        "rechargable_handheld_vacuum_charging": {
-            "wattage": 0,
-            "standby_wattage": 5,
-            "name": "Rechargable Handheld Vacuum (charging)",
-            "categories": "other_miscellaneous"
-        },
         "compactors": {
             "wattage": 400,
             "standby_wattage": 0,
@@ -156,24 +150,6 @@ module.exports = {
             "name": "Coffee Maker: Percolater (Warm)",
             "categories": "kitchen"
         },
-        "dehumidifiers": {
-            "wattage": 46,
-            "standby_wattage": 0,
-            "name": "Dehumidifiers",
-            "categories": "other_miscellaneous"
-        },
-        "instant_hot_water": {
-            "wattage": 0,
-            "standby_wattage": 18,
-            "name": "Instant Hot Water",
-            "categories": "kitchen"
-        },
-        "bottled_water_dispenser": {
-            "wattage": 0,
-            "standby_wattage": 34,
-            "name": "Bottled Water Dispenser",
-            "categories": "kitchen"
-        },
         "vcrs": {
             "wattage": 18,
             "standby_wattage": 5.3,
@@ -196,12 +172,6 @@ module.exports = {
             "wattage": 710,
             "standby_wattage": 0,
             "name": "Hair Dryers",
-            "categories": "other_miscellaneous"
-        },
-        "clock": {
-            "wattage": 0,
-            "standby_wattage": 1,
-            "name": "Clock",
             "categories": "other_miscellaneous"
         },
         "garage_door_openers": {
@@ -306,12 +276,6 @@ module.exports = {
             "name": "TV (CRT - Projection)",
             "categories": "home_entertainment"
         },
-        "doorbell": {
-            "wattage": 0,
-            "standby_wattage": 5,
-            "name": "Doorbell",
-            "categories": "other_miscellaneous"
-        },
         "microwaves": {
             "wattage": 1000,
             "standby_wattage": 2.8,
@@ -323,12 +287,6 @@ module.exports = {
             "standby_wattage": 2.2,
             "name": "Telephone Answering Machine",
             "categories": "home_entertainment"
-        },
-        "water_bed_heaters": {
-            "wattage": 0,
-            "standby_wattage": 102,
-            "name": "Water Bed Heaters",
-            "categories": "other_miscellaneous"
         },
         "fry_pans": {
             "wattage": 1000,
@@ -347,12 +305,6 @@ module.exports = {
             "standby_wattage": 0,
             "name": "Auto Engine Heaters",
             "categories": "other_miscellaneous"
-        },
-        "spa_24_hour_elec": {
-            "wattage": 0,
-            "standby_wattage": 263,
-            "name": "Spa (24 hour elec)",
-            "categories": "hot_tub_pool_pumps"
         },
         "spa_on_demand_elec": {
             "wattage": 5500,
@@ -414,18 +366,6 @@ module.exports = {
             "name": "Espresso Maker",
             "categories": "kitchen"
         },
-        "well_pump": {
-            "wattage": 0,
-            "standby_wattage": 0,
-            "name": "Well Pump",
-            "categories": "hot_tub_pool_pumps"
-        },
-        "laptop_charger": {
-            "wattage": 0,
-            "standby_wattage": 4.5,
-            "name": "Laptop Charger",
-            "categories": "home_office"
-        },
         "pool_pump": {
             "wattage": 2250,
             "standby_wattage": 0,
@@ -449,12 +389,6 @@ module.exports = {
             "standby_wattage": 4.2,
             "name": "Printers (Inkjet)",
             "categories": "home_office"
-        },
-        "spa_24_hour_gas": {
-            "wattage": 0,
-            "standby_wattage": 12,
-            "name": "Spa (24 hour gas)",
-            "categories": "hot_tub_pool_pumps"
         },
         "electronic_air_cleanerfilter": {
             "wattage": 50,
