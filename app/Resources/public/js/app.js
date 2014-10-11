@@ -1,6 +1,7 @@
 var $ = require('jquery'),
     guid = require('./guid.js'),
     select2 = require('select2'),
+    HighCharts = require('highcharts-browserify'),
     state = require('./config.js'),
     Handlebars = require('handlebars'),
     Calculator = require('./calculator.js'),
