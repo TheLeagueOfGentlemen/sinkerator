@@ -315,14 +315,14 @@ App.prototype = {
               stacking: 'percent',
               dataLabels: {
                 enabled: true,
-                color: '#ffffff',
+                color: '#000000',
                 formatter: function(){
                   return this.point.name;
                 },
                 style: {
                   fontSize: '12px',
                   fontWeight: 'bold',
-                  textShadow: '1px 1px 3px #000000'
+                  textShadow: '1px 1px 8px #ffffff'
                 }
               }
             },
@@ -447,14 +447,14 @@ App.prototype = {
             series: {
               dataLabels: {
                 enabled: true,
-                color: '#ffffff',
+                color: '#000000',
                 formatter: function(){
                   return this.series.name;
                 },
                 style: {
                   fontSize: '12px',
                   fontWeight: 'bold',
-                  textShadow: '1px 1px 3px #000000'
+                  textShadow: '1px 1px 8px #ffffff'
                 }
               },
               pointPadding: 0
