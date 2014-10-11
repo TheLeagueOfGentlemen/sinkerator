@@ -60,6 +60,30 @@ module.exports = {
             "name": "Compactors",
             "categories": "kitchen"
         },
+        "dryer": {
+            "wattage": 3400,
+            "standby_wattage": 0,
+            "name": "Clothes Dryer",
+            "categories": "other_miscellaneous"
+        },
+        "washing_machine": {
+            "wattage": 750,
+            "standby_wattage": 0,
+            "name": "Washing Machine",
+            "categories": "other_miscellaneous"
+        },
+        "refrigerator": {
+            "wattage": 600,
+            "standby_wattage": 0,
+            "name": "Refrigerator",
+            "categories": "kitchen"
+        },
+        "chest_freezer": {
+            "wattage": 600,
+            "standby_wattage": 0,
+            "name": "Chest Freezer",
+            "categories": "kitchen"
+        },
         "aquariums": {
             "wattage": 63,
             "standby_wattage": 0,
@@ -155,6 +179,12 @@ module.exports = {
             "standby_wattage": 5.3,
             "name": "VCRs",
             "categories": "home_entertainment"
+        },
+        "ceiling_fan": {
+            "wattage": 100,
+            "standby_wattage": 0,
+            "name": "Ceiling Fan",
+            "categories": "other_miscellaneous"
         },
         "monitor": {
             "wattage": 84,
