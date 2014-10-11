@@ -133,9 +133,35 @@ header ul li a {
 .main:hover .room {
 	opacity: .8;
 }
+
+.grey-bar {
+    background: #EEE;
+}
+.rel-wrap {
+    position: relative;
+}
+.grey-bar i,
+.grey-bar button#reset-house {
+    display: none;
+}
+.grey-bar.collapsed {
+    height: 55px;
+}
+.grey-bar.collapsed button#reset-house {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    padding: 13px;
+}
+.grey-bar.collapsed i {
+    display: block;
+    text-align: center;
+    font-size: 48px;
+}
 #scenario-form {
 	padding: 20px 20px 10px;
-	background: #EEE;
 	margin: 0;
 }
 .main .room {
