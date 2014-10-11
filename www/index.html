@@ -6,6 +6,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.css" />
         <link type="text/css" rel="stylesheet" href="styles.css" />
     </head>
     <body>
@@ -57,7 +58,11 @@
   <h2>{{name}}</h2>
   <ul class="sink-list"></ul>
   <a href="#" class="btn-add-room-appliance" data-room-id="{{id}}">Add Appliance</a>
+  <div class="room-totals"></div>
 </div>
+</script>
+<script id="room-totals-tpl" type="x-tmpl-mustache">
+{{kwh}} kWh/day -- ${{cost}}/day
 </script>
 <script id="room-sink-tpl" type="x-tmpl-mustache">
 <li>

@@ -5,6 +5,8 @@ var $ = require('jquery'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
+require('select2');
+
 var App = function($el, $roomsEl, $scenarioForm, state) {
   this.$el = $el;
   this.$roomsEl = $roomsEl;
@@ -15,6 +17,7 @@ var App = function($el, $roomsEl, $scenarioForm, state) {
 App.prototype = {
   templates: {
     room: 'room-tpl',
+    room_totals: 'room-totals-tpl',
     room_sink: 'room-sink-tpl',
     add_room_sink_form: 'add-room-sink-form-tpl'
   },
@@ -139,6 +142,7 @@ App.prototype = {
     room.sinks = room.sinks.filter(function(sink) {
       return sink.id != id;
     });
+    this.updateRoomTotals(room);
   },
   addSinkToRoom: function(sink, room) {
     var $el = this.getRoomEl(room);
@@ -149,6 +153,14 @@ App.prototype = {
         room: room,
         daily_usage: this.calculator.getDailyUsageForSink(sink)
       })
+    );
+    this.updateRoomTotals(room);
+  },
+  updateRoomTotals: function(room) {
+    var roomTotal = this.calculator.getDailyUsageForCollection(room.sinks),
+        $roomEl = this.getRoomEl(room);
+    $roomEl.find('.room-totals').html(
+      this.renderTemplate('room_totals', this.calculator.getDailyUsageForCollection(room.sinks))
     );
   },
   getRoom: function(id) {
