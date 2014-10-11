@@ -327,7 +327,12 @@ App.prototype = {
     data.series = [];
     for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i],
-          total = this.calculator.getDailyUsageForCollection(room.sinks);
+          total = this.calculator.getDailyUsageForCollection(room.sinks),
+          percent = (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100;
+
+      if (percent == 0) {
+        continue;
+      }
 
       data.series.push({
           name: room.name,
@@ -458,14 +463,16 @@ App.prototype = {
       for (var j = 0; j < room_sinks.length; j++) {
         var room_sink = room_sinks[j],
             sink = this.getSink(room_sink.sink_id),
-            total = this.calculator.getDailyUsageForSink(room_sink);
+            total = this.calculator.getDailyUsageForSink(room_sink),
+            percent = (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100;
+
         tint = tint.towards('white', tint_increment);
         data.series.push({
             name: room.name + ' ' + sink.name,
             color: tint.toString(),
             data: [{
               name: room.name + ' ' + sink.name,
-              y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
+              y: percent
             }]
         });
       }
