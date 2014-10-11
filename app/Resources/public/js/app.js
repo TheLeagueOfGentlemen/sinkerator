@@ -188,6 +188,11 @@ App.prototype = {
       var wattage =this.options[this.selectedIndex].getAttribute('data-wattage');
       $(this).parents('form').find('[name="wattage"]').val(wattage);
     });
+    this.$el.on('click', '.btn-toggle-search', function(e) {
+      e.preventDefault();
+      $(this).hide();
+      _this.toggleScenarioForm();
+    });
   },
   createRoomSink: function(id, sink_id, wattage, hours_per_week) {
     return {
@@ -694,7 +699,7 @@ App.prototype = {
   },
   renderRooms: function(house_name, rooms) {
     this.$roomsEl.html([
-        '<h2>', house_name, '</h2>',
+        '<h2>', house_name, ' <small><a href="#" class="btn-toggle-search">Edit</a></small></h2>',
       ].join(''));
       for (var i = 0; i < rooms.length; i++) {
       var room = rooms[i];
