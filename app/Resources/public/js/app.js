@@ -249,16 +249,8 @@ App.prototype = {
       weekKwh.push(week.kwh);
     }
     this.$customerUsageEl.slideDown();
-    $('<div>').appendTo(this.$customerUsageEl).highcharts({
+    this.customerChart = $('<div>').appendTo(this.$customerUsageEl).highcharts({
             title: null,
-            // title: {
-            //     text: 'Actual Energy Consumption (kWh/Week)',
-            //     x: -20 //center
-            // },
-            // subtitle: {
-            //     text: 'Source: GreenMountainPower.com',
-            //     x: -20
-            // },
             xAxis: {
                 categories: weekDates
             },
@@ -280,6 +272,7 @@ App.prototype = {
                 data: weekKwh
             }]
         });
+
     this.$customerUsageEl.data('initialized', true);
   },
   updateCustomerData: function() {
@@ -299,7 +292,7 @@ App.prototype = {
     $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
-    this.updateGraphs();
+    this.updateGraphs(totals);
   },
   getRoom: function(id) {
     for (var i = 0; i < this.state.scenario.rooms.length; i++) {
@@ -543,10 +536,7 @@ App.prototype = {
             sink = this.getSink(room_sink.sink_id),
             total = this.calculator.getDailyUsageForSink(room_sink),
             percent = (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100;
-        console.log(tint.toString());
-        console.log(tint_increment);
         tint = tint.tint(tint_increment, tint.toString());
-        //console.log(tint.toString());
         data.series.push({
             name: sink.name,
             color: tint.toString(),
@@ -618,13 +608,24 @@ App.prototype = {
     //     }];
     return data;
   },
-  updateGraphs: function() {
+  updateGraphs: function(total) {
+    var yAxis = this.customerChart.highcharts().yAxis[0];
     if (!this.state.scenario.totals.wattage) {
       $('#graph1').hide();
       $('#graph2').hide();
       $('#no-graph-message').show();
+      yAxis.removePlotLine('estimated');
       return false;
     }
+    yAxis.addPlotLine({
+        value: total.kwh*7,
+        color: 'red',
+        width: 2,
+        id: 'estimated',
+        label: {
+          text: 'Estimated Usage'
+        }
+    });
     $('#no-graph-message').hide();
     $('#graph1').show().highcharts(this.buildRoomGraphData());
     $('#graph2').show().highcharts(this.buildApplianceGraphData());
