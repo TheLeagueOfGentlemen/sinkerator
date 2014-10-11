@@ -116,6 +116,9 @@ App.prototype = {
       var wattage =this.options[this.selectedIndex].getAttribute('data-wattage');
       $(this).parents('form').find('[name="wattage"]').val(wattage);
     });
+    this.$el.on('change', '[name="hours_per_day"]', function(e) {
+      $(this).parent().find('.hours-per-day').text(this.value);
+    });
   },
   createRoomSink: function(id, sink_id, wattage, hours_per_day) {
     return {
