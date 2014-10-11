@@ -155,7 +155,7 @@
   </div>
   <input type="hidden" name="room_id" value="{{room.id}}" />
   <button type="submit" class="btn-add-room-sink">Add</button>
-  <a href="#{{form_id}}" class="btn-remove">Cancel</button>
+  <a href="#{{form_id}}" class="btn-remove">Cancel</a>
 </form>
 </script>
 
@@ -167,6 +167,7 @@
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
 <div class="total-watts">{{commafy wattage}} <strong>WATTS</strong></div>
+<div class="total-kwh">{{commafy kwh}} <strong>KWH<</strong></div>
 <div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
 </script>
 <script src="assets/js/app.js"></script>
