@@ -261,14 +261,26 @@ App.prototype = {
   showWeeklyCustomerKwh: function() {
     var weekDates = [],
         weekKwh = [],
-        weeks = this.state.customer_data.weekly.slice(0, 12);
+        weeks = this.state.customer_data.weekly,
+        today = new Date(),
+        startAppending = false,
+        count = 0,
+        twoWeeksAgoLastYear = new Date(new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()) - 12096e5); // 14 days ago last year
+
     for (var i = 0; i < weeks.length; i++) {
-      var week = weeks[i],
+        var week = weeks[i],
           weekDate = new Date(Number(week['week']));
-      weekDates.push(
-        [weekDate.getMonth()+1, weekDate.getDate(), (weekDate.getFullYear()+'').substr(2)].join('/')
-      );
-      weekKwh.push(week.kwh);
+
+        if (weekDate.getTime() > twoWeeksAgoLastYear.getTime()) {
+          startAppending = true;
+        }
+        if (startAppending && count < 12) {
+            weekDates.push(
+                [weekDate.getMonth() + 1, weekDate.getDate(), (weekDate.getFullYear() + '').substr(2)].join('/')
+            );
+            weekKwh.push(week.kwh);
+            count++;
+        }
     }
     var series = [{
         name: 'kWh per Week',
