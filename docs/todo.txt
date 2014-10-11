@@ -1,0 +1,5 @@
+[ ] Move scenario form to left side and hide after submitting
+[ ] Add sidebar for graph data
+[ ] Generate graphs on update of totals
+[ ] Make wattage/hours per day a two column layout so they are on the same line
+[ ] Change Select an Appliance to use select2
