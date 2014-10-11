@@ -307,7 +307,7 @@ header ul li a:hover {
 	margin-top: 10px;
 	padding: 0 20px;
 }
-.main .room ul form > .large-12 {
+.main .room ul form > .large-12:last-child {
 	text-align: right;
 }
 .main .room ul form > div:last-child button {
