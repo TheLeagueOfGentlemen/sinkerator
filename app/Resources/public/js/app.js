@@ -185,6 +185,7 @@ App.prototype = {
     $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
+    this.updateGraphs();
   },
   getRoom: function(id) {
     for (var i = 0; i < this.state.scenario.rooms.length; i++) {
@@ -229,6 +230,205 @@ App.prototype = {
     this.state.scenario.rooms = rooms;
     this.renderRooms(rooms);
     this.updateScenarioTotals();
+  },
+  updateGraphs: function() {
+    $('#graph1').highcharts({
+
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: 'My House'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        xAxis: {
+            type: 'category'
+        },
+
+        yAxis: {
+            //allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Total Energy Consumption'
+            }
+        },
+
+        tooltip: {
+            // formatter: function () {
+            //     return '<b>' + this.x + '</b><br/>' +
+            //         this.series.name + ': ' + this.y + '<br/>' +
+            //         'Total: ' + this.point.stackTotal;
+            // }
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        },
+
+        series: [{
+            name: 'Kitchen',
+            color: '#1E5799',
+            data: [{
+              name: 'My Rooms',
+              y: 6,
+              drilldown: 'kitchen'
+            }]
+        }, {
+          name: 'Master Bedroom',
+          color: '#961E1E',
+          data: [{
+            name: 'My Rooms',
+            y: 4,
+            drilldown: 'master bedroom'
+          }]
+        }, {
+          name: 'Bathroom',
+          color: '#1E961E',
+          data: [{
+            name: 'My Rooms',
+            y: 2,
+            drilldown: 'bathroom'
+          }]
+        }],
+        drilldown: {
+          series: [{
+              //colorByPoint: true,
+            stacking: 'normal',
+            id: 'kitchen',
+            name: 'Kitchen',
+            data: [
+              ['Stove', 3],
+              ['Microwave', 2],
+              ['Toaster', 1]
+            ]
+          }, {
+              //colorByPoint: true,
+            stacking: 'normal',
+            id: 'master bedroom',
+            name: 'Master Bedroom',
+            data: [
+              ['Television', 2],
+              ['Lamp', 1],
+              ['Lamp', 1]
+            ]
+          }, {
+              //colorByPoint: true,
+            stacking: 'normal',
+            id: 'bathroom',
+            name: 'Bathroom',
+            data: [
+              ['Lamp', 1],
+              ['Lamp', 1]
+            ]
+          }]
+        }
+    });
+  $('#graph2').highcharts({
+
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: 'My Rooms'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        xAxis: {
+            type: 'category'
+        },
+
+        yAxis: {
+            labels: {
+              enabled: false
+            },
+            title: {
+              text: null
+            }
+        },
+
+        tooltip: {
+            // formatter: function () {
+            //     return '<b>' + this.x + '</b><br/>' +
+            //         this.series.name + ': ' + this.y + '<br/>' +
+            //         'Total: ' + this.point.stackTotal;
+            // }
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        },
+
+        series: [{
+            name: 'Kitchen - Stove',
+            color: '#1E5799',
+            data: [{
+              name: 'My Sinks',
+              y: 3
+            }]
+        }, {
+          name: 'Kitchen - Microwave',
+          color: '#1E5799',
+          data: [{
+            name: 'My Sinks',
+            y: 2
+          }]
+        }, {
+          name: 'Kitchen - Toaster',
+          color: '#1E5799',
+          data: [{
+            name: 'My Sinks',
+            y: 1
+          }]
+        }, {
+          name: 'Master Bedroom - Television',
+          color: '#961E1E',
+          data: [{
+            name: 'My Sinks',
+            y: 2
+          }]
+        }, {
+          name: 'Master Bedroom - Lamp',
+          color: '#961E1E',
+          data: [{
+            name: 'My Sinks',
+            y: 1
+          }]
+        }, {
+          name: 'Master Bedroom - Lamp',
+          color: '#961E1E',
+          data: [{
+            name: 'My Sinks',
+            y: 1
+          }]
+        }, {
+          name: 'Bedroom - Lamp',
+          color: '#1E961E',
+          data: [{
+            name: 'My Sinks',
+            y: 1
+          }]
+        }, {
+          name: 'Bedroom - Lamp',
+          color: '#1E961E',
+          data: [{
+            name: 'My Sinks',
+            y: 1
+          }]
+        }]
+    });
   },
   buildRoomsFromScenario: function(scenario) {
       var rooms = [],
