@@ -19,7 +19,8 @@ App.prototype = {
     room: 'room-tpl',
     room_totals: 'room-totals-tpl',
     room_sink: 'room-sink-tpl',
-    add_room_sink_form: 'add-room-sink-form-tpl'
+    add_room_sink_form: 'add-room-sink-form-tpl',
+    scenario_totals: 'scenario-totals-tpl'
   },
   compiledTemplates: {},
   state: {},
@@ -161,6 +162,13 @@ App.prototype = {
         $roomEl = this.getRoomEl(room);
     $roomEl.find('.room-totals').html(
       this.renderTemplate('room_totals', this.calculator.getDailyUsageForCollection(room.sinks))
+    );
+    this.updateScenarioTotals();
+  },
+  updateScenarioTotals: function() {
+    var totals = this.calculator.getDailyUsageForScenario(this.state.scenario);
+    this.$el.find('.scenario-totals').html(
+      this.renderTemplate('scenario_totals', totals)
     );
   },
   getRoom: function(id) {

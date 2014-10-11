@@ -50,6 +50,7 @@
             </label>
             <button type="submit">Submit</button>
           </form>
+          <div class="scenario-totals"></div>
           <div id="rooms"></div>
         </div>
         <script src="assets/js/app.js"></script>
@@ -62,6 +63,9 @@
 </div>
 </script>
 <script id="room-totals-tpl" type="x-tmpl-mustache">
+{{kwh}} kWh/day -- ${{cost}}/day
+</script>
+<script id="scenario-totals-tpl" type="x-tmpl-mustache">
 {{kwh}} kWh/day -- ${{cost}}/day
 </script>
 <script id="room-sink-tpl" type="x-tmpl-mustache">
