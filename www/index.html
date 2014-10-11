@@ -54,7 +54,7 @@
           <div id="rooms"></div>
         </div>
         <script src="assets/js/app.js"></script>
-<script id="room-tpl" type="x-tmpl-mustache">
+<script id="room-tpl" type="x-handlebars-template">
 <div class="room">
   <h2>{{name}}</h2>
   <ul class="sink-list"></ul>
@@ -62,19 +62,19 @@
   <div class="room-totals"></div>
 </div>
 </script>
-<script id="room-totals-tpl" type="x-tmpl-mustache">
+<script id="room-totals-tpl" type="x-handlebars-template">
 {{wattage}} Watts -- {{kwh}} kWh/day -- ${{cost}}/day
 </script>
-<script id="scenario-totals-tpl" type="x-tmpl-mustache">
+<script id="scenario-totals-tpl" type="x-handlebars-template">
 {{wattage}} Watts -- {{kwh}} kWh/day -- ${{cost}}/day
 </script>
-<script id="room-sink-tpl" type="x-tmpl-mustache">
+<script id="room-sink-tpl" type="x-handlebars-template">
 <li>
 {{room_sink.sink_id}} -- {{room_sink.wattage}} Watts -- {{room_sink.hours_per_day}} Hours/Day -- {{daily_usage.kwh}} kWh/day -- ${{daily_usage.cost}}/day
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
-<script id="add-room-sink-form-tpl" type="x-tmpl-mustache">
+<script id="add-room-sink-form-tpl" type="x-handlebars-template">
 <form id="{{form_id}}">
   <select name="sink_id" class="sink-form" required="required">
       <option></option>

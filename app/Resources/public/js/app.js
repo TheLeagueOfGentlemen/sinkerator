@@ -1,7 +1,7 @@
 var $ = require('jquery'),
     guid = require('./guid.js'),
     state = require('./config.js'),
-    Mustache = require('mustache'),
+    Handlebars = require('handlebars'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
@@ -161,7 +161,7 @@ App.prototype = {
     var roomTotal = this.calculator.getDailyUsageForCollection(room.sinks),
         $roomEl = this.getRoomEl(room);
     $roomEl.find('.room-totals').html(
-      this.renderTemplate('room_totals', this.calculator.getDailyUsageForCollection(room.sinks))
+      roomTotal.wattage ? this.renderTemplate('room_totals', this.calculator.getDailyUsageForCollection(room.sinks)) : ''
     );
     this.updateScenarioTotals();
   },
@@ -255,11 +255,12 @@ App.prototype = {
     }
   },
   renderTemplate: function(id, view) {
-    var tpl = $('#'+this.templates[id]).text();
-    return Mustache.render(
-      tpl,
-      view
-    );
+    if (!this.compiledTemplates[id]) {
+      this.compiledTemplates[id] = Handlebars.compile(
+        $('#'+this.templates[id]).html()
+      );
+    }
+    return this.compiledTemplates[id](view);
   }
 };
 

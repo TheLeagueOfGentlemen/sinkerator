@@ -11,7 +11,8 @@
     "watchify": "^0.10.1",
     "react-tools": "^0.11.2",
     "mustache": "^0.8.2",
-    "select2": "^3.5.1-browserify-fix"
+    "select2": "^3.5.1-browserify-fix",
+    "handlebars": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {
