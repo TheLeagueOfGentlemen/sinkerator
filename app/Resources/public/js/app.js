@@ -5,8 +5,9 @@ var $ = require('jquery'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
-var App = function($el, $scenarioForm, state) {
+var App = function($el, $roomsEl, $scenarioForm, state) {
   this.$el = $el;
+  this.$roomsEl = $roomsEl;
   this.$scenarioForm = $scenarioForm;
   this.state = state;
 };
@@ -20,7 +21,6 @@ App.prototype = {
   compiledTemplates: {},
   state: {},
   init: function() {
-    this.$roomsEl = $('<div id="rooms"></div>').appendTo(this.$el);
     this.setupEvents();
     this.calculator = new Calculator(
       this.state.sinks,
@@ -77,7 +77,7 @@ App.prototype = {
   },
   setupEvents: function() {
     var _this = this;
-    $scenarioForm.on('submit', function(e) {
+    this.$scenarioForm.on('submit', function(e) {
       e.preventDefault();
 
       var rooms =_this.buildRoomsFromScenario(
@@ -96,7 +96,7 @@ App.prototype = {
       e.preventDefault();
       var $form = $(this).parents('form'),
           data = serialize($form),
-          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_day), // FIXME: Dont hardcode standby wattage
+          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_day),
           room = _this.getRoom(data.room_id);
       $form.remove();
       _this.addSinkToRoom(room_sink, room);
@@ -235,8 +235,9 @@ App.prototype = {
 };
 
 var app = new App(
-  $app = $('#app'),
-  $scenarioForm = $('#scenario-form'),
+  $('#app'),
+  $('#rooms'),
+  $('#scenario-form'),
   state
 );
 app.init();
