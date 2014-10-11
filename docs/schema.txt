@@ -1,6 +1,7 @@
 Sink
     Name
     Wattage
+    IsHouseWide
 
 Category (eg Entertainment, Cooking, Climate Control)
     Name
@@ -9,9 +10,10 @@ SinkTypeCategory
     SinkType
     Category
 
-RoomScenarioSink
+ScenarioSink
     Sink
-    RoomScenario
+    Scenario
+    RoomScenario (nullable, if its null it means it applies to the whole house)
     HoursPerDay
     WattageOverride
 
