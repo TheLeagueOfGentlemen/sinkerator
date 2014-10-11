@@ -286,6 +286,7 @@ App.prototype = {
         marker: {
           enabled: false
         },
+        label: null,
         data: [this.state.scenario.totals.kwh*7]
       });
       yPlotlines.push({
