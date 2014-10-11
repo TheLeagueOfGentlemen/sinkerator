@@ -2,6 +2,7 @@ var $ = require('jquery'),
     guid = require('./guid.js'),
     select2 = require('select2'),
     HighCharts = require('highcharts-browserify'),
+    Chromath = require('chromath'),
     state = require('./config.js'),
     Handlebars = require('handlebars'),
     Calculator = require('./calculator.js'),
@@ -47,8 +48,11 @@ App.prototype = {
       this.state.average_kwh_cost
     );
     window.state = this.state;
+    window.a = this;
+    window.rc = this.roomColors;
   },
   $roomEls: {},
+  roomColors:[],
   getInitialState: function() {
     return {
       average_kwh_cost: 0.15, // TODO: Allow update
@@ -146,11 +150,40 @@ App.prototype = {
     };
   },
   createRoom: function(id, name) {
+    var color = this.findAvailableRoomColor(id);
+    console.log('createRoom', name, id, color, { room_id: id, color: color }, this.roomColors);
     return {
       id: id,
       name: name,
       sinks: []
     };
+  },
+  getRoomColor: function(room) {
+    console.log(this.roomColors);
+    for (var j = 0; j < this.roomColors.length; j++) {
+      if (this.roomColors[j].room_id == room.id) {
+        return this.roomColors[j].color;
+      }
+    }
+  },
+  findAvailableRoomColor: function(room_id) {
+    if (this.roomColors.length == 0) {
+      this.roomColors.push({ room_id: room_id, color: this.state.colors[0] });
+      return this.state.colors[0];
+    }
+    for (var i = 0; i < this.state.colors.length; i++) {
+      var found = false,
+          color = this.state.colors[i];
+      for (var j = 0; j < this.roomColors.length; j++) {
+        if (this.roomColors[j].color == color) {
+          found = true;
+        }
+      }
+      if (!found) {
+        this.roomColors.push({ room_id: room_id, color: color });
+        return color;
+      }
+    }
   },
   removeSinkFromRoomById: function(id, room) {
     room.sinks = room.sinks.filter(function(sink) {
@@ -274,9 +307,10 @@ App.prototype = {
       var room = rooms[i],
           total = this.calculator.getDailyUsageForCollection(room.sinks);
 
+          console.log(room.name, this.getRoomColor(room));
       data.series.push({
           name: room.name,
-          color: '#1E5799', //FIXME: Rotate colors
+          color: this.getRoomColor(room),
           data: [{
             name: room.name,
             y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
