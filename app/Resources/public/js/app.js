@@ -53,8 +53,6 @@ App.prototype = {
       this.state.average_kwh_cost
     );
     window.state = this.state;
-    window.a = this;
-    window.rc = this.roomColors;
   },
   $roomEls: {},
   roomColors:[],
@@ -108,6 +106,8 @@ App.prototype = {
     var _this = this;
     this.$scenarioForm.on('submit', function(e) {
       e.preventDefault();
+
+      _this.roomColors = [];
 
       var rooms =_this.buildRoomsFromScenario(
         serialize(_this.$scenarioForm)
