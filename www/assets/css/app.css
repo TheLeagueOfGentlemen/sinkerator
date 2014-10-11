@@ -169,6 +169,10 @@ header ul li a:hover {
 	height: 0;
 }
 .main,
+#graphs {
+	-webkit-animation: fadeUp .4s;
+}
+.main,
 .sidebar {	
 	padding: 30px;
 	height: 100%;
@@ -179,31 +183,14 @@ header ul li a:hover {
 .main:hover .room {
 	opacity: .8;
 }
-.grey-bar {
-    background: #EEE;
-}
-.rel-wrap {
-    position: relative;
-}
-.grey-bar i,
-.grey-bar button#reset-house {
-    display: none;
-}
-.grey-bar.collapsed {
-    height: 55px;
-}
-.grey-bar.collapsed button#reset-house {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
+#reset-house {
+	display: none;
+    float: right;
     margin: 5px;
     padding: 13px;
 }
-.grey-bar.collapsed i {
+.collapsed #reset-house {
     display: block;
-    text-align: center;
-    font-size: 48px;
 }
 #scenario-form {
 	padding: 20px 20px 10px;
@@ -211,6 +198,12 @@ header ul li a:hover {
 }
 .room-sizer {
 	width: 48%;
+}
+.main h1 {
+	font-weight: 300;
+}
+.main {
+	padding-left: 50px;
 }
 .main .room {
 	margin: 1%;
@@ -393,6 +386,7 @@ header ul li a:hover {
 		-webkit-transform: none;
 	}
 }
+
 @-webkit-keyframes fadeUp {
 	from { -webkit-transform: translateY(50px); opacity: 0; }
 	to   { -webkit-transform: translateY( 0px); opacity: 1; }
