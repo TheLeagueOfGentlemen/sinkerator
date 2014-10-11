@@ -17,6 +17,10 @@ Handlebars.registerHelper('commafy', function(value) {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 });
 
+Handlebars.registerHelper('daily_to_weekly', function(value) {
+  return value * 7;
+});
+
 Handlebars.registerHelper('daily_to_monthly', function(value) {
   return value * 30;
 });
