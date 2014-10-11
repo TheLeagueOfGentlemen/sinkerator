@@ -1,7 +1,8 @@
 html,
 body,
 #app,
-#main-content {
+#main-content,
+.dashboard {
 	width: 100%;
 	height: 100%;
 }
@@ -28,6 +29,11 @@ header {
 	background: #13171A;
 	padding: 0 50px;
 }
+header img {
+	float: left;
+	width: 10px;
+	margin-top: 10px;
+}
 header ul {
 	margin: 0;
 	padding: 0;
@@ -44,6 +50,10 @@ header ul li a {
 	text-transform: uppercase;
 	text-decoration: none;
 	font-size: 12px;
+	-webkit-transition: color .2s;
+}
+header ul li a:hover {
+	color: white;
 }
 
 /* Upper Area */
@@ -78,20 +88,27 @@ header ul li a {
 	color: white;
 	float: left;
 }
-
 .totals {
-	float: right;
+	-webkit-transition: all .2s;
 }
-.total-watts,
+.totals > div {
+	font-size: 2em;
+	color: white;
+	clear: both;
+	float: right;
+	width: 100%;
+	text-align: right;
+	position: relative;
+}
+.totals > div div:first-child{
+	font-size: 70%;
+	padding-top: 10px;
+}
+.total-watts, 
 .total-cost {
 	color: #FFF;
-	display: inline-block;
-	font-size: 2.5em;
-	background: orange;
-	padding: 5px 35px;
-	border-radius: 100px 0 0 100px;
-	width: auto;
-	float: none;
+	background: #FFA500;
+	padding: 5px 35px 5px 0;
 }
 .total-watts:before {
 	content: "";
@@ -103,13 +120,41 @@ header ul li a {
 	background-size: 100%;
 }
 .total-cost {
-	border-radius: 0 100px 100px 0;
 	background: #5FCF80;
 }
 .total-cost sup{
 	font-weight: bold;
 	font-size: 50%;
 	margin-top: 5px;
+}
+.customer-totals{
+	-webkit-transition: all .2s;
+	-webkit-transform: scale(.9);
+	-webkit-transform-origin: right top;
+	opacity: .85;
+}
+.customer-totals:hover {
+	-webkit-transform: scale(1);
+	opacity: 1;
+}
+.totals.fixed{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #111;
+	z-index: 20;
+	-webkit-animation: fadeDown .2s;
+}
+.totals.fixed > div {
+	font-size: 1.5em;
+	width: 50%;
+	-webkit-transform: scale(1);
+	clear: none;
+}
+.totals.fixed .total-watts:before {
+	width: 15px;
+	height: 20px;
 }
 
 /* Dashboard */
@@ -203,8 +248,8 @@ header ul li a {
 	color: #000;
 }
 .main .room ul li span {
-	color: #aaa;
-	float: right;
+	color: #7C7C7C;
+	font-size: 80%;
 }
 .main .room ul form {
 	float: left;
@@ -266,14 +311,32 @@ header ul li a {
 	background: #5FCF80;
 }
 @media (max-width: 1280px){
+	.totals.fixed > div,
+	.totals > div {
+		font-size: 1.4em;
+	}
 	.total-watts, .total-cost {
-		font-size: 2em;
+		padding-right: 10px;	
+	}
+	.total-watts:before {
+		width: 15px;
+		height: 20px;
 	}
 }
-
-
-
 @media (max-width: 1024px){
+	header img {
+		float: none;
+		display: block;
+		margin: 0 auto;
+		padding: 20px 0px;
+	}	
+	.utility > div,
+	.totals.fixed {
+		-webkit-animation: none;
+	}
+	.totals.fixed > div {
+		width: 100%;
+	}
 	.main .room {
 		width: 100%;
 		margin: 0 0 20px;
@@ -281,26 +344,35 @@ header ul li a {
 	.hide-for-medium-down {
 		display: none;
 	}
+	.totals > div div:first-child {
+		text-align: center;	
+	}
 	.utility > div {
 		width: 100%;
 		display: block;
 		text-align: center;
 	}
+	.totals.fixed {
+		position: inherit;
+	}
 	.total-watts, 
 	.total-cost {
-		float: left;
 		border-radius: 0px;
-		font-size: 2em;
 		width: 100%;
 		margin: 10px 0 0;
 		display: block;
 		text-align: center;
 	}
+	.customer-totals,
+	.customer-totals:hover{
+		-webkit-transform: none;
+	}
 }
-
-
-
 @-webkit-keyframes fadeUp {
 	from { -webkit-transform: translateY(50px); opacity: 0; }
+	to   { -webkit-transform: translateY( 0px); opacity: 1; }
+}
+@-webkit-keyframes fadeDown {
+	from { -webkit-transform: translateY(-50px); opacity: 0; }
 	to   { -webkit-transform: translateY( 0px); opacity: 1; }
 }
