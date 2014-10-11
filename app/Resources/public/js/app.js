@@ -8,17 +8,25 @@ var $ = require('jquery'),
     Calculator = require('./calculator.js'),
     serialize = require('./form-to-json.js');
 
-Handlebars.registerHelper('to_fixed', function(value, precision) {
-  return value.toFixed(precision).replace(/\.?0*$/g, '');
-});
+function to_fixed(value, precision, strip_trailing_zeros) {
+  strip_trailing_zeros = strip_trailing_zeros != undefined ? false : strip_trailing_zeros;
+  value = value.toFixed(precision);
+  return strip_trailing_zeros ? value.replace(/\.?0*$/g, '') : value;
+}
 
-
-Handlebars.registerHelper('commafy', function(value) {
+function commafy(value) {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+Handlebars.registerHelper('to_fixed', to_fixed);
+Handlebars.registerHelper('commafy', commafy);
+
+Handlebars.registerHelper('weekly_kwh', function(kwh) {
+  return kwh ? commafy(to_fixed(kwh*7, 2)) : 0;
 });
 
-Handlebars.registerHelper('daily_to_weekly', function(value) {
-  return value * 7;
+Handlebars.registerHelper('weekly_cost', function(cost) {
+  return cost ? commafy(to_fixed(cost*7, 2, true)) : 0;
 });
 
 Handlebars.registerHelper('daily_to_monthly', function(value) {
@@ -100,7 +108,7 @@ App.prototype = {
                 {
                   sink_id: 'boom_box',
                   wattage_override: 5000,
-                  hours_per_day: 5
+                  hours_per_week: 5
                 }
               ]
           }
@@ -130,12 +138,12 @@ App.prototype = {
       _this.showAddSinkToRoomForm(
         _this.getRoom(this.getAttribute('data-room-id'))
       );
-    })
+    });
     this.$roomsEl.on('click', '.btn-add-room-sink', function(e) {
       e.preventDefault();
       var $form = $(this).parents('form'),
           data = serialize($form),
-          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_day),
+          room_sink = _this.createRoomSink(guid(), data.sink_id, data.wattage, data.hours_per_week),
           room = _this.getRoom(data.room_id);
       $form.remove();
       _this.addSinkToRoom(room_sink, room);
@@ -156,12 +164,12 @@ App.prototype = {
       $(this).parents('form').find('[name="wattage"]').val(wattage);
     });
   },
-  createRoomSink: function(id, sink_id, wattage, hours_per_day) {
+  createRoomSink: function(id, sink_id, wattage, hours_per_week) {
     return {
       id: id,
       sink_id: sink_id,
       wattage: Number(wattage),
-      hours_per_day: Number(hours_per_day)
+      hours_per_week: Number(hours_per_week)
     };
   },
   createRoom: function(id, name) {

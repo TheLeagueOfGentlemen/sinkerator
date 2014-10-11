@@ -27,8 +27,8 @@
     <h2>123, Maple St., Burlington, VT</h2>
   </div>
   <div class="totals scenario-totals">
-    <div class="total-watts">0 <strong>WATTS</strong></div>
-    <div class="total-cost"><strong>$</strong> 0 <sup>/ day</sup> </div>
+    <div class="total-watts">0 <strong>kWh</strong></div>
+    <div class="total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
   </div>
 </div>
   <div class="dashboard">  
@@ -123,7 +123,7 @@
 
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_day}}</strong> Hours/Day / <strong>{{to_fixed daily_usage.kwh 4}}</strong> kWh/day / <strong>${{to_fixed daily_usage.cost 4}}</strong>/day
+<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_week}}</strong> Hours/Week / <strong>{{weekly_kwh daily_usage.kwh}}</strong> kWh/week / <strong>${{weekly_cost daily_usage.cost}}</strong>/week
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
@@ -149,25 +149,25 @@
   </div>
   <div class="large-6 columns">
   <label>
-    Average Hours per Day
-    <input name="hours_per_day" type="number" step="1" min="1" max="24" value="1" required />
+    Average Hours per Week
+    <input name="hours_per_week" type="number" step="1" min="1" max="24" value="1" required />
   </label>
   </div>
   <input type="hidden" name="room_id" value="{{room.id}}" />
   <button type="submit" class="btn-add-room-sink">Add</button>
-  <a href="#{{form_id}}" class="btn-remove">Cancel</button>
+  <a href="#{{form_id}}" class="btn-remove">Cancel</a>
 </form>
 </script>
 
 <script id="room-totals-tpl" type="x-handlebars-template">
 <span class="small-4 watts"><strong>{{wattage}}</strong> Watts</span>
-<span class="small-4 watts"><strong>{{to_fixed kwh 4}}</strong> kWh/day</span>
-<span class="small-4 cost"><strong>${{to_fixed cost 4}}</strong>/day</span>
+<span class="small-4 watts"><strong>{{weekly_kwh kwh}}</strong> kWh/week</span>
+<span class="small-4 cost"><strong>${{weekly_cost cost}}</strong>/week</span>
 </script>
 
 <script id="scenario-totals-tpl" type="x-handlebars-template">
-<div class="total-watts">{{commafy wattage}} <strong>WATTS</strong></div>
-<div class="total-cost"><strong>$</strong> {{to_fixed cost 4}} <sup>/ day</sup> </div>
+<div class="total-watts">{{weekly_kwh kwh}} <strong>kWh</strong></div>
+<div class="total-cost"><strong>$</strong> {{weekly_cost cost}} <sup>/ week</sup> </div>
 </script>
 <script src="assets/js/app.js"></script>
 
