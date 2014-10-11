@@ -8,7 +8,6 @@ var $app = $('#app'),
 
 $scenarioForm.on('submit', function(e) {
   e.preventDefault();
-  alert('test');
 
   console.log(serialize($('form')));
 });
