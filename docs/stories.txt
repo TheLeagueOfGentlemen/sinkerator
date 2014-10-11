@@ -1,3 +1,12 @@
+Add your scenario
+Add sinks to a room
+View kWh and $ for daily/monthly/year for each sink
+Edit a sink in a room
+View a total daily/monhtly/yearly
+View a total daily/monthly/yearly for each room
+View graphs showing total percent breakdown
+
+
 Add your first scenario
 Add another scenario (always duplicates)
 Edit a scenario's house wide sinks (central air, central heating)

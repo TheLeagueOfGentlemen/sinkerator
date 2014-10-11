@@ -6,9 +6,50 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="text/css" rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <div id="app"></div>
+        <div id="app">
+          <form id="scenario-form">
+            <label>
+                Name
+                <input type="text" name="name" value="My House" />
+            </label>
+            <label>
+                How many bedrooms does your house/apartment have?
+                <select name="num_bedrooms">
+                  <option value="1">1 Bedroom</option>
+                  <option value="2">2 Bedroom</option>
+                  <option value="3">3 Bedroom</option>
+                </select>
+            </label>
+            <label>
+                How many bathrooms does your house/apartment have?
+                <select name="num_bathrooms">
+                  <option value="1">1 Bathroom</option>
+                  <option value="2">2 Bathroom</option>
+                  <option value="3">3 Bathroom</option>
+                </select>
+            </label>
+            <label>
+                <input type="checkbox" name="has_kitchen" value="1" data-room-name="Kitchen" />
+                My house/apartment has a kitchen
+            </label>
+            <label>
+                <input type="checkbox" name="has_living_room" value="1" data-room-name="Living Room" />
+                My house/apartment has a living room
+            </label>
+            <label>
+                <input type="checkbox" name="has_basement" value="1" data-room-name="Basement" />
+                My house/apartment has a basement
+            </label>
+            <label>
+                <input type="checkbox" name="has_office" value="1" data-room-name="Office" />
+                My house/apartment has an office
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
         <script src="assets/js/app.js"></script>
     </body>
 </html>
