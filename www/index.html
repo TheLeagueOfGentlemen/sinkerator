@@ -14,7 +14,7 @@
 <div id="app">
 <header>
   <ul class="hide-for-medium-down">
-    <li><a href="/"><strong>Unlock</strong></a></li>
+    <li><a href="#"><strong>#TURNDOWNFORWATTS</strong></a></li>
     <li><a href="#">Documentation</a></li>
     <li><a href="#">Settings</a></li>
     <li><a href="#">Help</a></li>
@@ -114,7 +114,7 @@
 
 <script id="room-sink-tpl" type="x-tmpl-handlebars">
 <li>
-<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> Watts / <strong>{{room_sink.hours_per_day}}</strong> Hours/Day / <strong>{{to_fixed daily_usage.kwh 4}}</strong> kWh/day / <strong>${{to_fixed daily_usage.cost 4}}</strong>/day
+<strong>{{sink.name}}</strong><br> <strong>{{room_sink.wattage}}</strong> <small>Watts</small> / <strong>{{room_sink.hours_per_day}}</strong> <small>Hours/Day</small> / <strong>{{to_fixed daily_usage.kwh 4}}</strong> <small>kWh/day</small> / <strong>${{to_fixed daily_usage.cost 4}}</strong>/<small>day</small>
  <a href="#" class="btn-remove-room-sink" data-room-id="{{room.id}}" data-sink-id="{{room_sink.id}}">X</a>
 </li>
 </script>
@@ -144,15 +144,17 @@
     <input name="hours_per_day" type="number" step="1" min="1" max="24" value="1" required />
   </label>
   </div>
+  <div class="large-12 columns">
   <input type="hidden" name="room_id" value="{{room.id}}" />
-  <button type="submit" class="btn-add-room-sink">Add</button>
-  <a href="#{{form_id}}" class="btn-remove">Cancel</button>
+  <button type="submit" class="btn-add-room-sink success">Add</button>
+  <a href="#{{form_id}}" class="btn-remove cancel">Cancel</button>
+  </div>
 </form>
 </script>
 
 <script id="room-totals-tpl" type="x-handlebars-template">
 <span class="small-4 watts"><strong>{{wattage}}</strong> Watts</span>
-<span class="small-4 watts"><strong>{{to_fixed kwh 4}}</strong> kWh/day</span>
+<span class="small-4 kwhday"><strong>{{to_fixed kwh 4}}</strong> kWh/day</span>
 <span class="small-4 cost"><strong>${{to_fixed cost 4}}</strong>/day</span>
 </script>
 

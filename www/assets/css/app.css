@@ -198,6 +198,7 @@ header ul li a {
 	float: right;
 }
 .main .room ul form {
+	float: left;
 	margin: 0;
 	border: 1px solid #BDBDBD;
 	border-width: 1px 0;
@@ -205,6 +206,9 @@ header ul li a {
 	margin-bottom: -42px;
 	position: relative;
 	z-index: 10;
+}
+.main .room ul:last-child li {
+	background: #E7EBEE;
 }
 .main .room ul form h2{
 	display: block;
@@ -214,6 +218,12 @@ header ul li a {
 .main .room ul form > div {
 	margin-top: 10px;
 	padding: 0 20px;
+}
+.main .room ul form .large-12:last-child a,
+.main .room ul form .large-12:last-child button {
+	color: black;
+	padding: 10px;
+	text-decoration: none;
 }
 .main .room h2 {
 	color: white;
@@ -232,18 +242,25 @@ header ul li a {
 	min-height: 48px;
 }
 .main .room .room-totals span{
-	background: orange;
 	float: left;
 	padding: 10px 0;
 	color: white;
 	text-align: center;
+}
+.watts {
+	background: orange;
+}
+.kwhday {
+	background: #E19509;
 }
 .main .room .room-totals .cost {
 	background: #5FCF80;
 }
 
 
-
+[id*="Bedroom"]{
+	background: black;
+}
 
 @media (max-width: 1280px){
 	.total-watts, .total-cost {
