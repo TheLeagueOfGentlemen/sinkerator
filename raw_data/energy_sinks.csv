@@ -1,0 +1,77 @@
+Home Entertainment,,,,,,,,,,,
+Boom Box,1,8,30,minutes / week,,26,0,5.2,8734,45,46
+Cable Boxes (standby losses),1,140,90,minutes / day,,548,77,11.6,8213,95,172
+CD Player,1,7,30,minutes / week,,26,0,3.7,8734,19,19
+DVD Player,0,16,4,hours / week,,208,3,5.5,8552,14,17
+Receiver,1,28,2,hours / week,,104,3,2.8,8656,24,27
+satellite stations (standby losses),0,25,2,hours / week,,104,3,15,8656,130,132
+Tape Player,1,8,2,hours / week,,104,1,1,8656,9,9
+Telephone Answering Machine,1,4.5,24,hours / day,,8760,39,2.2,0,0,39
+TV (CRT - Projection),0,225,2,hours / day,,730,164,6.4,8030,51,216
+TV (CRT),2,60,2,hours / day,,730,44,6.4,8030,51,95
+TV (DLP),0,175,2,hours / day,,730,128,6.4,8030,51,179
+TV (LCD),0,150,2,hours / day,,730,110,6.4,8030,51,161
+TV (Plasma),0,300,2,hours / day,,730,219,6.4,8030,51,270
+VCRs,1,18,2,hours / week,,104,2,5.3,8656,46,48
+Video Games,1,20,1,hour / day,,365,7,0,8395,0,7
+,,,,,,,,,,,
+Home Office,,,,,,,,,,,
+Computer CPU,1,68,5,hours / day,,1825,124,1.2,6935,8,132
+home copiers,0,800,30,minutes / day,,183,146,5.1,8578,44,190
+Home facsimile machines (thermal),0,175,4,minutes / day,,24,4,30,8736,131,135
+Home fax/Multi-function device (inkjet),0,18,4,minutes / day,,24,0,8,8736,70,70
+Laptop Charger,0,0,0,,,0,0,4.5,8760,39,39
+Monitor,1,84,5,hours / day,,1825,153,2,6760,14,167
+Printers (Inkjet),1,13,1,hour / week,,52,1,4.2,8708,37,37
+Printers (Laser),0,250,1,hour / week,,52,13,4.2,8708,37,50
+Router/DSL/Cable Modem,1,6,5,hours / day,,1825,11,2,6935,14,25
+"Hot Tub, Pools and Pumps",,,,,,,,,,,
+Pool Heater,0,275,6,hours / day,4,730,201,0,8030,0,201
+Pool Pump,0,2250,6,hours / day,4,730,1643,0,8030,0,1643
+Spa (24 hour elec),0,0,0,hours / day,,0,0,263,8760,2300,2300 kWh
+Spa (24 hour gas),0,0,0,hours / day,,0,0,12,8760,105,105 therms
+Spa (on-demand elec),0,5500,4,hours / week,,208,1144,0,0,0,1144 kWh
+Spa (on-demand gas),0,1.5,4,hours / week,,208,0,0,0,0,312 therms
+Sump/Sewage Pump,0,1/3 hp,25,hours / year,,0,25,0,8760,0,9
+Well Pump,0,0,0,,,0,0,0,8760,0,0
+Irrigation/pond/waterfall circulation pump [1],0,150,24,hours / day,,8760,3.6 kWh/day,N/A,N/A,N/A,N/A
+Misc. Kitchen,,,,,,,,,,,
+Bottled Water Dispenser,0,0,0,,,0,0,34,8760,300,300
+Broilers,0,1400,1,hour / week,,52,73,0,8708,0,73
+Coffee Maker: Drip (Brew),1,1500,30,minutes / day,,183,274,1,8578,9,282
+Coffee Maker: Drip (Warm),0,70,1,hour / day,,365,26,0,8395,0,26
+Coffee Maker: Percolater (Brew),0,600,30,minutes / day,,183,110,0,8578,0,110
+Coffee Maker: Percolater (Warm),0,80,1,hour / day,,365,29,0,8395,0,29
+Compactors,0,400,20,minutes / day,,122,49,0,8638,0,49
+Deep Fryer,0,1000,23,minutes / week,,20,20,0,8740,0,20
+Espresso Maker,0,360,1,hour / week,,52,19,0,8708,0,19
+Fry Pans,0,1000,14,hours / month,,162,162,0,8598,0,162
+Instant Hot Water,0,0,0,,,0,0,18,8760,160,160
+Microwaves,1,1000,13,minutes / day,,79,79,2.8,8681,24,103
+Slow Cookers,0,200,13,hours / week,,693,139,0,8067,0,139
+Toaster,1,1100,6,minutes / day,,37,40,0,8724,0,40
+Toaster Oven -Toasting,0,460,4,minutes / day,,25,12,0,8735,0,12
+Toaster Oven - Oven,0,1500,23,minutes / day,,140,210,0,8620,0,210
+,,,,,,,,,,,
+Other Miscellaneous,,,,,,,,,,,
+Aquariums,0,63,24,hours / day,,8760,548,0,0,0,548
+Auto Engine Heaters,0,1500,1,hours / day,5,152,228,0,8608,0,228
+Clock,2,0,0,,,0,0,1,8760,9,9
+Dehumidifiers,0,46,24,hours / day,,8760,400,0,0,0,400
+Doorbell,1,0,0,,,0,0,5,8760,44,44
+Electric Blankets,0,400,5,hours / day,2,304,122,0,8456,0,122
+Electric Grills,0,1800,5,hours / week,5,108,195,0,8652,0,195
+Electronic Air Cleaner/Filter,0,50,3,hours / day,,1095,55,0,7665,0,55
+Garage Door Openers,0,400,8,minutes / day,,49,19,2.8,8711,24,44
+Gas Grills,0,0.33,5,hours / week,5,108,36,0,8652,0,0
+Gas Lighting,0,0.24,6,hours / week,3,78,19,0,8682,0,0
+Hair Dryers,1,710,8,minutes / day,,49,35,0,8711,0,35
+Heat Tape,0,1000,1,hours / day,3,91,91,0,8669,0,91
+Humidifier,0,11,24,hours / day,,8760,100,0,0,0,100
+Irons,0,1100,55,minutes / week,,48,53,0,8712,0,53
+Pipe and Gutter Heaters,0,500,2,hours / day,3,183,91,0,8578,0,91
+Rechargable Handheld Vacuum (charging),0,0,0,,,0,0,5,8760,44,44
+Vacuum - Canister,0,818,1,hour / week,,52,43,0,8708,0,43
+Vacuum-Upright,1,297,1,hour / week,,52,15,0,8708,0,15
+Water Bed Heaters,0,0,0,,,0,0,102,8760,900,900
+,,,,,,,,,,,
