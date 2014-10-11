@@ -12,6 +12,11 @@ Handlebars.registerHelper('to_fixed', function(value, precision) {
   return value.toFixed(precision).replace(/\.?0*$/g, '');
 });
 
+
+Handlebars.registerHelper('commafy', function(value) {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+});
+
 Handlebars.registerHelper('daily_to_monthly', function(value) {
   return value * 30;
 });
@@ -48,8 +53,6 @@ App.prototype = {
       this.state.average_kwh_cost
     );
     window.state = this.state;
-    window.a = this;
-    window.rc = this.roomColors;
   },
   $roomEls: {},
   roomColors:[],
@@ -103,6 +106,8 @@ App.prototype = {
     var _this = this;
     this.$scenarioForm.on('submit', function(e) {
       e.preventDefault();
+
+      _this.roomColors = [];
 
       var rooms =_this.buildRoomsFromScenario(
         serialize(_this.$scenarioForm)
