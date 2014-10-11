@@ -55,7 +55,8 @@ App.prototype = {
     room_totals: 'room-totals-tpl',
     room_sink: 'room-sink-tpl',
     add_room_sink_form: 'add-room-sink-form-tpl',
-    scenario_totals: 'scenario-totals-tpl'
+    scenario_totals: 'scenario-totals-tpl',
+    customer_totals: 'customer-totals-tpl'
   },
   compiledTemplates: {},
   state: {},
@@ -66,6 +67,7 @@ App.prototype = {
       this.state.average_kwh_cost
     );
     this.$mainContentEl.hide();
+    this.updateCustomerData();
     window.state = this.state;
   },
   $roomEls: {},
@@ -232,6 +234,15 @@ App.prototype = {
       roomTotal.wattage ? this.renderTemplate('room_totals', this.calculator.getDailyUsageForCollection(room.sinks)) : ''
     );
     this.updateScenarioTotals();
+  },
+  updateCustomerData: function() {
+      var $totalsEl = this.$el.find('.customer-totals');
+      $totalsEl.html(
+        this.renderTemplate('customer_totals', {
+          kwh: this.state.customer_data.stats.mean / 7,
+          cost: (this.state.customer_data.stats.mean * this.state.average_kwh_cost) / 7
+        })
+      );
   },
   updateScenarioTotals: function() {
     var totals = this.calculator.getDailyUsageForScenario(this.state.scenario),
