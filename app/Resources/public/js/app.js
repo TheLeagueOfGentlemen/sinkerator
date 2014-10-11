@@ -101,7 +101,6 @@ App.prototype = {
       );
 
       _this.updateRooms(rooms);
-      $(this).hide();
     });
     this.$roomsEl.on('click', '.btn-add-room-appliance', function(e) {
       e.preventDefault();
