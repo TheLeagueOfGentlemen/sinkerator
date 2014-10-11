@@ -13,8 +13,8 @@
 		<script src="http://code.highcharts.com/modules/drilldown.js"></script>
     </head>
     <body>
-        <div id="container" style="min-width: 310px; height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
-        <div id="container2" style="min-width: 310px; height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
+        <div id="container" style="height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
+        <div id="container2" style="height: 800px; margin: 0 auto; float: left; width: 50%;"></div>
     </body>
     <script>
     Highcharts.setOptions({
@@ -26,7 +26,8 @@
 	    $('#container').highcharts({
 
 	        chart: {
-	            type: 'column'
+	            type: 'column',
+	            spacingRight: 0
 	        },
 
 	        title: {
@@ -66,9 +67,12 @@
 	            		enabled: true,
 	            		color: 'white',
 	            		formatter: function(){
-	            			return this.series.name;
+	            			return this.point.name;
 	            		}
 	            	}
+	            },
+	            series: {
+	            	pointPadding: 0
 	            }
 	        },
 
@@ -134,7 +138,8 @@
 		$('#container2').highcharts({
 
 	        chart: {
-	            type: 'column'
+	            type: 'column',
+	            spacingLeft: 0
 	        },
 
 	        title: {
@@ -179,7 +184,8 @@
 	            		formatter: function(){
 	            			return this.series.name;
 	            		}
-	            	}
+	            	},
+	            	pointPadding: 0
 	            }
 	        },
 
