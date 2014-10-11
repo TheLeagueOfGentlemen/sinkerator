@@ -323,11 +323,7 @@ App.prototype = {
             }
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
+            enabled: false
         },
         plotOptions: {
             column: {
@@ -453,11 +449,7 @@ App.prototype = {
             }
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
+            enabled: false
         },
         plotOptions: {
             column: {
