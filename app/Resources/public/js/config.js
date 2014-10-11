@@ -465,7 +465,7 @@ module.exports = {
                         "hours_per_day": 0.5
                     },
                     {
-                        "sink_id": "toaser_oven___oven",
+                        "sink_id": "toaster_oven___oven",
                         "wattage": 1200,
                         "hours_per_day": 1
                     },
