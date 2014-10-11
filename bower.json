@@ -18,6 +18,7 @@
     "requirejs": "~2.1.11",
     "react": "~0.10.0",
     "jquery": "~1.11.1",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "highcharts": "4.0.4"
   }
 }

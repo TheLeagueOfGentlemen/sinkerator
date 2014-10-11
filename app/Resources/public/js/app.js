@@ -2,6 +2,7 @@ var $ = require('jquery'),
     guid = require('./guid.js'),
     select2 = require('select2'),
     HighCharts = require('highcharts-browserify'),
+    Chromath = require('chromath'),
     state = require('./config.js'),
     Handlebars = require('handlebars'),
     Calculator = require('./calculator.js'),
@@ -17,6 +18,10 @@ Handlebars.registerHelper('daily_to_monthly', function(value) {
 
 Handlebars.registerHelper('daily_to_yearly', function(value) {
   return value * 365;
+});
+
+Handlebars.registerHelper('to_id', function(value) {
+  return value.replace(/\s+/g, '-').toLowerCase();
 });
 
 var App = function($el, $roomsEl, $scenarioForm, state) {
@@ -43,8 +48,11 @@ App.prototype = {
       this.state.average_kwh_cost
     );
     window.state = this.state;
+    window.a = this;
+    window.rc = this.roomColors;
   },
   $roomEls: {},
+  roomColors:[],
   getInitialState: function() {
     return {
       average_kwh_cost: 0.15, // TODO: Allow update
@@ -101,7 +109,6 @@ App.prototype = {
       );
 
       _this.updateRooms(rooms);
-      $(this).hide();
     });
     this.$roomsEl.on('click', '.btn-add-room-appliance', function(e) {
       e.preventDefault();
@@ -143,11 +150,38 @@ App.prototype = {
     };
   },
   createRoom: function(id, name) {
+    var color = this.findAvailableRoomColor(id);
     return {
       id: id,
       name: name,
       sinks: []
     };
+  },
+  getRoomColor: function(room) {
+    for (var j = 0; j < this.roomColors.length; j++) {
+      if (this.roomColors[j].room_id == room.id) {
+        return this.roomColors[j].color;
+      }
+    }
+  },
+  findAvailableRoomColor: function(room_id) {
+    if (this.roomColors.length == 0) {
+      this.roomColors.push({ room_id: room_id, color: this.state.colors[0] });
+      return this.state.colors[0];
+    }
+    for (var i = 0; i < this.state.colors.length; i++) {
+      var found = false,
+          color = this.state.colors[i];
+      for (var j = 0; j < this.roomColors.length; j++) {
+        if (this.roomColors[j].color == color) {
+          found = true;
+        }
+      }
+      if (!found) {
+        this.roomColors.push({ room_id: room_id, color: color });
+        return color;
+      }
+    }
   },
   removeSinkFromRoomById: function(id, room) {
     room.sinks = room.sinks.filter(function(sink) {
@@ -179,9 +213,12 @@ App.prototype = {
   updateScenarioTotals: function() {
     var totals = this.calculator.getDailyUsageForScenario(this.state.scenario),
         $totalsEl = this.$el.find('.scenario-totals');
+
+    this.state.scenario.totals = totals;
     $totalsEl.html(
       this.renderTemplate('scenario_totals', totals)
     );
+    this.updateGraphs();
   },
   getRoom: function(id) {
     for (var i = 0; i < this.state.scenario.rooms.length; i++) {
@@ -227,6 +264,238 @@ App.prototype = {
     this.renderRooms(rooms);
     this.updateScenarioTotals();
   },
+  buildRoomGraphData: function() {
+    var data = {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'My House'
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            //allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Total Energy Consumption'
+            }
+        },
+        tooltip: {
+            // formatter: function () {
+            //     return '<b>' + this.x + '</b><br/>' +
+            //         this.series.name + ': ' + this.y + '<br/>' +
+            //         'Total: ' + this.point.stackTotal;
+            // }
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        }
+    };
+
+    var rooms = this.state.scenario.rooms;
+    data.series = [];
+    for (var i = 0; i < rooms.length; i++) {
+      var room = rooms[i],
+          total = this.calculator.getDailyUsageForCollection(room.sinks);
+
+      data.series.push({
+          name: room.name,
+          color: this.getRoomColor(room),
+          data: [{
+            name: room.name,
+            y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
+          }]
+      });
+    }
+    // data.series = [{
+    //         name: 'Kitchen',
+    //         color: '#1E5799',
+    //         data: [{
+    //           name: 'My Rooms',
+    //           y: 6,
+    //           drilldown: 'kitchen'
+    //         }]
+    //     }, {
+    //       name: 'Master Bedroom',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Rooms',
+    //         y: 4,
+    //         drilldown: 'master bedroom'
+    //       }]
+    //     }, {
+    //       name: 'Bathroom',
+    //       color: '#1E961E',
+    //       data: [{
+    //         name: 'My Rooms',
+    //         y: 2,
+    //         drilldown: 'bathroom'
+    //       }]
+    //     }];
+    data.drilldown = {
+          series: [{
+              //colorByPoint: true,
+            stacking: 'normal',
+            id: 'kitchen',
+            name: 'Kitchen',
+            data: [
+              ['Stove', 3],
+              ['Microwave', 2],
+              ['Toaster', 1]
+            ]
+          }, {
+              //colorByPoint: true,
+            stacking: 'normal',
+            id: 'master bedroom',
+            name: 'Master Bedroom',
+            data: [
+              ['Television', 2],
+              ['Lamp', 1],
+              ['Lamp', 1]
+            ]
+          }, {
+              //colorByPoint: true,
+            stacking: 'normal',
+            id: 'bathroom',
+            name: 'Bathroom',
+            data: [
+              ['Lamp', 1],
+              ['Lamp', 1]
+            ]
+          }]
+        };
+        return data;
+  },
+  buildApplianceGraphData: function() {
+    var data = {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'My Rooms'
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            labels: {
+              enabled: false
+            },
+            title: {
+              text: null
+            }
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        }
+    };
+
+    var rooms = this.state.scenario.rooms;
+    data.series = [];
+    for (var i = 0; i < rooms.length; i++) {
+      var room = rooms[i],
+          room_sinks = room.sinks,
+          color = this.getRoomColor(room),
+          tint_increment = room_sinks.length ? (1 / (room_sinks.length + 1)) : null,
+          tint = new Chromath(color);
+
+      for (var j = 0; j < room_sinks.length; j++) {
+        var room_sink = room_sinks[j],
+            sink = this.getSink(room_sink.sink_id),
+            total = this.calculator.getDailyUsageForSink(room_sink);
+        tint = tint.towards('white', tint_increment);
+        data.series.push({
+            name: room.name + ' ' + sink.name,
+            color: tint.toString(),
+            data: [{
+              name: room.name + ' ' + sink.name,
+              y: (total.kwh ? (total.kwh / this.state.scenario.totals.kwh) : 0) * 100
+            }]
+        });
+      }
+
+    }
+
+    // data.series = [{
+    //         name: 'Kitchen - Stove',
+    //         color: '#1E5799',
+    //         data: [{
+    //           name: 'My Sinks',
+    //           y: 3
+    //         }]
+    //     }, {
+    //       name: 'Kitchen - Microwave',
+    //       color: '#1E5799',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 2
+    //       }]
+    //     }, {
+    //       name: 'Kitchen - Toaster',
+    //       color: '#1E5799',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Master Bedroom - Television',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 2
+    //       }]
+    //     }, {
+    //       name: 'Master Bedroom - Lamp',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Master Bedroom - Lamp',
+    //       color: '#961E1E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Bedroom - Lamp',
+    //       color: '#1E961E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }, {
+    //       name: 'Bedroom - Lamp',
+    //       color: '#1E961E',
+    //       data: [{
+    //         name: 'My Sinks',
+    //         y: 1
+    //       }]
+    //     }];
+    return data;
+  },
+  updateGraphs: function() {
+    if (!this.state.scenario.totals.wattage) {
+      $('#graph1').hide();
+      $('#graph2').hide();
+      return false;
+    }
+    $('#graph1').show().highcharts(this.buildRoomGraphData());
+    $('#graph2').show().highcharts(this.buildApplianceGraphData());
+  },
   buildRoomsFromScenario: function(scenario) {
       var rooms = [],
           room_names = ['kitchen_name', 'basement_name', 'living_room_name', 'office_name'],
@@ -250,7 +519,7 @@ App.prototype = {
 
       for (var j = 1; j <= num_bathrooms; j++) {
           rooms.push(
-            this.createRoom(guid(), 'Bathroom '+k)
+            this.createRoom(guid(), 'Bathroom '+j)
           );
       };
 
