@@ -267,7 +267,8 @@ App.prototype = {
   buildRoomGraphData: function() {
     var data = {
         chart: {
-            type: 'column'
+            type: 'column',
+            spacingRight: 0
         },
         title: {
             text: 'My Rooms'
@@ -276,7 +277,9 @@ App.prototype = {
             enabled: false
         },
         xAxis: {
-            type: 'category'
+            labels: {
+              enabled: false
+            }
         },
         yAxis: {
             //allowDecimals: false,
@@ -286,15 +289,25 @@ App.prototype = {
             }
         },
         tooltip: {
-            // formatter: function () {
-            //     return '<b>' + this.x + '</b><br/>' +
-            //         this.series.name + ': ' + this.y + '<br/>' +
-            //         'Total: ' + this.point.stackTotal;
-            // }
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
         },
         plotOptions: {
             column: {
-                stacking: 'percent'
+                stacking: 'percent',
+                dataLabels: {
+                  enabled: true,
+                  color: 'white',
+                  formatter: function(){
+                    return this.point.name;
+                  }
+                }
+            },
+            series: {
+              pointPadding: 0
             }
         }
     };
@@ -376,16 +389,19 @@ App.prototype = {
   buildApplianceGraphData: function() {
     var data = {
         chart: {
-            type: 'column'
+            type: 'column',
+            spacingLeft: 0
         },
         title: {
-            text: 'My Appliances'
+            text: 'My Sinks'
         },
         legend: {
             enabled: false
         },
         xAxis: {
-            type: 'category'
+            labels: {
+              enabled: false
+            }
         },
         yAxis: {
             labels: {
@@ -395,9 +411,26 @@ App.prototype = {
               text: null
             }
         },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
+        },
         plotOptions: {
             column: {
                 stacking: 'percent'
+            },
+            series: {
+              dataLabels: {
+                enabled: true,
+                color: 'white',
+                formatter: function(){
+                  return this.series.name;
+                }
+              },
+              pointPadding: 0
             }
         }
     };
