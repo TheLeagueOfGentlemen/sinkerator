@@ -1,4 +1,5 @@
 www/assets/js/*
+compiled
 vendor
 bower_components
 node_modules
