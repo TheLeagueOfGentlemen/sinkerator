@@ -57,8 +57,8 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-// myApp.controller('TitleCtrl', [
-//         '$scope',
-// function($scope) {
-//   $scope.title = 'CONTRoLLED!';
-// }]);
+myApp.controller('TitleCtrl', [
+        '$scope',
+function($scope) {
+  $scope.title = 'CONTRoLLED!';
+}]);
