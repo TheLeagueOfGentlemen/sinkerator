@@ -1,6 +1,6 @@
 module.exports = [
-        '$scope',
-function($scope) {
+        '$scope', 'CustomerData',
+function($scope,  CustomerData) {
   $scope.name = 'Relaxo\'s House';
   $scope.numBathrooms = 1;
   $scope.numBedrooms = 1;
@@ -14,6 +14,8 @@ function($scope) {
 
   $scope.submit = function() {
     console.log('go1', $scope);
+    CustomerData.kwh = 1000;
+    CustomerData.cost = 10;
     return false;
   };
 }];
