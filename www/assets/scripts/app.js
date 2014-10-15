@@ -29,7 +29,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
       template: "hi!",
       title: 'Hey there!',
       controller: function($scope, title) {
-        title.setTitle('Yup');
+        title.set('Yup');
         console.log($scope.$state.current);
       }
     })
@@ -60,7 +60,6 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 myApp.controller('TitleCtrl', [
         '$scope', 'title',
 function($scope,   title) {
-  console.log(title, title.getTitle());
   $scope.title = title;
 }]);
 
@@ -69,10 +68,10 @@ myApp.factory('title', [
 function($state) {
   return {
     _title: '',
-    getTitle: function() {
+    get: function() {
       return this._title || $state.current.title;
     },
-    setTitle: function(title) {
+    set: function(title) {
       this._title = title;
     }
   };
