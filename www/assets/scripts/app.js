@@ -26,29 +26,29 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
       url: "/",
-      templateUrl: "/assets/scripts/partials/home.html",
+      templateUrl: "/assets/partials/home.html",
       controller: function($scope, title) {
-        title.set('Welcome!');
+        title.set('Home');
       }
     })
     .state('state1', {
       url: "/state1",
-      templateUrl: "/assets/scripts/partials/state1.html"
+      templateUrl: "/assets/partials/state1.html"
     })
     .state('state1.list', {
       url: "/list",
-      templateUrl: "/assets/scripts/partials/state1.list.html",
+      templateUrl: "/assets/partials/state1.list.html",
       controller: function($scope) {
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
     .state('state2', {
       url: "/state2",
-      templateUrl: "/assets/scripts/partials/state2.html"
+      templateUrl: "/assets/partials/state2.html"
     })
     .state('state2.list', {
       url: "/list",
-      templateUrl: "/assets/scripts/partials/state2.list.html",
+      templateUrl: "/assets/partials/state2.list.html",
       controller: function($scope) {
         $scope.things = ["A", "Set", "Of", "Things"];
       }
