@@ -1,6 +1,6 @@
 module.exports = [
-        '$scope', 'CustomerData', 'Scenario',
-function($scope,   CustomerData,   Scenario) {
+        '$state', '$scope', 'CustomerData', 'Scenario',
+function($state,   $scope,   CustomerData,   Scenario) {
   $scope.name = 'Relaxo\'s House';
   $scope.numBathrooms = 1;
   $scope.numBedrooms = 1;
@@ -29,6 +29,8 @@ function($scope,   CustomerData,   Scenario) {
         Scenario.addRoom(roomName);
       }
     }
+
+    $state.go('rooms');
     return false;
   };
 }];
