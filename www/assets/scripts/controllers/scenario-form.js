@@ -13,7 +13,6 @@ function($scope,   CustomerData,   Scenario) {
   $scope.bedroomOptions = [1,2,3,4];
 
   $scope.submit = function() {
-    console.log('go1', $scope);
     CustomerData.kwh = 1000;
     CustomerData.cost = 10;
     Scenario.reset();
