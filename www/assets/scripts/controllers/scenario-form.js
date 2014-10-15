@@ -17,7 +17,19 @@ function($scope,   CustomerData,   Scenario) {
     CustomerData.kwh = 1000;
     CustomerData.cost = 10;
     Scenario.reset();
-    Scenario.addRoom('Fuckroom');
+    for (var i = 1; i <= $scope.numBathrooms; i++) {
+      Scenario.addRoom('Bathroom '+i);
+    }
+    for (var j = 1; j <= $scope.numBedrooms; j++) {
+      Scenario.addRoom('Bedroom '+j);
+    }
+    var roomNames = ['kitchenName', 'basementName', 'officeName', 'livingRoomName'];
+    for (var k = 0; k < roomNames.length; k++) {
+      var roomName = $scope[roomNames[k]];
+      if (roomName) {
+        Scenario.addRoom(roomName);
+      }
+    }
     return false;
   };
 }];
