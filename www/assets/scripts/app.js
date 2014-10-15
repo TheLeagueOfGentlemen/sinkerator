@@ -1,13 +1,13 @@
-$ = require('jquery');
-var angular = require('angular');
-require('angular-route');
+'use strict';
+
+var CONFIG = require('./config.js'),
+    angular = require('angular');
+
 require('angular-ui-router');
 
-console.log('wtf w/ui router!', angular, $);
+var app = angular.module(CONFIG.APP_NAME, ['ui.router']);
 
-var myApp = angular.module('myApp', ['ui.router']);
-
-myApp.run(
+app.run(
   [
              '$rootScope', '$state', '$stateParams', 
     function ($rootScope,   $state,   $stateParams) {
@@ -17,7 +17,7 @@ myApp.run(
   ]
 );
 
-myApp.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/");
@@ -55,42 +55,5 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-myApp.controller('ScenarioFormCtrl', [
-        '$scope',
-function($scope) {
-  $scope.name = 'Relaxo\'s House';
-  $scope.numBathrooms = 1;
-  $scope.numBedrooms = 1;
-  $scope.kitchenName = '';
-  $scope.basementName = '';
-  $scope.officeName = '';
-  $scope.livingRoomName = '';
-
-  $scope.bathroomOptions = [1,2,3,4];
-  $scope.bedroomOptions = [1,2,3,4];
-
-  $scope.submit = function() {
-    console.log('go1', $scope);
-    return false;
-  };
-}]);
-
-myApp.controller('TitleCtrl', [
-        '$scope', 'title',
-function($scope,   title) {
-  $scope.title = title;
-}]);
-
-myApp.factory('title', [
-        '$state',
-function($state) {
-  return {
-    _title: '',
-    get: function() {
-      return this._title || $state.current.title;
-    },
-    set: function(title) {
-      this._title = title;
-    }
-  };
-}]);
+require('./controllers/index.js');
+require('./services/index.js');
