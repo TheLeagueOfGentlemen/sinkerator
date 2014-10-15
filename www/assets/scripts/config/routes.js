@@ -12,6 +12,11 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         title.set('Home');
       }
     })
+    .state('rooms', {
+      url: "/rooms",
+      templateUrl: "/assets/partials/rooms.html",
+      controller: 'RoomsCtrl'
+    })
     .state('state1', {
       url: "/state1",
       templateUrl: "/assets/partials/state1.html"

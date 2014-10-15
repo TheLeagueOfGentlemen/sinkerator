@@ -1,6 +1,6 @@
 module.exports = [
-        '$scope', 'CustomerData',
-function($scope,  CustomerData) {
+        '$scope', 'CustomerData', 'Scenario',
+function($scope,   CustomerData,   Scenario) {
   $scope.name = 'Relaxo\'s House';
   $scope.numBathrooms = 1;
   $scope.numBedrooms = 1;
@@ -16,6 +16,8 @@ function($scope,  CustomerData) {
     console.log('go1', $scope);
     CustomerData.kwh = 1000;
     CustomerData.cost = 10;
+    Scenario.reset();
+    Scenario.addRoom('Fuckroom');
     return false;
   };
 }];
