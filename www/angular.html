@@ -39,7 +39,73 @@
   </div>
 </div>
   <div class="dashboard">
-    <div ui-view id="main-content"></div>
+    <div id="main-content">
+        <div class="large-8 columns main fadeUp">
+          <form id="scenario-form" ng-controller="ScenarioFormCtrl" ng-submit="submit()">
+          <h1>Get a handle on your <strong>energy spending</strong>.</h2>
+          <h2>Explore how your <strong>devices</strong> and <strong>appliances</strong> contribute to your <strong>energy costs</strong>.<br> Tell us about your home to begin.</h2>
+        <div class="row">
+          <div class="large-4 columns">
+            <label>Name
+              <input type="text" name="name" ng-model="name" />
+            </label>
+          </div>
+          <div class="large-4 columns">
+              <label>
+                  Number of <strong>Bedrooms</strong>?
+                  <select ng-model="numBedrooms" ng-options="opt+' Bedrooms' for opt in bedroomOptions"></select>
+              </label>
+          </div>
+          <div class="large-4 columns">
+              <label>
+                  Number of <strong>Bathrooms</strong>?
+                  <select ng-model="numBathrooms" ng-options="opt+' Bathroom' for opt in bathroomOptions"></select>
+              </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 columns">
+              <label>
+                  <input type="checkbox" name="kitchen_name" value="1" ng-model="kitchenName" ng-true-value="'Kitchen'" />
+                  My house/apartment has a kitchen
+              </label>
+              <label>
+                  <input type="checkbox" name="living_room_name" value="1" ng-model="livingRoomName" ng-true-value="'Living Room'" />
+                  My house/apartment has a living room
+              </label>
+            </div>
+          <div class="large-4 columns">
+              <label>
+                  <input type="checkbox" name="basement_name" value="1" ng-model="basementName" ng-true-value="'Basement'" />
+                  My house/apartment has a basement
+              </label>
+              <label>
+                  <input type="checkbox" name="office_name" value="1" ng-model="officeName" ng-true-value="'Office'" />
+                  My house/apartment has an office
+              </label>
+            </div>
+            <div class="large-4 columns">
+              <button id="submit-house" type="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+         <div ui-view id="rooms" class="clearfix row"></div>
+        </div>
+        <div class="large-4 columns sidebar">
+          <div id="graphs">
+            <h2>kWh Breakdown</h2>
+            <div data-alert class="alert-box info radius" id="no-graph-message">
+              Add appliances to see a breakdown of kWh usage.
+            </div>
+            <div id="graph1" style="height: 600px; margin: 0 auto; float: left; width: 54%; display: none;"></div>
+            <div id="graph2" style="height: 600px; margin: 0 auto; float: left; width: 46%; display: none;"></div>
+          </div>
+          <div id="customer-usage">
+            <h2>Average vs. Estimated Energy Consumption</h2>
+            <div class="chart"></div>
+          </div>
+        </div>
+    </div>
 </div>
 <footer>
 </footer>
