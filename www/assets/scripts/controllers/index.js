@@ -3,3 +3,4 @@ var CONFIG = require('./../config.js'),
 
 app.controller('TitleCtrl', require('./title'));
 app.controller('ScenarioFormCtrl', require('./scenario-form'));
+app.controller('CustomerTotalsCtrl', require('./customer-totals'));
