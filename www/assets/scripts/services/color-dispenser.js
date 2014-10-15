@@ -1,8 +1,9 @@
 var shuffleArray = require('./shuffle-array');
 
-var ColorDispenser = function(colors, unique) {
-  this.unique = unique;
+var ColorDispenser = function(colors, unique, random) {
   this.colors = colors;
+  this.unique = unique;
+  this.random = random;
 };
 
 ColorDispenser.prototype = {
@@ -25,7 +26,7 @@ ColorDispenser.prototype = {
   },
   dispense: function() {
     var all = this.unique ? this.available() : this.colors,
-        color = this.selectOneRandomColor(all);
+        color = this.random ? this.selectOneRandomColor(all) : all[0];
 
     if (this.unique) {
       this.taken.push(color);
