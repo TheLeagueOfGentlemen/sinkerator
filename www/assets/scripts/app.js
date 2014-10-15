@@ -26,11 +26,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
       url: "/",
-      template: "hi!",
-      title: 'Hey there!',
+      templateUrl: "/assets/scripts/partials/home.html",
       controller: function($scope, title) {
-        title.set('Yup');
-        console.log($scope.$state.current);
+        title.set('Welcome!');
       }
     })
     .state('state1', {
