@@ -7,13 +7,32 @@ console.log('wtf w/ui router!', angular, $);
 
 var myApp = angular.module('myApp', ['ui.router']);
 
+myApp.run(
+  [
+             '$rootScope', '$state', '$stateParams', 
+    function ($rootScope,   $state,   $stateParams) {
+      $rootScope.$state = $state;
+      $rootScope.$stateParams = $stateParams;
+    }
+  ]
+);
+
 myApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/state1");
+  $urlRouterProvider.otherwise("/");
   //
   // Now set up the states
   $stateProvider
+    .state('home', {
+      url: "/",
+      template: "hi!",
+      title: 'Hey there!',
+      controller: function($scope) {
+        $scope.title = 'Home';
+        console.log($scope.$state.current);
+      }
+    })
     .state('state1', {
       url: "/state1",
       templateUrl: "/assets/scripts/partials/state1.html"
@@ -37,3 +56,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
       }
     });
 });
+
+// myApp.controller('TitleCtrl', [
+//         '$scope',
+// function($scope) {
+//   $scope.title = 'CONTRoLLED!';
+// }]);
