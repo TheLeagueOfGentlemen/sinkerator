@@ -419,3 +419,12 @@ header ul li a:hover {
 	from { -webkit-transform: translateY(-50px); opacity: 0; }
 	to   { -webkit-transform: translateY( 0px); opacity: 1; }
 }
+
+/* xeditable */
+.editable-hide {
+  display: none;
+}
+.appliance-hours input, .appliance-wattage input {
+  width: 100px;
+  display: inline;
+}

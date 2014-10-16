@@ -5,21 +5,27 @@
     </div>
     <div class="sinks">
       <ul class="sink-list" ng-repeat="appliance in room.appliances">
-        <li>
+        <li class="appliance">
           <strong editable-text="appliance.name" e-name="name" e-form="rowform" e-required>
             {{appliance.name}}
           </strong>
           <br> 
           <span>
-            <strong editable-text="appliance.wattage" e-name="wattage" e-form="rowform" e-required>
-              {{appliance.wattage}}
-            </strong> Watts 
+            <span class="appliance-wattage">
+              <strong editable-text="appliance.wattage" e-name="wattage" e-form="rowform" e-required>
+                {{appliance.wattage}}
+              </strong> Watts 
+            </span>
             / 
-            <strong editable-text="appliance.hours_per_week" e-name="hours_per_week" e-form="rowform" e-required>
-              {{appliance.hours_per_week}}
-            </strong> Hours/Week 
+            <span class="appliance-hours">
+              <strong editable-text="appliance.hours_per_week" e-name="hours_per_week" e-form="rowform" e-required>
+                {{appliance.hours_per_week}}
+              </strong> Hours/Week 
+            </span>
+          <span ng-hide="rowform.$visible">
             /
             <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
+          </span>
           <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
               save
