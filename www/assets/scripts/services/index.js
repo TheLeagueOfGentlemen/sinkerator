@@ -7,3 +7,4 @@ app.factory('CustomerData', require('./customer-data'));
 app.factory('Scenario', require('./scenario'));
 app.provider('ColorDispenser', require('./color-dispenser'));
 app.factory('RoomColorDispenser', require('./room-color-dispenser'));
+app.factory('guid', require('./guid'));

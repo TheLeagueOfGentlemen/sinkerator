@@ -16,17 +16,10 @@ function(RoomColorDispenser) {
             return a !== appliance;
           });
         },
-        appliances: [
-          {
-            name: 'Air Conditioner',
-            wattage: 500,
-            hours_per_week: 20,
-            daily_usage: {
-              kwh: 4,
-              cost: 2.5
-            }
-          }
-        ]
+        addAppliance: function(appliance) {
+          this.appliances.push(appliance);
+        },
+        appliances: []
       });
     },
     rooms: []

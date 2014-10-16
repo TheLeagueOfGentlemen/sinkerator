@@ -4,7 +4,7 @@
       <h2>{{room.name}}</h2>
     </div>
     <div class="sinks">
-      <ul class="sink-list" ng-repeat="appliance in room.appliances">
+      <ul class="sink-list" ng-repeat="appliance in room.appliances track by appliance.id">
         <li class="appliance">
           <strong editable-text="appliance.name" e-name="name" e-form="rowform" e-required>
             {{appliance.name}}
@@ -24,9 +24,10 @@
             </span>
           <span ng-hide="rowform.$visible">
             /
-            <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
+            <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week
           </span>
-          <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+          </span>
+          <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == appliance">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
               save
             </button>
@@ -34,14 +35,13 @@
               cancel
             </button>
           </form>
-          <a class="btn-edit-room-sink" ng-click="rowform.$show()">EDIT</a>
+          <a class="btn-edit-room-sink" ng-click="rowform.$show()" ng-hide="rowform.$visible">EDIT</a>
           <a class="btn-remove-room-sink" ng-click="room.removeAppliance(appliance)">X</a>
-          </div>  
         </li>
       </ul>
       <ul class="add-appliance">
         <li>  
-          <a href="#" class="btn-add-room-appliance" data-room-id="{{room.id}}"><strong>+</strong> Add Appliance</a>
+          <a class="btn-add-room-appliance" ng-click="addAppliance(room)"><strong>+</strong> Add Appliance</a>
         </li>
       </ul>
     </div>
