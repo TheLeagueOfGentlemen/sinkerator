@@ -10,7 +10,16 @@
             {{appliance.name}}
           </strong>
           <br> 
-          <span><strong>{{appliance.wattage}}</strong> Watts / <strong>{{appliance.hours_per_week}}</strong> Hours/Week / <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
+          <span>
+            <strong editable-text="appliance.wattage" e-name="wattage" e-form="rowform" e-required>
+              {{appliance.wattage}}
+            </strong> Watts 
+            / 
+            <strong editable-text="appliance.hours_per_week" e-name="hours_per_week" e-form="rowform" e-required>
+              {{appliance.hours_per_week}}
+            </strong> Hours/Week 
+            /
+            <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
           <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
               save
