@@ -48,40 +48,40 @@
         <div class="row">
           <div class="large-4 columns">
             <label>Name
-              <input type="text" name="name" ng-model="name" />
+              <input type="text" name="name" ng-model="FormData.name" />
             </label>
           </div>
           <div class="large-4 columns">
               <label>
                   Number of <strong>Bedrooms</strong>?
-                  <select ng-model="numBedrooms" ng-options="opt+' Bedrooms' for opt in bedroomOptions"></select>
+                  <select ng-model="FormData.numBedrooms" ng-options="opt+' Bedrooms' for opt in bedroomOptions"></select>
               </label>
           </div>
           <div class="large-4 columns">
               <label>
                   Number of <strong>Bathrooms</strong>?
-                  <select ng-model="numBathrooms" ng-options="opt+' Bathroom' for opt in bathroomOptions"></select>
+                  <select ng-model="FormData.numBathrooms" ng-options="opt+' Bathroom' for opt in bathroomOptions"></select>
               </label>
           </div>
         </div>
         <div class="row">
           <div class="large-4 columns">
               <label>
-                  <input type="checkbox" name="kitchen_name" value="1" ng-model="kitchenName" ng-true-value="'Kitchen'" />
+                  <input type="checkbox" name="kitchen_name" value="1" ng-model="FormData.kitchenName" ng-true-value="'Kitchen'" />
                   My house/apartment has a kitchen
               </label>
               <label>
-                  <input type="checkbox" name="living_room_name" value="1" ng-model="livingRoomName" ng-true-value="'Living Room'" />
+                  <input type="checkbox" name="living_room_name" value="1" ng-model="FormData.livingRoomName" ng-true-value="'Living Room'" />
                   My house/apartment has a living room
               </label>
             </div>
           <div class="large-4 columns">
               <label>
-                  <input type="checkbox" name="basement_name" value="1" ng-model="basementName" ng-true-value="'Basement'" />
+                  <input type="checkbox" name="basement_name" value="1" ng-model="FormData.basementName" ng-true-value="'Basement'" />
                   My house/apartment has a basement
               </label>
               <label>
-                  <input type="checkbox" name="office_name" value="1" ng-model="officeName" ng-true-value="'Office'" />
+                  <input type="checkbox" name="office_name" value="1" ng-model="FormData.officeName" ng-true-value="'Office'" />
                   My house/apartment has an office
               </label>
             </div>
