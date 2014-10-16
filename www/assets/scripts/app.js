@@ -2,9 +2,8 @@
 
 var CONFIG = require('./config/config'),
     angular = require('angular'),
-    app = angular.module(CONFIG.APP_NAME, ['ui.router']);
+    app = angular.module(CONFIG.APP_NAME, ['ui.router', 'xeditable']);
 
-require('angular-ui-router');
 app.config(require('./config/routes'));
 
 app.run(
@@ -17,5 +16,6 @@ app.run(
   ]
 );
 
+require('./config/angular');
 require('./controllers/index.js');
 require('./services/index.js');

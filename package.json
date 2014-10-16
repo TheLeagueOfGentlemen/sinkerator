@@ -34,6 +34,7 @@
   "browser": {
     "angular": "./www/assets/vendor/angular/angular-index.js",
     "angular-route": "./www/assets/vendor/angular-route/angular-route.js",
-    "angular-ui-router": "./www/assets/vendor/angular-ui-router/release/angular-ui-router.js"
+    "angular-ui-router": "./www/assets/vendor/angular-ui-router/release/angular-ui-router.js",
+    "angular-xeditable": "./www/assets/vendor/angular-xeditable/dist/js/xeditable.js"
   }
 }

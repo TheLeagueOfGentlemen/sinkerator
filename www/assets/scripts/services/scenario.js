@@ -11,6 +11,11 @@ function(RoomColorDispenser) {
       this.rooms.push({
         name: name,
         color: this.colors.dispense(),
+        removeAppliance: function(appliance) {
+          this.appliances = this.appliances.filter(function(a) {
+            return a !== appliance;
+          });
+        },
         appliances: [
           {
             name: 'Air Conditioner',
@@ -24,6 +29,6 @@ function(RoomColorDispenser) {
         ]
       });
     },
-    rooms: [],
+    rooms: []
   };
 }];

@@ -6,7 +6,22 @@
     <div class="sinks">
       <ul class="sink-list" ng-repeat="appliance in room.appliances">
         <li>
-          <strong>{{appliance.name}}</strong><br> <span><strong>{{appliance.wattage}}</strong> Watts / <strong>{{appliance.hours_per_week}}</strong> Hours/Week / <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
+          <strong editable-text="appliance.name" e-name="name" e-form="rowform" e-required>
+            {{appliance.name}}
+          </strong>
+          <br> 
+          <span><strong>{{appliance.wattage}}</strong> Watts / <strong>{{appliance.hours_per_week}}</strong> Hours/Week / <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
+          <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+              save
+            </button>
+            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+              cancel
+            </button>
+          </form>
+          <a class="btn-edit-room-sink" ng-click="rowform.$show()">EDIT</a>
+          <a class="btn-remove-room-sink" ng-click="room.removeAppliance(appliance)">X</a>
+          </div>  
         </li>
       </ul>
       <ul class="add-appliance">
