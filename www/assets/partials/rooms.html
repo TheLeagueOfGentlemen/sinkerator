@@ -5,7 +5,9 @@
     </div>
     <div class="sinks">
       <ul class="sink-list" ng-repeat="appliance in room.appliances">
-        <li>{{appliance.name}}</li>
+        <li>
+          <strong>{{appliance.name}}</strong><br> <span><strong>{{appliance.wattage}}</strong> Watts / <strong>{{appliance.hours_per_week}}</strong> Hours/Week / <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week</span>
+        </li>
       </ul>
       <ul class="add-appliance">
         <li>  
