@@ -7,7 +7,7 @@
       <ul class="sink-list" ng-repeat="appliance in room.appliances track by appliance.id">
         <li class="appliance">
           <strong editable-select="appliance.type" e-name="type" e-form="rowform" e-required e-ng-options="a.id as a.name for a in allAppliances" e-ng-change="updateApplianceType(appliance, $data)">
-            {{appliance.type}}
+            {{showApplianceType(appliance)}}
           </strong>
           <br> 
           <span>

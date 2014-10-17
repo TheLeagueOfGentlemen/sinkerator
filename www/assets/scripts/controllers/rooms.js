@@ -2,9 +2,9 @@ var angular = require('angular');
 
 module.exports = [
         '$scope', 'Scenario', 'guid', 'ApplianceTypeRepository',
-function($scope,   Scenario,   guid,   AppliancesTypes) {
+function($scope,   Scenario,   guid,   ApplianceTypes) {
   $scope.Scenario = Scenario;
-  $scope.allAppliances = AppliancesTypes.all();
+  $scope.allAppliances = ApplianceTypes.all();
 
   $scope.addAppliance = function(room) {
     $scope.inserted = {
@@ -27,9 +27,13 @@ function($scope,   Scenario,   guid,   AppliancesTypes) {
     rowform.$cancel();
   };
 
+  $scope.showApplianceType = function(appliance) {
+    return appliance.type ? ApplianceTypes.findById(appliance.type).name : '';
+  };
+
   // TODO: This seems really ugly
   $scope.updateApplianceType = function(appliance, id) {
-    var type = AppliancesTypes.findById(id),
+    var type = ApplianceTypes.findById(id),
         wattageEl = angular.element(document.getElementById('wattage-'+appliance.id));
 
     wattageEl.scope().$data = type.wattage;
