@@ -6,13 +6,13 @@
     <div class="sinks">
       <ul class="sink-list" ng-repeat="appliance in room.appliances track by appliance.id">
         <li class="appliance">
-          <strong editable-text="appliance.name" e-name="name" e-form="rowform" e-required>
-            {{appliance.name}}
+          <strong editable-select="appliance.type" e-name="type" e-form="rowform" e-required e-ng-options="a.id as a.name for a in allAppliances" e-ng-change="updateApplianceType(appliance, rowform, $data)">
+            {{appliance.type}}
           </strong>
           <br> 
           <span>
             <span class="appliance-wattage">
-              <strong editable-text="appliance.wattage" e-name="wattage" e-form="rowform" e-required>
+              <strong editable-text="appliance.wattage" e-name="wattage" e-form="rowform" e-required e-id="wattage-{{appliance.id}}">
                 {{appliance.wattage}}
               </strong> Watts 
             </span>
