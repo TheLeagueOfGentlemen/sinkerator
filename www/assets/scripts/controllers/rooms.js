@@ -20,8 +20,16 @@ function($scope,   Scenario,   guid,   AppliancesTypes) {
     room.addAppliance($scope.inserted);
   };
 
+  $scope.cancelAddAppliance = function(room, appliance, rowform) {
+    console.log(room, appliance, rowform);
+    if (!appliance.type) {
+      room.removeAppliance(appliance);
+    }
+    rowform.$cancel();
+  };
+
   // TODO: This seems really ugly
-  $scope.updateApplianceType = function(appliance, rowform, id) {
+  $scope.updateApplianceType = function(appliance, id) {
     var type = AppliancesTypes.findById(id),
         wattageEl = angular.element(document.getElementById('wattage-'+appliance.id));
 
