@@ -21,7 +21,6 @@ function($scope,   Scenario,   guid,   AppliancesTypes) {
   };
 
   $scope.cancelAddAppliance = function(room, appliance, rowform) {
-    console.log(room, appliance, rowform);
     if (!appliance.type) {
       room.removeAppliance(appliance);
     }
