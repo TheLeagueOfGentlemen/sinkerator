@@ -1,13 +1,13 @@
 var angular = require('angular');
 
 module.exports = [
-        '$scope', 'Scenario', 'guid', 'ApplianceTypeRepository',
-function($scope,   Scenario,   guid,   ApplianceTypes) {
+        '$scope', 'Scenario', 'guid', 'ApplianceTypeRepository', 'ScenarioCalculator',
+function($scope,   Scenario,   guid,   ApplianceTypes,            ScenarioCalculator) {
   $scope.Scenario = Scenario;
   $scope.allAppliances = ApplianceTypes.all();
 
   $scope.addAppliance = function(room) {
-    $scope.inserted = {
+    var appliance = {
           id: guid(),
           name: '',
           wattage: '',
@@ -17,7 +17,20 @@ function($scope,   Scenario,   guid,   ApplianceTypes) {
             cost: 0
           }
       };
-    room.addAppliance($scope.inserted);
+    $scope.inserted = appliance;
+    room.addAppliance(appliance);
+  };
+
+  $scope.saveAppliance = function(room, appliance) {
+    appliance.daily_usage = ScenarioCalculator.calculateApplianceDailyUsage(appliance);
+    room.daily_usage = ScenarioCalculator.calculateRoomDailyUsage(room);
+    Scenario.daily_usage = ScenarioCalculator.calculateScenarioDailyUsage(Scenario);
+  };
+
+  $scope.removeAppliance = function(room, appliance) {
+    room.removeAppliance(appliance);
+    room.daily_usage = ScenarioCalculator.calculateRoomDailyUsage(room);
+    Scenario.daily_usage = ScenarioCalculator.calculateScenarioDailyUsage(Scenario);
   };
 
   $scope.cancelAddAppliance = function(room, appliance, rowform) {

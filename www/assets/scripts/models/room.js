@@ -2,6 +2,11 @@ var Room = function(name, color) {
   this.name = name || '';
   this.color = color || null;
   this.appliances = [];
+  this.daily_usage = {
+    kwh: 0,
+    wattage: 0,
+    cost: 0
+  };
 };
 
 Room.prototype = {

@@ -24,10 +24,10 @@
             </span>
           <span ng-hide="rowform.$visible">
             /
-            <strong>{{appliance.daily_usage.kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost}}</strong>/week
+            <strong>{{appliance.daily_usage.kwh | weekly_kwh}}</strong> kWh/week / <strong>${{appliance.daily_usage.cost | weekly_cost}}</strong>/week
           </span>
           </span>
-          <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == appliance">
+          <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == appliance" onaftersave="saveAppliance(room, appliance)">
             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
               save
             </button>
@@ -36,7 +36,7 @@
             </button>
           </form>
           <a class="btn-edit-room-sink" ng-click="rowform.$show()" ng-hide="rowform.$visible">EDIT</a>
-          <a class="btn-remove-room-sink" ng-click="room.removeAppliance(appliance)">X</a>
+          <a class="btn-remove-room-sink" ng-click="removeAppliance(room, appliance)">X</a>
         </li>
       </ul>
       <ul class="add-appliance">
@@ -45,6 +45,9 @@
         </li>
       </ul>
     </div>
-    <div class="room-totals"></div>
+    <div class="room-totals">
+        <span class="small-6 watts"><strong>{{room.daily_usage.kwh | weekly_kwh}}</strong> kWh/week</span>
+        <span class="small-6 cost"><strong>${{room.daily_usage.cost | weekly_cost}}</strong>/week</span>
+    </div>
   </div>
 </div>

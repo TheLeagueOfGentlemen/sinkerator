@@ -9,4 +9,5 @@ app.factory('Scenario', require('./scenario'));
 app.provider('ColorDispenser', require('./color-dispenser'));
 app.factory('RoomColorDispenser', require('./room-color-dispenser'));
 app.factory('ApplianceTypeRepository', require('./appliance-type-repository'));
+app.factory('ScenarioCalculator', require('./scenario-calculator'));
 app.factory('guid', require('./guid'));

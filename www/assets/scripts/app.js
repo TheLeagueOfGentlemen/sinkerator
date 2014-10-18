@@ -8,7 +8,7 @@ app.config(require('./config/routes'));
 
 app.run(
   [
-             '$rootScope', '$state', '$stateParams', 
+             '$rootScope', '$state', '$stateParams',
     function ($rootScope,   $state,   $stateParams) {
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
@@ -19,3 +19,4 @@ app.run(
 require('./config/angular');
 require('./controllers/index.js');
 require('./services/index.js');
+require('./filters/index.js');
