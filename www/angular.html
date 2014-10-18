@@ -27,10 +27,10 @@
     <h2>1127 Johnnie Brook Rd Richmond, VT 05477</h2>
   </div>
   <div class="totals">
-    <div class="scenario-totals">
+    <div class="scenario-totals" ng-controller="ScenarioTotalsCtrl">
       <div class="large-4 columns">Estimated Usage</div>
-      <div class="large-4 columns total-watts">0 <strong>kWh</strong></div>
-      <div class="large-4 columns total-cost"><strong>$</strong> 0 <sup>/ week</sup> </div>
+      <div class="large-4 columns total-watts"><strong>{{Scenario.daily_usage.kwh | weekly_kwh}}</strong> kWh/week</div>
+      <div class="large-4 columns total-cost"><strong>${{Scenario.daily_usage.cost | weekly_cost}}</strong>/week</div>
     </div>
     <div class="customer-totals" ng-controller="CustomerTotalsCtrl">
       <div class="large-4 columns">Avg. Weekly Usage</div>
